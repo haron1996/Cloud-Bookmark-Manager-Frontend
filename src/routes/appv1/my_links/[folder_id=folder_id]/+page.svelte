@@ -8,12 +8,27 @@
 	import { hideContextMenu } from '$lib/utils/hideContextMenu';
 	import { resetSelectedLinks } from '$lib/utils/resetSelectedLinks';
 	import { getFolder } from '$lib/utils/getFolder';
-	import { activePath, openedFolder } from '../../../../stores/stores';
+	import {
+		activePath,
+		foldersFound,
+		linksFound,
+		openedFolder,
+		query,
+		searchInputFocused
+	} from '../../../../stores/stores';
 	import { loading } from '../../../../stores/stores';
 
 	let folderID: string = '';
 
 	afterNavigate(async () => {
+		query.set('');
+
+		searchInputFocused.set(false);
+
+		linksFound.set([]);
+
+		foldersFound.set([]);
+
 		resetSelectedFolders();
 
 		resetSelectedLinks();

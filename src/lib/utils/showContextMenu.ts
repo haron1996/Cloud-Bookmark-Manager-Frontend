@@ -9,15 +9,17 @@ let path: string;
 export function showContextMenu(e: MouseEvent) {
 	mouseEvent.set(e);
 
-	const target = window.event?.currentTarget as HTMLElement;
+	let target = window.event?.currentTarget as HTMLElement;
+
+	if (target.classList.contains('more_svg')) {
+		target = target.closest('.link') as HTMLElement;
+	}
 
 	const unsub = page.subscribe((values) => {
 		path = values.url.pathname;
 	});
 
 	unsub();
-
-	//console.log(target, path);
 
 	if (path === '/appv1/my_links/recycle_bin' && target.classList.contains('links')) {
 		removeItemsSelected();

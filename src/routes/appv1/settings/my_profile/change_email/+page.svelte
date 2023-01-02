@@ -54,13 +54,6 @@
 		<button on:click|preventDefault|stopPropagation={handleFormSubmit}>
 			<span>Get verification code</span>
 		</button>
-
-		<p>
-			"Hypertext" refers to links that connect web pages to one another, either within a single
-			website or between websites. Links are a fundamental aspect of the Web. By uploading content
-			to the Internet and linking it to pages created by other people, you become an active
-			participant in the World Wide Web.
-		</p>
 	</form>
 </div>
 
@@ -147,14 +140,13 @@
 
 					&:focus {
 						box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-						box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
-							rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
 					}
 				}
 
 				span {
 					font-family: 'Arial CE', sans-serif;
 					color: $text-color-medium;
+					font-size: 1.2rem;
 				}
 			}
 

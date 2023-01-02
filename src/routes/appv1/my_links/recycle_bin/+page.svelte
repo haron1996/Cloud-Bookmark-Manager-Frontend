@@ -4,9 +4,20 @@
 	import Breadcrumb from '$lib/components/breadcrumb.svelte';
 	import { getFoldersAndLinksMovedToTrash } from '$lib/utils/getFoldersAndLinksMovedToTrash';
 	import { hideContextMenu } from '$lib/utils/hideContextMenu';
-	import { ancestorsOfCurrentFolder } from '../../../../stores/stores';
+	import {
+		ancestorsOfCurrentFolder,
+		foldersFound,
+		linksFound,
+		query
+	} from '../../../../stores/stores';
 
 	afterNavigate(async () => {
+		query.set('');
+
+		foldersFound.set([]);
+
+		linksFound.set([]);
+
 		ancestorsOfCurrentFolder.set([]);
 
 		hideContextMenu();
@@ -18,7 +29,7 @@
 </script>
 
 <svelte:head>
-	<title>Recycle bin - 6kplus</title>
+	<title>Recycle bin - Nested</title>
 </svelte:head>
 
 <div>

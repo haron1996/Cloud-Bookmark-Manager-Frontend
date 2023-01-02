@@ -61,6 +61,8 @@
 		accessToken,
 		activePath,
 		errors,
+		foldersFound,
+		linksFound,
 		linksToRenderInMoveItemsPopup,
 		openedFolder,
 		userIsLoggedin
@@ -103,7 +105,6 @@
 	import { getFolder } from '$lib/utils/getFolder';
 	import { mouseEvent } from './../../../stores/stores';
 	import { hideShowOptionsMenu } from '$lib/types/hideShowOptionsMenu';
-	import Search from '$lib/components/search.svelte';
 	import { hideSelectShowCategoryMenu } from '$lib/utils/hideSelectSearchCategory';
 	import { showSearchForm } from './../../../stores/stores';
 	import { hideSearchFormPopup } from '$lib/utils/toggleSearchForm';
@@ -114,6 +115,10 @@
 	import { browser } from '$app/environment';
 	import { getLinksAndLinkFolders } from '$lib/utils/getRootLinks';
 	import SucessNotif from '$lib/components/sucess_notif.svelte';
+	import ErrorNotif from '$lib/components/error_notif.svelte';
+	import { hideProfileMenu } from '$lib/utils/toggleProfileMenu';
+	import Menu from '$lib/components/menu.svelte';
+	import SearchResults from '$lib/components/searchResults.svelte';
 
 	let el: HTMLElement;
 
@@ -124,6 +129,9 @@
 	// }
 
 	afterNavigate(async () => {
+		// hide profile popup
+		hideProfileMenu();
+
 		await checkIfIsAuthenticated();
 		//checkIfUserIsLoggedIn();
 
@@ -231,6 +239,8 @@
 	// else if ($page.data.folder_id && $openedFolder.folder_name) {
 	// 	activePath.set($openedFolder.folder_name);
 	// }
+
+	$: console.log($linksFound, $foldersFound);
 </script>
 
 <svelte:window on:keydown={handleWindowKeyDown} on:keyup={handleWindowKeyUp} />
@@ -259,11 +269,13 @@
 	<DeleteItemConfirmationPopup />
 {/if}
 
-{#if $showSearchForm}
-	<Search />
-{/if}
-
 <SucessNotif />
+
+<ErrorNotif />
+
+<Menu />
+
+<SearchResults />
 
 <!-- {#if !$userIsLoggedin}
 	<SignIn />
@@ -319,6 +331,7 @@
 
 	<div
 		class="links"
+		id="links"
 		on:contextmenu|preventDefault|stopPropagation={handleLinksSectionContextMenu}
 		on:keyup
 	>
@@ -370,7 +383,7 @@
 										/>
 									</svg>
 								</div>
-								<span>Add link or create folder</span>
+								<span>Click to add link or create folder</span>
 							</div>
 						{/if}
 					</div>
@@ -425,6 +438,7 @@
 					gap: 0.5em;
 					cursor: pointer;
 					transition: all 200ms ease-in-out;
+					box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 
 					.plus_icon {
 						background-color: white;
@@ -450,7 +464,8 @@
 					}
 
 					&:hover {
-						box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+						box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+							rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
 					}
 				}
 			}

@@ -14,7 +14,11 @@ export let createButtonToggled = writable<Boolean>(false);
 
 export const folders = writable<Partial<Folder>[]>([]);
 
+export const foldersFound = writable<Partial<Folder>[]>([]);
+
 export const links = writable<Partial<Link>[]>([]);
+
+export const linksFound = writable<Partial<Link>[]>([]);
 
 export let selectedFolders = writable<Partial<Folder>[]>([]);
 
@@ -84,4 +88,12 @@ export const userIsLoggedin = writable<boolean>(true);
 
 export const successNotifVisible = writable<boolean>(false);
 
+export const errorNotifVisible = writable<boolean>(false);
+
 export const menuToggled = writable<boolean>(false);
+
+export const profileMenuVisible = writable<boolean>(false);
+
+export const searchInputFocused = writable<boolean>(false);
+
+export const query = writable<string>('');

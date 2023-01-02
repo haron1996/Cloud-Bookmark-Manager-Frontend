@@ -1,8 +1,10 @@
 import { getSession } from './getSession';
-import { links } from '../../stores/stores';
+import { links, linksFound } from '../../stores/stores';
 import type { Link } from '$lib/types/link';
 import { toggleDeleteItemsConfirmationPopup } from './toggleDeleteItemsConfirmationPopup';
 import { removeItemsSelected } from './removeItemsSelected';
+
+let l: Partial<Link>[] = [];
 
 export async function moveLinksToTrash(ls: Partial<Link>[]) {
 	const response = await fetch('http://localhost:5000/private/link/moveLinksToTrash', {
@@ -26,11 +28,21 @@ export async function moveLinksToTrash(ls: Partial<Link>[]) {
 
 	const trashedLinks: Partial<Link>[] = result[0];
 
+	const unsubscribe = linksFound.subscribe((values) => {
+		l = [...l, ...values];
+	});
+
+	unsubscribe();
+
 	for (let index = 0; index < trashedLinks.length; index++) {
 		const element = trashedLinks[index];
 
 		links.update((values) => values.filter((value) => value.link_id !== element.link_id));
+
+		l = l.filter((l) => l.link_id !== element.link_id);
 	}
+
+	linksFound.set(l);
 
 	removeItemsSelected();
 

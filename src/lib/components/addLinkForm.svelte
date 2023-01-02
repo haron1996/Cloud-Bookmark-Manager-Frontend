@@ -34,6 +34,7 @@
 				autocomplete="off"
 				autocorrect="off"
 				spellcheck="false"
+				on:contextmenu|stopPropagation={stop_propagation}
 			/>
 		</div>
 		<div class="buttons">
@@ -161,6 +162,16 @@
 				100% {
 					transform: scale(1);
 				}
+			}
+
+			@media screen and (max-width: 440px) {
+				min-width: 98%;
+				min-height: 30%;
+			}
+
+			@media screen and (min-width: 441px) and (max-width: 1200px) {
+				min-width: 90%;
+				min-height: 30%;
 			}
 		}
 	}

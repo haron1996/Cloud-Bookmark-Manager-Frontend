@@ -1,6 +1,6 @@
 import { getSession } from './getSession';
 import { get } from 'svelte/store';
-import { links, loading, successNotifVisible } from '../../stores/stores';
+import { errorNotifVisible, links, loading, successNotifVisible } from '../../stores/stores';
 import type { Link } from '$lib/types/link';
 import { addLinkMode } from '../../stores/stores';
 import { newLink } from '../../stores/stores';
@@ -63,7 +63,12 @@ export async function addLink(url: string, folderID: string) {
 		}
 
 		if (result.message) {
-			alert(result.message);
+			errorNotifVisible.set(true);
+
+			setTimeout(() => {
+				errorNotifVisible.set(false);
+			}, 3000);
+
 			return;
 		}
 

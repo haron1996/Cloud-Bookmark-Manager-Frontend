@@ -103,7 +103,9 @@
 	function handleLinkContextMenu(e: MouseEvent) {
 		showContextMenu(e);
 
-		const link = window.event?.currentTarget as HTMLDivElement;
+		const el = window.event?.currentTarget as HTMLDivElement;
+
+		const link = el.closest('.link') as HTMLDivElement;
 
 		folder_id = link.dataset.folderid;
 
@@ -124,6 +126,18 @@
 			appendLinkToSelectedLinks(selectedLink);
 		}
 	}
+
+	function openLink() {
+		const t = window.event?.currentTarget as HTMLSpanElement;
+
+		const l = t.closest('.link') as HTMLDivElement;
+
+		const url: string | undefined = l.dataset.link_url;
+
+		if (url === undefined) return;
+
+		window.open(url);
+	}
 </script>
 
 <div
@@ -133,6 +147,7 @@
 	data-linktitle={link.link_title}
 	data-accountid={link.account_id}
 	data-folderid={link.folder_id?.String}
+	data-link_url={link.link_url}
 	on:contextmenu|preventDefault|stopPropagation={handleLinkContextMenu}
 	on:click|preventDefault|stopPropagation={handleClickOnLink}
 	on:keyup
@@ -146,7 +161,7 @@
 	<div class="bottom">
 		<div class="text-content">
 			<div class="title">
-				<span on:click|preventDefault|stopPropagation={stop_propagation} on:keyup>
+				<span on:click|preventDefault|stopPropagation={openLink} on:keyup>
 					{link.link_title}
 				</span>
 			</div>
@@ -174,7 +189,8 @@
 							fill="none"
 							xmlns="http://www.w3.org/2000/svg"
 							color="#000000"
-							on:click|preventDefault|stopPropagation={stop_propagation}
+							class="more_svg"
+							on:click|preventDefault|stopPropagation={handleLinkContextMenu}
 							on:keyup
 							><path
 								d="M12 12.5a.5.5 0 100-1 .5.5 0 000 1zM12 18.5a.5.5 0 100-1 .5.5 0 000 1zM12 6.5a.5.5 0 100-1 .5.5 0 000 1z"
@@ -227,9 +243,6 @@
 		background-color: white;
 		transition: box-shadow 0.2s ease-in-out;
 		position: relative;
-		//background-color: orangered;
-		padding: 0.5em;
-		padding-top: 0;
 		border-radius: 0.6rem;
 
 		.top {
@@ -239,65 +252,68 @@
 			.img-container {
 				width: 100%;
 				height: 100%;
+				background-color: $gray;
 
 				img {
 					max-inline-size: 100%;
 					max-width: 100%;
 					height: 100%;
 					width: 100%;
-					object-fit: contain;
+					object-fit: fill;
 					filter: brightness(95%);
 					transition: filter 200ms ease-in-out;
-					border-radius: 0.6rem;
 				}
 			}
 		}
 
 		.bottom {
 			height: calc(100% - 70%);
+			min-height: calc(100% - 70%);
 			width: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
 
 			.text-content {
-				height: 97%;
-				width: 97%;
-				height: 100%;
 				width: 100%;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
 
 				.title {
-					height: 50%;
 					width: 100%;
 					transition: height 200ms ease-in-out;
 					display: flex;
-					align-items: flex-end;
+					align-items: center;
 					transition: height 0.4s linear;
+					flex: 2;
+					padding: 0 0.5em 0 0.5em;
+					overflow: auto;
 
 					span {
 						font-family: 'Arial CE', sans-serif;
 						font-size: 1.3rem;
 						color: $text-color-regular;
-						max-width: 97%;
-						white-space: nowrap;
-						overflow: hidden;
-						text-overflow: ellipsis;
 						text-decoration: none;
-						transition: white-space 1s;
 						line-height: 1.6;
 						text-decoration: underline;
 						text-decoration-color: transparent;
 						transition: text-decoration-color 0.2s linear;
 						cursor: pointer;
+						display: -webkit-box;
+						-webkit-line-clamp: 2;
+						-webkit-box-orient: vertical;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						text-transform: capitalize;
 					}
 				}
 
 				.flavicon_and_menu {
-					height: 50%;
 					width: 100%;
 					display: flex;
 					align-items: center;
 					justify-content: space-between;
+					flex: 1;
+					padding: 0 0.5em 0 0.5em;
+					overflow: auto;
 
 					.flavicon {
 						display: flex;
@@ -412,8 +428,10 @@
 				//backdrop-filter: brightness(80%);
 
 				.text-content {
-					.title span {
-						text-decoration-color: $text-color-regular;
+					.title {
+						span {
+							text-decoration-color: $text-color-regular;
+						}
 					}
 
 					.flavicon_and_menu {

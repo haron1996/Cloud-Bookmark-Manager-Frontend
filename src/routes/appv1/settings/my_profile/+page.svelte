@@ -151,6 +151,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 3em;
+		overflow-y: auto;
 
 		.photo {
 			background-color: white;
@@ -403,7 +404,7 @@
 
 			button {
 				width: calc(100% - 80%);
-				padding: 0.5em 0;
+				padding: 1em 0;
 				cursor: pointer;
 				// background-color: #3ccf4e;
 				background-color: $blue;
@@ -428,23 +429,23 @@
 				align-items: center;
 				justify-content: center;
 				background-color: white;
-				border: 0.1rem solid rgb(255, 135, 135);
+				border: 0.1rem solid #ed4f32;
 				gap: 1em;
 
 				svg {
 					path {
-						stroke: rgb(255, 135, 135);
-						fill: rgb(255, 135, 135);
+						stroke: #ed4f32;
+						fill: #ed4f32;
 					}
 				}
 
 				span {
-					color: rgb(255, 148, 148);
+					color: #ed4f32;
 				}
 
 				&:hover {
-					background-color: rgb(255, 148, 148);
-					background-color: #d61c4e;
+					background-color: #ed4f32;
+					background-color: #ed4f32;
 
 					svg {
 						path {

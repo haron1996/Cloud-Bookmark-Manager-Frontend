@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Breadcrumb from '$lib/components/breadcrumb.svelte';
-	import { currentFolder, loading } from './../../../stores/stores';
+	import { currentFolder, loading, query } from './../../../stores/stores';
 	import { afterNavigate } from '$app/navigation';
 	import { getLinksAndFolders } from '$lib/utils/getLinksAndFolders';
 	import { resetAncestorsOfCurrentFolder } from '$lib/utils/resetAncestorsOfCurrentFolder';
@@ -19,6 +19,8 @@
 	// });
 
 	afterNavigate(async () => {
+		query.set('');
+
 		hideContextMenu();
 
 		resetAncestorsOfCurrentFolder();

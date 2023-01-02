@@ -84,12 +84,13 @@
 
 {#if $selectedFolders.length > 0 || $selectedLinks.length > 0}
 	<div class="actions_menu" on:click|preventDefault|stopPropagation={stop_propagation} on:keyup>
-		{#if $page.url.pathname === '/appv1/my_links/trash'}
+		{#if $page.url.pathname === '/appv1/my_links/recycle_bin'}
 			<div
 				class="restore"
 				on:click|preventDefault|stopPropagation={handleClickOnRestoreButton}
 				on:keyup
 			>
+				<i class="las la-trash-restore" />
 				<span>Restore</span>
 			</div>
 			<div
@@ -97,7 +98,8 @@
 				on:click|preventDefault|stopPropagation={handleClickOnDeleteForeverButton}
 				on:keyup
 			>
-				<span>Delete forever</span>
+				<i class="las la-trash" />
+				<span>Delete parmanently</span>
 			</div>
 		{:else}
 			<div
@@ -106,9 +108,11 @@
 				on:click|preventDefault|stopPropagation={handleClickOnRenameBtn}
 				on:keyup
 			>
+				<i class="las la-edit" />
 				<span>Rename</span>
 			</div>
 			<div class="move" on:click|preventDefault|stopPropagation={handleClickOnMoveButton} on:keyup>
+				<i class="las la-expand-arrows-alt" />
 				<span>Move</span>
 			</div>
 			<div
@@ -116,6 +120,7 @@
 				on:click|preventDefault|stopPropagation={toggleDeleteItemsConfirmationPopup}
 				on:keyup
 			>
+				<i class="las la-trash" />
 				<span>Delete</span>
 			</div>
 		{/if}
@@ -136,11 +141,7 @@
 		align-items: center;
 		gap: 1em;
 
-		.rename,
-		.move,
-		.delete,
-		.restore,
-		.delete_forever {
+		div {
 			background-color: $gray;
 			min-height: 3rem;
 			min-width: 7rem;
@@ -151,6 +152,11 @@
 			justify-content: center;
 			cursor: pointer;
 			transition: all 200ms ease-in-out;
+			gap: 1em;
+
+			i {
+				font-size: 2rem;
+			}
 
 			span {
 				font-size: 1.3rem;

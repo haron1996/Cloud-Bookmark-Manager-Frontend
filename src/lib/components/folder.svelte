@@ -274,12 +274,14 @@
 					text-decoration-style: solid;
 					//text-decoration-skip: spaces;
 					text-decoration-color: transparent;
+					//background-color: $yellow;
 				}
 
 				span.last_update {
 					font-family: 'Arial CE', sans-serif;
 					color: $text-color-medium;
 					font-size: 1.2rem;
+					display: none;
 				}
 			}
 		}

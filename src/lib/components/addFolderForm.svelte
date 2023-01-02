@@ -274,6 +274,37 @@
 					transform: scale(1);
 				}
 			}
+
+			// @media screen and (max-width: 440px) {
+			// 	min-width: 98%;
+			// 	min-height: 30%;
+			// }
+
+			// @media screen and (min-width: 441px) and (max-width: 768px) {
+			// 	min-width: 80%;
+			// 	min-height: 30%;
+			// }
 		}
+
+		@media screen and (max-width: 440px) {
+			form {
+				min-width: 98%;
+				min-height: 30%;
+			}
+		}
+
+		@media screen and (min-width: 441px) and (max-width: 1200px) {
+			form {
+				min-width: 90%;
+				min-height: 30%;
+			}
+		}
+
+		// @media screen and (min-width: 769px) and (max-width: 1200px) {
+		// 	form {
+		// 		min-width: 0%;
+		// 		min-height: 30%;
+		// 	}
+		// }
 	}
 </style>

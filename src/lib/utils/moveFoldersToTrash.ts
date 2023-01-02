@@ -1,8 +1,10 @@
 import type { Folder } from '$lib/types/folder';
-import { folders } from '../../stores/stores';
+import { folderName, folders, foldersFound } from '../../stores/stores';
 import { getSession } from './getSession';
 import { removeItemsSelected } from './removeItemsSelected';
 import { toggleDeleteItemsConfirmationPopup } from './toggleDeleteItemsConfirmationPopup';
+
+let f: Partial<Folder>[] = [];
 
 export async function moveFoldersToTrash(fs: Partial<Folder>[]) {
 	const response = await fetch('http://localhost:5000/private/folder/moveFoldersToTrash', {
@@ -26,11 +28,21 @@ export async function moveFoldersToTrash(fs: Partial<Folder>[]) {
 
 	const trashedFolders: Partial<Folder>[] = result[0];
 
+	const unsubscribe = foldersFound.subscribe((values) => {
+		f = [...f, ...values];
+	});
+
+	unsubscribe();
+
 	for (let index = 0; index < trashedFolders.length; index++) {
 		const element = trashedFolders[index];
 
 		folders.update((values) => values.filter((value) => value.folder_id !== element.folder_id));
+
+		f = f.filter((f) => element.folder_id !== f.folder_id);
 	}
+
+	foldersFound.set(f);
 
 	removeItemsSelected();
 
