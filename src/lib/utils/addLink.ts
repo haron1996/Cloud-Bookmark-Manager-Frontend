@@ -14,6 +14,7 @@ let myLinks: Link[] = [];
 let path: string;
 
 export async function addLink(url: string, folderID: string) {
+	console.log('adding link...');
 	//loading.set(true);
 
 	if (url === 'https://example.com') {

@@ -32,6 +32,7 @@
 	import { toggleProfileMenu } from '$lib/utils/toggleProfileMenu';
 	import { searchLinksAndFolders } from '$lib/utils/search';
 	import Mark from 'mark.js';
+	import { browser } from '$app/environment';
 
 	let s: Partial<Session> = {};
 	let el: HTMLOptionElement;
@@ -121,6 +122,10 @@
 
 	async function handleSearchFormSubmit() {
 		await handleSearchInput();
+	}
+
+	function reportBug() {
+		console.log();
 	}
 </script>
 
@@ -236,9 +241,13 @@
 					<i class="las la-folder-plus" />
 					<span>New folder</span>
 				</div>
-				<div class="report_bug">
-					<i class="las la-spider" />
+				<div class="report_bug" on:click|preventDefault|stopPropagation={reportBug} on:keyup>
+					<i class="las la-bug" />
 					<span>Report bug</span>
+				</div>
+				<div class="suggest_feature">
+					<i class="las la-lightbulb" />
+					<span>Suggest feature</span>
 				</div>
 				<div class="help">
 					<i class="las la-question" />
@@ -278,13 +287,17 @@
 						<i class="las la-cog" />
 						<span>My profile</span>
 					</div>
+					<div class="suggest_feature">
+						<i class="las la-lightbulb" />
+						<span>Suggest feature</span>
+					</div>
 					<div class="bug">
-						<i class="las la-spider" />
+						<i class="las la-bug" />
 						<span>Report bug</span>
 					</div>
 					<div class="help">
-						<i class="las la-headset" />
-						<span>Find help</span>
+						<i class="las la-question" />
+						<span>Contact support</span>
 					</div>
 					<div class="logout">
 						<i class="las la-sign-out-alt" />
@@ -345,6 +358,7 @@
 				width: 50%;
 				height: 4rem;
 				position: relative;
+				border-radius: 0.3rem;
 
 				input[type='search'] {
 					border: none;
@@ -357,6 +371,7 @@
 					color: $text-color-regular;
 					background-color: rgb(239, 243, 246);
 					transition: background-color 200ms ease-in-out;
+					border-radius: inherit;
 
 					&::-webkit-search-cancel-button {
 						appearance: none;
@@ -407,12 +422,13 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
-					min-width: 15rem;
+					min-width: max-content;
 					border: 0.1rem solid whitesmoke;
-					padding: 0.5em;
-					padding-right: 0.8em;
+					min-height: 3rem;
 					gap: 1em;
 					transition: all 200ms ease-in-out;
+					padding-right: 1em;
+					border-radius: 0.3rem;
 
 					i {
 						font-size: 2.3rem;
@@ -429,6 +445,7 @@
 
 					&:hover {
 						border-color: rgb(255, 255, 255);
+						box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
 						i {
 							color: rgb(255, 255, 255);
@@ -450,6 +467,7 @@
 				background-color: white;
 				box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 				position: relative;
+				border-radius: 0.3rem;
 
 				.active-link {
 					width: 80%;
@@ -499,6 +517,7 @@
 					z-index: 100;
 					overflow: auto;
 					max-height: 70vh;
+					border-radius: 0.3rem;
 
 					option {
 						height: 4rem;
@@ -562,15 +581,15 @@
 					position: absolute;
 					top: 115%;
 					right: 0;
-					min-width: 15vw;
+					min-width: 20vw;
 					height: max-content;
-					background-color: rgb(246, 248, 250);
+					background-color: rgb(58, 79, 122);
 					z-index: 500;
 					display: flex;
 					flex-direction: column;
 					box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 					cursor: default;
-					border-radius: 0.5rem;
+					border-radius: 0.3rem;
 					padding: 1em;
 
 					div {
@@ -581,21 +600,32 @@
 						background-color: transparent;
 						padding: 1em;
 						border-radius: 0.25rem;
+						transition: background-color 200ms ease-in-out;
 
 						i {
-							color: $text-color-regular;
-							font-size: 2rem;
+							color: whitesmoke;
+							font-size: 2.3rem;
+							transition: color 200ms ease-in-out;
 						}
 
 						span {
-							color: $text-color-regular;
+							color: whitesmoke;
 							font-family: 'Arial CE', sans-serif;
 							font-size: 1.3rem;
+							transition: color 200ms ease-in-out;
 						}
 
 						&:hover {
 							cursor: pointer;
-							background-color: rgb(214, 228, 229);
+							background-color: rgb(255, 255, 255, 0.1);
+
+							i {
+								color: white;
+							}
+
+							span {
+								color: white;
+							}
 						}
 					}
 				}

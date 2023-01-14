@@ -143,9 +143,9 @@
 
 		div {
 			background-color: $gray;
-			min-height: 3rem;
-			min-width: 7rem;
-			padding: 0 0.5em;
+			min-height: 3.5rem;
+			min-width: 10rem;
+			padding: 0 1em 0 0.3em;
 			width: max-content;
 			display: flex;
 			align-items: center;
@@ -153,6 +153,7 @@
 			cursor: pointer;
 			transition: all 200ms ease-in-out;
 			gap: 1em;
+			border-radius: 0.3rem;
 
 			i {
 				font-size: 2rem;

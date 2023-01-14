@@ -239,8 +239,6 @@
 	// else if ($page.data.folder_id && $openedFolder.folder_name) {
 	// 	activePath.set($openedFolder.folder_name);
 	// }
-
-	$: console.log($linksFound, $foldersFound);
 </script>
 
 <svelte:window on:keydown={handleWindowKeyDown} on:keyup={handleWindowKeyUp} />
@@ -314,10 +312,16 @@
 
 				if (result.message) {
 					if (result.message === 'account not found') {
+						console.log(result.message);
+						alert(result.message);
 						location.replace('http://localhost:5173/accounts/sign_in');
-						return;
 					} else if (result.message === 'false') {
-						//window.alert('You need to login first!');
+						console.log(result.message);
+						alert(result.message);
+						location.replace('http://localhost:5173/accounts/sign_in');
+					} else if (result.message === 'token is expired') {
+						console.log(result.message);
+						alert(result.message);
 						location.replace('http://localhost:5173/accounts/sign_in');
 					}
 				}
