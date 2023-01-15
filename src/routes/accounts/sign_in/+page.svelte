@@ -7,6 +7,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Sign In | Bookmark Bucket</title>
+</svelte:head>
+
 <div class="content">
 	<div class="container">
 		<form>

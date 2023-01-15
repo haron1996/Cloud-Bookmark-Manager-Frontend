@@ -18,6 +18,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Sign Up | Bookmark Bucket</title>
+</svelte:head>
+
 <div class="content">
 	<div class="container">
 		<form class:email_error={$errors.includes('Email address exists')}>
