@@ -286,7 +286,7 @@
 		const s = window.localStorage.getItem('session');
 
 		if (s === null) {
-			location.replace('http://localhost:5173/accounts/sign_in');
+			window.location.href = '/accounts/sign_in';
 		} else {
 			checkIfIsAuthenticated();
 
@@ -310,19 +310,19 @@
 
 				const result = await response.json();
 
-				if (result.message) {
+				if (result.message !== 'true') {
 					if (result.message === 'account not found') {
 						console.log(result.message);
 						alert(result.message);
-						location.replace('http://localhost:5173/accounts/sign_in');
+						location.href('/accounts/sign_in');
 					} else if (result.message === 'false') {
 						console.log(result.message);
 						alert(result.message);
-						location.replace('http://localhost:5173/accounts/sign_in');
+						location.href('/accounts/sign_in');
 					} else if (result.message === 'token is expired') {
 						console.log(result.message);
 						alert(result.message);
-						location.replace('http://localhost:5173/accounts/sign_in');
+						location.href('/accounts/sign_in');
 					}
 				}
 			}
