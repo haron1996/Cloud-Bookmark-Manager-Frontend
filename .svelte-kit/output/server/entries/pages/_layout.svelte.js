@@ -1,4 +1,4 @@
-import { c as create_ssr_component, a as subscribe, e as each, d as escape, v as validate_component } from "../../chunks/index.js";
+import { c as create_ssr_component, a as subscribe, e as each, d as escape, v as validate_component } from "../../chunks/index2.js";
 import { e as errors } from "../../chunks/stores.js";
 const errors_svelte_svelte_type_style_lang = "";
 const css$1 = {

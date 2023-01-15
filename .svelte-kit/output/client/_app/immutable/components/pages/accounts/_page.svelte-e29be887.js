@@ -1,0 +1,1 @@
+import{S as s,i as e,s as n}from"../../../chunks/index-bb81482e.js";import{a as o,g as i}from"../../../chunks/navigation-ded05271.js";function r(t){return o(async()=>{await i("http://localhost:5173/accounts/sign_in")}),[]}class u extends s{constructor(a){super(),e(this,a,r,null,n,{})}}export{u as default};

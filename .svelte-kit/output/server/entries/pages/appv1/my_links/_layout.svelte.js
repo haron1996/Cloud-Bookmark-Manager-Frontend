@@ -1,4 +1,4 @@
-import { c as create_ssr_component, a as subscribe, d as escape, o as onDestroy, e as each, f as add_attribute, v as validate_component } from "../../../../chunks/index.js";
+import { c as create_ssr_component, a as subscribe, d as escape, o as onDestroy, e as each, f as add_attribute, v as validate_component } from "../../../../chunks/index2.js";
 import { s as selectedLinks, a as selectedFolders, f as foldersToRenderInMoveFoldersPopup, l as linksToRenderInMoveItemsPopup, b as selectedDestinationFolder, c as folders, q as query, m as menuToggled, d as activePath, g as showOptionsMenu, h as ancestorsOfCurrentFolder, o as openedFolder, i as session, p as profileMenuVisible, j as controlKeyIsPressed, k as foldersCut, n as linksCut, r as folderName, t as moveItemsMode, u as links, v as rightClickedElement, w as mouseEvent, x as currentFolder, y as newLink, z as loading, A as successNotifVisible, B as errorNotifVisible, C as searchInputFocused, D as foldersFound, E as linksFound, F as createFolderMode, G as addLinkMode, H as renameFolderMode, I as renameLinkMode, J as confirmDeleteItemsMode } from "../../../../chunks/stores.js";
 import { p as page } from "../../../../chunks/stores2.js";
 import "mark.js";
@@ -173,7 +173,7 @@ const MoveItemsPopup = create_ssr_component(($$result, $$props, $$bindings, slot
     return `<div class="${[
       "folder svelte-jwu78e",
       (folder_id === $selectedDestinationFolder.folder_id ? "selected-destination-folder" : "") + " " + ($selectedFolders.map((folder) => folder.folder_id).includes(folder_id) ? "folder_disabled" : "")
-    ].join(" ").trim()}"${add_attribute("data-folderid", folder_id, 0)}${add_attribute("data-foldername", folder_name, 0)}${add_attribute("data-subfolderof", subfolder_of == null ? void 0 : subfolder_of.String, 0)}${add_attribute("data-accountid", account_id, 0)}${add_attribute("data-label", label, 0)}${add_attribute("data-path", path, 0)}><div class="${"top svelte-jwu78e"}"><div class="${"folder_icon svelte-jwu78e"}"><svg width="${"24px"}" height="${"24px"}" stroke-width="${"1.5"}" viewBox="${"0 0 24 24"}" fill="${"none"}" xmlns="${"http://www.w3.org/2000/svg"}" color="${"#000000"}" class="${"svelte-jwu78e"}"><path d="${"M2 11V4.6a.6.6 0 01.6-.6h6.178a.6.6 0 01.39.144l3.164 2.712a.6.6 0 00.39.144H21.4a.6.6 0 01.6.6V11M2 11v8.4a.6.6 0 00.6.6h18.8a.6.6 0 00.6-.6V11M2 11h20"}" stroke="${"#000000"}" stroke-width="${"1.5"}" stroke-linecap="${"round"}" stroke-linejoin="${"round"}" class="${"svelte-jwu78e"}"></path></svg>
+    ].join(" ").trim()}"${add_attribute("data-folderid", folder_id, 0)}${add_attribute("data-foldername", folder_name, 0)}${add_attribute("data-subfolderof", subfolder_of?.String, 0)}${add_attribute("data-accountid", account_id, 0)}${add_attribute("data-label", label, 0)}${add_attribute("data-path", path, 0)}><div class="${"top svelte-jwu78e"}"><div class="${"folder_icon svelte-jwu78e"}"><svg width="${"24px"}" height="${"24px"}" stroke-width="${"1.5"}" viewBox="${"0 0 24 24"}" fill="${"none"}" xmlns="${"http://www.w3.org/2000/svg"}" color="${"#000000"}" class="${"svelte-jwu78e"}"><path d="${"M2 11V4.6a.6.6 0 01.6-.6h6.178a.6.6 0 01.39.144l3.164 2.712a.6.6 0 00.39.144H21.4a.6.6 0 01.6.6V11M2 11v8.4a.6.6 0 00.6.6h18.8a.6.6 0 00.6-.6V11M2 11h20"}" stroke="${"#000000"}" stroke-width="${"1.5"}" stroke-linecap="${"round"}" stroke-linejoin="${"round"}" class="${"svelte-jwu78e"}"></path></svg>
 							</div></div>
 						<div class="${"bottom svelte-jwu78e"}"><span class="${"svelte-jwu78e"}">${escape(folder_name)}</span></div>
 					</div>`;
@@ -183,13 +183,7 @@ const MoveItemsPopup = create_ssr_component(($$result, $$props, $$bindings, slot
     "select svelte-jwu78e",
     $selectedFolders && $selectedFolders.map((f) => f.folder_id).includes($selectedDestinationFolder.folder_id) || $foldersToRenderInMoveFoldersPopup && $selectedFolders.some((f) => {
       return $foldersToRenderInMoveFoldersPopup.map((folder) => folder.folder_id).includes(f.folder_id);
-    }) || $page.url.pathname === "/appv1/my_links" && $selectedDestinationFolder.folder_id === void 0 && $selectedLinks.every((link) => {
-      var _a;
-      return ((_a = link.folder_id) == null ? void 0 : _a.Valid) === false;
-    }) || $selectedLinks.length > 0 && $selectedDestinationFolder.folder_id && $selectedLinks.every((link) => {
-      var _a;
-      return ((_a = link.folder_id) == null ? void 0 : _a.String) === $selectedDestinationFolder.folder_id;
-    }) ? "select-button-disabled" : ""
+    }) || $page.url.pathname === "/appv1/my_links" && $selectedDestinationFolder.folder_id === void 0 && $selectedLinks.every((link) => link.folder_id?.Valid === false) || $selectedLinks.length > 0 && $selectedDestinationFolder.folder_id && $selectedLinks.every((link) => link.folder_id?.String === $selectedDestinationFolder.folder_id) ? "select-button-disabled" : ""
   ].join(" ").trim()}"><span class="${"svelte-jwu78e"}">Select</span></div>
 				<div class="${"cancel svelte-jwu78e"}"><span class="${"svelte-jwu78e"}">Cancel</span></div></div></div></div>
 </div>`;
@@ -247,7 +241,6 @@ const css$b = {
   map: null
 };
 const Navbar = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  var _a, _b;
   let selectedItems;
   let $query, $$unsubscribe_query;
   let $selectedLinks, $$unsubscribe_selectedLinks;
@@ -313,7 +306,7 @@ const Navbar = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 				<div class="${"help svelte-1hzmjym"}"><i class="${"las la-question svelte-1hzmjym"}"></i>
 					<span class="${"svelte-1hzmjym"}">Contact support</span></div></div>` : ``}</div>
 
-	<div class="${"profile svelte-1hzmjym"}"><div class="${"me svelte-1hzmjym"}">${$session ? `${$session.Account ? `${((_a = $session.Account) == null ? void 0 : _a.picture) !== "" ? `<img${add_attribute("src", (_b = $session.Account) == null ? void 0 : _b.picture, 0)} alt="${"profile"}" class="${"svelte-1hzmjym"}">` : `<img${add_attribute("src", user, 0)} alt="${"profile"}" class="${"svelte-1hzmjym"}">`}` : `<img${add_attribute("src", user, 0)} alt="${"profile"}" class="${"svelte-1hzmjym"}">`}` : ``}
+	<div class="${"profile svelte-1hzmjym"}"><div class="${"me svelte-1hzmjym"}">${$session ? `${$session.Account ? `${$session.Account?.picture !== "" ? `<img${add_attribute("src", $session.Account?.picture, 0)} alt="${"profile"}" class="${"svelte-1hzmjym"}">` : `<img${add_attribute("src", user, 0)} alt="${"profile"}" class="${"svelte-1hzmjym"}">`}` : `<img${add_attribute("src", user, 0)} alt="${"profile"}" class="${"svelte-1hzmjym"}">`}` : ``}
 			${$profileMenuVisible && selectedItems.length < 1 ? `<div class="${"profile_hover_popup_menu svelte-1hzmjym"}"><div class="${"settings svelte-1hzmjym"}"><i class="${"las la-cog svelte-1hzmjym"}"></i>
 						<span class="${"svelte-1hzmjym"}">My profile</span></div>
 					<div class="${"suggest_feature svelte-1hzmjym"}"><i class="${"las la-lightbulb svelte-1hzmjym"}"></i>
@@ -335,7 +328,6 @@ const css$a = {
   map: null
 };
 const Folder = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  var _a, _b;
   let $selectedFolders, $$unsubscribe_selectedFolders;
   let $$unsubscribe_controlKeyIsPressed;
   let $foldersCut, $$unsubscribe_foldersCut;
@@ -352,11 +344,11 @@ const Folder = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `<div class="${[
     "folder svelte-140h0g1",
     ($foldersCut.map((f) => f.folder_id).includes(folder.folder_id) ? "folder_cut" : "") + " " + ($selectedFolders.map((f) => f.folder_id).includes(folder.folder_id) ? "folder-selected" : "")
-  ].join(" ").trim()}"${add_attribute("data-folderid", folder.folder_id, 0)}${add_attribute("data-foldername", folder.folder_name, 0)}${add_attribute("data-accountid", folder.account_id, 0)}${add_attribute("data-folderlabel", folder.label, 0)}${add_attribute("data-folderpath", folder.path, 0)}${add_attribute("data-subfolderof", (_a = folder.subfolder_of) == null ? void 0 : _a.String, 0)}><div class="${"top svelte-140h0g1"}"><div class="${"icon svelte-140h0g1"}"><svg width="${"60px"}" height="${"60px"}" stroke-width="${"1.04"}" viewBox="${"0 0 24 24"}" fill="${"none"}" xmlns="${"http://www.w3.org/2000/svg"}" color="${"#000000"}" class="${"svelte-140h0g1"}"><path d="${"M2 11V4.6a.6.6 0 01.6-.6h6.178a.6.6 0 01.39.144l3.164 2.712a.6.6 0 00.39.144H21.4a.6.6 0 01.6.6V11M2 11v8.4a.6.6 0 00.6.6h18.8a.6.6 0 00.6-.6V11M2 11h20"}" stroke="${"#000000"}" stroke-width="${"1.04"}" stroke-linecap="${"round"}" stroke-linejoin="${"round"}" class="${"svelte-140h0g1"}"></path></svg></div></div>
+  ].join(" ").trim()}"${add_attribute("data-folderid", folder.folder_id, 0)}${add_attribute("data-foldername", folder.folder_name, 0)}${add_attribute("data-accountid", folder.account_id, 0)}${add_attribute("data-folderlabel", folder.label, 0)}${add_attribute("data-folderpath", folder.path, 0)}${add_attribute("data-subfolderof", folder.subfolder_of?.String, 0)}><div class="${"top svelte-140h0g1"}"><div class="${"icon svelte-140h0g1"}"><svg width="${"60px"}" height="${"60px"}" stroke-width="${"1.04"}" viewBox="${"0 0 24 24"}" fill="${"none"}" xmlns="${"http://www.w3.org/2000/svg"}" color="${"#000000"}" class="${"svelte-140h0g1"}"><path d="${"M2 11V4.6a.6.6 0 01.6-.6h6.178a.6.6 0 01.39.144l3.164 2.712a.6.6 0 00.39.144H21.4a.6.6 0 01.6.6V11M2 11v8.4a.6.6 0 00.6.6h18.8a.6.6 0 00.6-.6V11M2 11h20"}" stroke="${"#000000"}" stroke-width="${"1.04"}" stroke-linecap="${"round"}" stroke-linejoin="${"round"}" class="${"svelte-140h0g1"}"></path></svg></div></div>
 	<div class="${"bottom svelte-140h0g1"}"><div class="${"folder-name svelte-140h0g1"}"><span class="${"folder_name svelte-140h0g1"}">${escape(folder.folder_name)}</span>
 			<span class="${"last_update svelte-140h0g1"}">${escape(folder.folder_updated_at ? folder.folder_updated_at : folder.folder_created_at)}</span></div></div>
 
-	<div class="${"check-box svelte-140h0g1"}"${add_attribute("data-folderid", folder.folder_id, 0)}${add_attribute("data-foldername", folder.folder_name, 0)}${add_attribute("data-accountid", folder.account_id, 0)}${add_attribute("data-folderlabel", folder.label, 0)}${add_attribute("data-folderpath", folder.path, 0)}${add_attribute("data-subfolderof", (_b = folder.subfolder_of) == null ? void 0 : _b.String, 0)}><svg width="${"24px"}" height="${"24px"}" stroke-width="${"1.5"}" viewBox="${"0 0 24 24"}" fill="${"none"}" xmlns="${"http://www.w3.org/2000/svg"}" color="${"#000000"}" class="${"svelte-140h0g1"}"><path d="${"M5 13l4 4L19 7"}" stroke="${"#000000"}" stroke-width="${"1.5"}" stroke-linecap="${"round"}" stroke-linejoin="${"round"}" class="${"svelte-140h0g1"}"></path></svg></div>
+	<div class="${"check-box svelte-140h0g1"}"${add_attribute("data-folderid", folder.folder_id, 0)}${add_attribute("data-foldername", folder.folder_name, 0)}${add_attribute("data-accountid", folder.account_id, 0)}${add_attribute("data-folderlabel", folder.label, 0)}${add_attribute("data-folderpath", folder.path, 0)}${add_attribute("data-subfolderof", folder.subfolder_of?.String, 0)}><svg width="${"24px"}" height="${"24px"}" stroke-width="${"1.5"}" viewBox="${"0 0 24 24"}" fill="${"none"}" xmlns="${"http://www.w3.org/2000/svg"}" color="${"#000000"}" class="${"svelte-140h0g1"}"><path d="${"M5 13l4 4L19 7"}" stroke="${"#000000"}" stroke-width="${"1.5"}" stroke-linecap="${"round"}" stroke-linejoin="${"round"}" class="${"svelte-140h0g1"}"></path></svg></div>
 </div>`;
 });
 const DefaultFavicon = "data:image/png;base64,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";
@@ -366,7 +358,6 @@ const css$9 = {
   map: null
 };
 const Link = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  var _a, _b;
   let $selectedLinks, $$unsubscribe_selectedLinks;
   let $$unsubscribe_controlKeyIsPressed;
   let $linksCut, $$unsubscribe_linksCut;
@@ -383,7 +374,7 @@ const Link = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `<div class="${[
     "link svelte-159v0d7",
     ($linksCut.map((li) => li.link_id).includes(link.link_id) ? "link_cut" : "") + " " + ($selectedLinks.map((li) => li.link_id).includes(link.link_id) ? "link-selected" : "")
-  ].join(" ").trim()}"${add_attribute("data-linkid", link.link_id, 0)}${add_attribute("data-linktitle", link.link_title, 0)}${add_attribute("data-accountid", link.account_id, 0)}${add_attribute("data-folderid", (_a = link.folder_id) == null ? void 0 : _a.String, 0)}${add_attribute("data-link_url", link.link_url, 0)}><div class="${"top svelte-159v0d7"}"><div class="${"img-container svelte-159v0d7"}"><img${add_attribute("src", link.link_thumbnail, 0)} alt="${"card-hero"}" class="${"svelte-159v0d7"}"></div></div>
+  ].join(" ").trim()}"${add_attribute("data-linkid", link.link_id, 0)}${add_attribute("data-linktitle", link.link_title, 0)}${add_attribute("data-accountid", link.account_id, 0)}${add_attribute("data-folderid", link.folder_id?.String, 0)}${add_attribute("data-link_url", link.link_url, 0)}><div class="${"top svelte-159v0d7"}"><div class="${"img-container svelte-159v0d7"}"><img${add_attribute("src", link.link_thumbnail, 0)} alt="${"card-hero"}" class="${"svelte-159v0d7"}"></div></div>
 	<div class="${"bottom svelte-159v0d7"}"><div class="${"text-content svelte-159v0d7"}"><div class="${"title svelte-159v0d7"}"><span class="${"svelte-159v0d7"}">${escape(link.link_title)}</span></div>
 			<div class="${"flavicon_and_menu svelte-159v0d7"}"><div class="${"flavicon svelte-159v0d7"}"><div class="${"flavicon-container svelte-159v0d7"}"><img${add_attribute(
     "src",
@@ -392,7 +383,7 @@ const Link = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   )} alt="${"flavicon"}" class="${"svelte-159v0d7"}"></div>
 					<div class="${"host svelte-159v0d7"}"><span class="${"svelte-159v0d7"}">${escape(link.link_hostname)}</span></div></div>
 				<div class="${"menu svelte-159v0d7"}"><div class="${"icon svelte-159v0d7"}"><svg width="${"24px"}" height="${"24px"}" stroke-width="${"1.5"}" viewBox="${"0 0 24 24"}" fill="${"none"}" xmlns="${"http://www.w3.org/2000/svg"}" color="${"#000000"}" class="${"more_svg svelte-159v0d7"}"><path d="${"M12 12.5a.5.5 0 100-1 .5.5 0 000 1zM12 18.5a.5.5 0 100-1 .5.5 0 000 1zM12 6.5a.5.5 0 100-1 .5.5 0 000 1z"}" fill="${"#000000"}" stroke="${"#000000"}" stroke-width="${"1.5"}" stroke-linecap="${"round"}" stroke-linejoin="${"round"}" class="${"svelte-159v0d7"}"></path></svg></div></div></div></div></div>
-	<div class="${"check-box svelte-159v0d7"}"${add_attribute("data-linkid", link.link_id, 0)}${add_attribute("data-linktitle", link.link_title, 0)}${add_attribute("data-accountid", link.account_id, 0)}${add_attribute("data-folderid", (_b = link.folder_id) == null ? void 0 : _b.String, 0)}><svg width="${"24px"}" height="${"24px"}" stroke-width="${"1.5"}" viewBox="${"0 0 24 24"}" fill="${"none"}" xmlns="${"http://www.w3.org/2000/svg"}" color="${"#000000"}" class="${"svelte-159v0d7"}"><path d="${"M5 13l4 4L19 7"}" stroke="${"#000000"}" stroke-width="${"1.5"}" stroke-linecap="${"round"}" stroke-linejoin="${"round"}" class="${"svelte-159v0d7"}"></path></svg></div>
+	<div class="${"check-box svelte-159v0d7"}"${add_attribute("data-linkid", link.link_id, 0)}${add_attribute("data-linktitle", link.link_title, 0)}${add_attribute("data-accountid", link.account_id, 0)}${add_attribute("data-folderid", link.folder_id?.String, 0)}><svg width="${"24px"}" height="${"24px"}" stroke-width="${"1.5"}" viewBox="${"0 0 24 24"}" fill="${"none"}" xmlns="${"http://www.w3.org/2000/svg"}" color="${"#000000"}" class="${"svelte-159v0d7"}"><path d="${"M5 13l4 4L19 7"}" stroke="${"#000000"}" stroke-width="${"1.5"}" stroke-linecap="${"round"}" stroke-linejoin="${"round"}" class="${"svelte-159v0d7"}"></path></svg></div>
 </div>`;
 });
 const spinner_svelte_svelte_type_style_lang = "";
@@ -566,7 +557,7 @@ const Sucess_notif = create_ssr_component(($$result, $$props, $$bindings, slots)
   $$result.css.add(css$4);
   $$unsubscribe_successNotifVisible();
   return `${$successNotifVisible ? `<div class="${"success_notif svelte-dkn8iw"}"><div class="${"check svelte-dkn8iw"}"><svg width="${"24px"}" height="${"24px"}" stroke-width="${"1.5"}" viewBox="${"0 0 24 24"}" fill="${"none"}" xmlns="${"http://www.w3.org/2000/svg"}" color="${"#000000"}"><path d="${"M5 13l4 4L19 7"}" stroke="${"#000000"}" stroke-width="${"1.5"}" stroke-linecap="${"round"}" stroke-linejoin="${"round"}" class="${"svelte-dkn8iw"}"></path></svg></div>
-		<span class="${"svelte-dkn8iw"}">Your link is being added \u{1F4AA}</span>
+		<span class="${"svelte-dkn8iw"}">Your link is being added 💪</span>
 		<svg class="${"cancel svelte-dkn8iw"}" width="${"24px"}" height="${"24px"}" stroke-width="${"1.5"}" viewBox="${"0 0 24 24"}" fill="${"none"}" xmlns="${"http://www.w3.org/2000/svg"}" color="${"#000000"}"><path d="${"M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243"}" stroke="${"#000000"}" stroke-width="${"1.5"}" stroke-linecap="${"round"}" stroke-linejoin="${"round"}" class="${"svelte-dkn8iw"}"></path></svg></div>` : ``}`;
 });
 const error_notif_svelte_svelte_type_style_lang = "";
@@ -580,7 +571,7 @@ const Error_notif = create_ssr_component(($$result, $$props, $$bindings, slots) 
   $$result.css.add(css$3);
   $$unsubscribe_errorNotifVisible();
   return `${$errorNotifVisible ? `<div class="${"error_notif svelte-xmbm9y"}"><div class="${"err svelte-xmbm9y"}"><svg width="${"24px"}" height="${"24px"}" stroke-width="${"1.5"}" viewBox="${"0 0 24 24"}" fill="${"none"}" xmlns="${"http://www.w3.org/2000/svg"}" color="${"#000000"}"><path d="${"M9 22l3-3m3-3l-3 3m0 0l-3-3m3 3l3 3M20 17.607c1.494-.585 3-1.918 3-4.607 0-4-3.333-5-5-5 0-2 0-6-6-6S6 6 6 8c-1.667 0-5 1-5 5 0 2.689 1.506 4.022 3 4.607"}" stroke="${"#000000"}" stroke-width="${"1.5"}" stroke-linecap="${"round"}" stroke-linejoin="${"round"}" class="${"svelte-xmbm9y"}"></path></svg></div>
-		<span class="${"svelte-xmbm9y"}">Ouch! Something went wrong! \u{1F61E}</span>
+		<span class="${"svelte-xmbm9y"}">Ouch! Something went wrong! 😞</span>
 		<svg class="${"cancel svelte-xmbm9y"}" width="${"24px"}" height="${"24px"}" stroke-width="${"1.5"}" viewBox="${"0 0 24 24"}" fill="${"none"}" xmlns="${"http://www.w3.org/2000/svg"}" color="${"#000000"}"><path d="${"M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243"}" stroke="${"#000000"}" stroke-width="${"1.5"}" stroke-linecap="${"round"}" stroke-linejoin="${"round"}" class="${"svelte-xmbm9y"}"></path></svg></div>` : ``}`;
 });
 const menu_svelte_svelte_type_style_lang = "";

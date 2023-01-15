@@ -1,4 +1,4 @@
-import { c as create_ssr_component, v as validate_component } from "../../chunks/index.js";
+import { c as create_ssr_component, v as validate_component } from "../../chunks/index2.js";
 import { i as session } from "../../chunks/stores.js";
 import { Buffer } from "buffer";
 function guard(name) {

@@ -1,4 +1,4 @@
-import { d as derived, w as writable } from "./index2.js";
+import { d as derived, w as writable } from "./index.js";
 const errors = writable([]);
 let session = writable({});
 const folders = writable([]);

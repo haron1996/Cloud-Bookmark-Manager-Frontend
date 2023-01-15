@@ -1,4 +1,4 @@
-import { c as create_ssr_component, a as subscribe, d as escape, v as validate_component } from "../../../../../chunks/index.js";
+import { c as create_ssr_component, a as subscribe, d as escape, v as validate_component } from "../../../../../chunks/index2.js";
 import { B as Breadcrumb } from "../../../../../chunks/breadcrumb.js";
 import { o as openedFolder, d as activePath } from "../../../../../chunks/stores.js";
 import { p as page } from "../../../../../chunks/stores2.js";
