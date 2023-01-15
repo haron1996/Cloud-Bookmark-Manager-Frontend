@@ -1,18 +1,18 @@
 {
 	"engines": {
-		"node": "18.13.0"
+		"node": "18.0.0",
+		"npm": "8.8.0"
 	},
 	"name": "my-app",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"preview": "HOST=0.0.0.0 vite preview --host",
+		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write .",
-		"prod": "vite dev --host 0.0.0.0 --port 8080"
+		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
@@ -40,6 +40,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/adapter-node": "^1.0.0-next.106",
 		"animate.css": "^4.1.1",
 		"buffer": "^6.0.3",
 		"interactjs": "^1.10.17",
