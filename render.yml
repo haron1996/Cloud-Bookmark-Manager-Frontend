@@ -1,6 +1,0 @@
-services:
-  type: web
-  name: sveltekit
-  env: node
-  buildCommand: npm install --force && npm run build
-  startCommand: npm build/index.js

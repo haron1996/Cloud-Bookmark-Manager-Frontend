@@ -1,57 +1,21 @@
 {
 	"/": [
-		"src/routes/+page.ts",
-		"src/routes/+layout.ts",
-		"src/routes/+layout.ts"
+		"src/routes/+page.ts"
 	],
-	"/accounts": [
-		"src/routes/+layout.ts"
-	],
-	"/accounts/email": [
-		"src/routes/+layout.ts"
-	],
-	"/accounts/sign_in": [
-		"src/routes/+layout.ts"
-	],
-	"/appv1": [
-		"src/routes/+layout.ts"
-	],
-	"/appv1/my_links": [
-		"src/routes/+layout.ts",
-		"src/routes/+layout.ts"
-	],
-	"/appv1/my_links/recycle_bin": [
-		"src/routes/+layout.ts"
-	],
-	"/appv1/my_links/[folder_id=folder_id]": [
-		"src/routes/+layout.ts"
-	],
-	"/appv1/settings": [
-		"src/routes/+layout.ts",
-		"src/routes/+layout.ts"
-	],
-	"/appv1/settings/billing": [
-		"src/routes/+layout.ts"
-	],
-	"/appv1/settings/members": [
-		"src/routes/+layout.ts"
-	],
-	"/appv1/settings/my_profile": [
-		"src/routes/+layout.ts"
-	],
-	"/appv1/settings/my_profile/change_email": [
-		"src/routes/+layout.ts"
-	],
-	"/appv1/settings/my_profile/change_password": [
-		"src/routes/+layout.ts"
-	],
-	"/appv1/settings/my_profile/confirm_email": [
-		"src/routes/+layout.ts"
-	],
-	"/auth/continue_with_google": [
-		"src/routes/+layout.ts"
-	],
-	"/auth/thankyou": [
-		"src/routes/+layout.ts"
-	]
+	"/accounts": [],
+	"/accounts/email": [],
+	"/accounts/sign_in": [],
+	"/appv1": [],
+	"/appv1/my_links": [],
+	"/appv1/my_links/recycle_bin": [],
+	"/appv1/my_links/[folder_id=folder_id]": [],
+	"/appv1/settings": [],
+	"/appv1/settings/billing": [],
+	"/appv1/settings/members": [],
+	"/appv1/settings/my_profile": [],
+	"/appv1/settings/my_profile/change_email": [],
+	"/appv1/settings/my_profile/change_password": [],
+	"/appv1/settings/my_profile/confirm_email": [],
+	"/auth/continue_with_google": [],
+	"/auth/thankyou": []
 }
