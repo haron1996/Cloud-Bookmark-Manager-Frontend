@@ -5,7 +5,8 @@
 	//import { loading } from '../../../stores/stores';
 
 	function signinInstead() {
-		goto('http://localhost:5173/accounts/sign_in');
+		//goto('http://localhost:5173/accounts/sign_in');
+		window.location.href = '/appv1/my_links';
 	}
 
 	let loading: boolean = false;
