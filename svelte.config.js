@@ -1,8 +1,11 @@
-import adapter from '@sveltejs/adapter-auto';
-//import adapter from 'svelte-adapter-static-digitalocean';
-import preprocess from 'svelte-preprocess';
+//import adapter from '@sveltejs/adapter-auto';
+//import adapter from 'svelte-adapter-static-digitalocean'
 
 /** @type {import('@sveltejs/kit').Config} */
+
+import node from '@sveltejs/adapter-node';
+import preprocess from 'svelte-preprocess';
+
 const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
@@ -13,7 +16,7 @@ const config = {
 	}),
 
 	kit: {
-		adapter: adapter()
+		adapter: node()
 	}
 };
 
