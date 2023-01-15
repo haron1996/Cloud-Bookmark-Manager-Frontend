@@ -2,7 +2,8 @@
 	import { goto } from '$app/navigation';
 
 	async function signupInstead() {
-		await goto('http://localhost:5173/accounts/email');
+		//await goto('http://localhost:5173/accounts/email');
+		window.location.href = '/accounts/email';
 	}
 </script>
 
