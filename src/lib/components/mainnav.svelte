@@ -3,7 +3,8 @@
 	import Googlebutton from './googlebutton.svelte';
 
 	async function goToSignIn() {
-		await goto('http://localhost:5173/accounts/sign_in');
+		//await goto('http://localhost:5173/accounts/sign_in');
+		window.location.href = '/accounts/sign_in';
 	}
 </script>
 
