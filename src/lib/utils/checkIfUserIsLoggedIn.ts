@@ -2,7 +2,7 @@ import { apiURL } from '../../stores/stores';
 
 let baseURL: string = '';
 
-export function checkIfUserIsLoggedIn() {
+export async function checkIfUserIsLoggedIn() {
 	const s: string | null = window.localStorage.getItem('session');
 
 	if (s === null) {
@@ -14,7 +14,7 @@ export function checkIfUserIsLoggedIn() {
 
 		unsub();
 
-		checkIfIsAuthenticated(s, baseURL);
+		await checkIfIsAuthenticated(s, baseURL);
 	}
 }
 

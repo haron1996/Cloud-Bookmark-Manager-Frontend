@@ -61,6 +61,7 @@
 	import { hideProfileMenu } from '$lib/utils/toggleProfileMenu';
 	import Menu from '$lib/components/menu.svelte';
 	import SearchResults from '$lib/components/searchResults.svelte';
+	import { checkIfUserIsLoggedIn } from '$lib/utils/checkIfUserIsLoggedIn';
 
 	let el: HTMLElement;
 
@@ -71,6 +72,9 @@
 	// }
 
 	afterNavigate(async () => {
+		beforeUpdate(async () => {
+			await checkIfUserIsLoggedIn();
+		});
 		// hide profile popup
 		hideProfileMenu();
 
@@ -105,19 +109,6 @@
 	// beforeUpdate(() => {
 	// 	checkIfUserIsLoggedIn();
 	// });
-
-	function checkIfUserIsLoggedIn() {
-		if (getSession() === null) {
-			userIsLoggedin.set(false);
-
-			goto('http://localhost:5173/accounts/sign_in');
-
-			return;
-		} else {
-			console.log(getSession());
-			userIsLoggedin.set(true);
-		}
-	}
 
 	function getCurrentFolderAfterNavigate() {
 		setCurrentFolder();
