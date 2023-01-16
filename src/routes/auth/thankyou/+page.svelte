@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { afterNavigate, goto } from '$app/navigation';
+	import { clearURLPath } from '$lib/utils/clearURLPath';
+
+	let origin: string = '';
 
 	afterNavigate(() => {
 		setTimeout(() => {
+			origin = clearURLPath();
 			//goto('http://localhost:5173/appv1/my_links');
-			window.location.href = 'appv1/my_links';
+			window.location.href = `${origin}/appv1/my_links`;
 		}, 3000);
 	});
 </script>

@@ -313,15 +313,12 @@
 				if (result.message !== 'true') {
 					if (result.message === 'account not found') {
 						console.log(result.message);
-						alert(result.message);
 						location.href('/accounts/sign_in');
 					} else if (result.message === 'false') {
 						console.log(result.message);
-						alert(result.message);
 						location.href('/accounts/sign_in');
 					} else if (result.message === 'token is expired') {
 						console.log(result.message);
-						alert(result.message);
 						location.href('/accounts/sign_in');
 					}
 				}
