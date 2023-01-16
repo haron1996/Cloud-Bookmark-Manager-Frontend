@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { createNewAccount } from '$lib/utils/createNewAccount';
-	import { errors, user } from '../../../stores/stores';
+	import { apiURL, errors, user } from '../../../stores/stores';
 	//import { loading } from '../../../stores/stores';
 
 	function signinInstead() {
@@ -13,7 +13,7 @@
 
 	async function submitSignupForm() {
 		loading = true;
-		await createNewAccount($user);
+		await createNewAccount($user, $apiURL);
 		loading = false;
 	}
 </script>
