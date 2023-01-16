@@ -81,9 +81,9 @@
 			position: fixed;
 			top: 7vh;
 			left: 0;
-			width: 100%;
-			height: 100%;
-			max-height: 100%;
+			height: calc(100vh - 7vh);
+			max-height: calc(100vh - 7vh);
+			width: 100vw;
 		}
 	}
 
@@ -91,9 +91,9 @@
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
-		-webkit-user-select: none; /* Safari */
-		-ms-user-select: none; /* IE 10 and IE 11 */
-		user-select: none; /* Standard syntax */
+		//-webkit-user-select: none; /* Safari */
+		//-ms-user-select: none; /* IE 10 and IE 11 */
+		//user-select: none; /* Standard syntax */
 		line-height: 1.6;
 		text-rendering: optimizeLegibility;
 		-webkit-font-smoothing: antialiased;
