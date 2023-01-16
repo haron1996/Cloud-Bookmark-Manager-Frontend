@@ -1,12 +1,12 @@
 import type { newUser } from '$lib/types/newUser';
 import type { Session } from '$lib/types/session';
-import { accessToken, errors, session, user } from '../../stores/stores';
+import { accessToken, errors, session, user, apiURL } from '../../stores/stores';
 import { goto } from '$app/navigation';
 
 let s: Partial<Session> = {};
 
 export async function createNewAccount(a: Partial<newUser>) {
-	const response = await fetch('http://localhost:5000/public/account/create', {
+	const response = await fetch(`${apiURL}/public/account/create`, {
 		method: 'POST', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
