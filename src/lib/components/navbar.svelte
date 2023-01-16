@@ -49,7 +49,7 @@
 	function handleClickOnOption() {
 		el = window.event?.currentTarget as HTMLOptionElement;
 
-		const domain: string = 'http://localhost:5173';
+		const domain: string = 'https://www.bookmarkbucket.com/';
 
 		optionValue = el.value;
 
@@ -200,7 +200,7 @@
 							{#each $ancestorsOfCurrentFolder as { folder_name, folder_id, subfolder_of }}
 								<option
 									on:click|preventDefault|stopPropagation={() => {
-										goto(`http://localhost:5173/appv1/my_links/${folder_id}`);
+										goto(`https://www.bookmarkbucket.com/appv1/my_links/${folder_id}`);
 										hideShowOptionsMenu();
 									}}
 									value={folder_name}
@@ -280,7 +280,7 @@
 					<div
 						class="settings"
 						on:click={() => {
-							goto('http://localhost:5173/appv1/settings/my_profile');
+							goto('https://www.bookmarkbucket.com/appv1/settings/my_profile');
 						}}
 						on:keyup
 					>
