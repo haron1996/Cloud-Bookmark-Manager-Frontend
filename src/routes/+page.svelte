@@ -45,6 +45,7 @@
 		overflow: auto;
 		display: flex;
 		flex-direction: column;
+		background-color: #e3f6ff;
 
 		.above_the_fold {
 			//background-color: yellow;
