@@ -3,11 +3,13 @@
 	import { tick } from 'svelte';
 
 	function backToDashboard() {
-		goto('http://localhost:5173/appv1/my_links');
+		//goto('http://localhost:5173/appv1/my_links');
+		window.location.href = '/appv1/my_links';
 	}
 
 	function goToPage() {
-		goto('http://localhost:5173/appv1/settings/my_profile');
+		//goto('http://localhost:5173/appv1/settings/my_profile');
+		window.location.href = '/appv1/settings/my_profile';
 	}
 </script>
 
