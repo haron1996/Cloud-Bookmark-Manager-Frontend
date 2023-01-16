@@ -73,7 +73,7 @@
 						$user.password === undefined ||
 						$user.password.length < 6}
 					class:loading
-					on:click|preventDefault|stopPropagation|once={submitSignupForm}
+					on:click|preventDefault|stopPropagation={submitSignupForm}
 				>
 					{#if loading}
 						<div class="loader" />
