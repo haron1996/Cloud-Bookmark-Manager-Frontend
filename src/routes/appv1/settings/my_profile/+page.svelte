@@ -6,13 +6,13 @@
 	let email: string = 'kwandapchumba@gmail.com';
 
 	function goToChangeEmail() {
-		//goto('http://localhost:5173/appv1/settings/my_profile/change_email');
-		window.location.href = '/appv1/settings/my_profile/change/email';
+		goto('https://www.bookmarkbucket.com/appv1/settings/my_profile/change_email');
+		//window.location.href = '/appv1/settings/my_profile/change/email';
 	}
 
 	function goChangePassword() {
-		//goto('http://localhost:5173/appv1/settings/my_profile/change_password');
-		window.location.href = '/appv1/settings/my_profile/change_password';
+		goto('https://www.bookmarkbucket.com/appv1/settings/my_profile/change_password');
+		//window.location.href = '/appv1/settings/my_profile/change_password';
 	}
 </script>
 

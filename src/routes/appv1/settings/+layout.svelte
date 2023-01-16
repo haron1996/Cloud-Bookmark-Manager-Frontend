@@ -3,13 +3,13 @@
 	import { tick } from 'svelte';
 
 	function backToDashboard() {
-		//goto('http://localhost:5173/appv1/my_links');
-		window.location.href = '/appv1/my_links';
+		goto('https://www.bookmarkbucket.com/appv1/my_links');
+		//window.location.href = '/appv1/my_links';
 	}
 
 	function goToPage() {
-		//goto('http://localhost:5173/appv1/settings/my_profile');
-		window.location.href = '/appv1/settings/my_profile';
+		goto('https://www.bookmarkbucket.com/appv1/settings/my_profile');
+		//window.location.href = '/appv1/settings/my_profile';
 	}
 </script>
 
@@ -26,7 +26,7 @@
 	<div class="inner_cont">
 		<li>
 			<a
-				href="http://localhost:5173/appv1/settings/my_profile"
+				href="https://www.bookmarkbucket.com/appv1/settings/my_profile"
 				on:click|preventDefault|stopPropagation={goToPage}
 			>
 				<div class="my_profile">

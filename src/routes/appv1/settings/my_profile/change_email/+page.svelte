@@ -4,8 +4,8 @@
 	let email: string = '';
 
 	function backToProfile() {
-		//goto('http://localhost:5173/appv1/settings/my_profile');
-		window.location.href = '/appv1/settings/my_profile';
+		goto('https://www.bookmarkbucket.com/appv1/settings/my_profile');
+		//window.location.href = '/appv1/settings/my_profile';
 	}
 
 	function handleFormSubmit() {
