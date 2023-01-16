@@ -13,7 +13,7 @@
 
 	async function submitSignupForm() {
 		loading = true;
-		await createNewAccount($user, $apiURL);
+		await createNewAccount($user);
 		loading = false;
 	}
 </script>

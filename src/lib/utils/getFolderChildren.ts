@@ -1,11 +1,19 @@
 import type { Folder } from '$lib/types/folder';
 import { getSession } from './getSession';
-import { foldersToRenderInMoveFoldersPopup } from '../../stores/stores';
+import { foldersToRenderInMoveFoldersPopup, apiURL } from '../../stores/stores';
+
+let baseURL: string = '';
 
 export async function getFolderChildren(folder: Partial<Folder>) {
 	const accountID = JSON.parse(getSession()).Account.id;
 
-	let url = `http://localhost:5000/private/folder/getFolderChildren/${folder.folder_id}/${accountID}`;
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	let url = `${baseURL}/private/folder/getFolderChildren/${folder.folder_id}/${accountID}`;
 
 	const res = await fetch(url, {
 		method: 'GET',

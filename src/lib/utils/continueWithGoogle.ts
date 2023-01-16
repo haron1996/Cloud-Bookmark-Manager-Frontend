@@ -1,11 +1,19 @@
 import { goto } from '$app/navigation';
-import { session } from '../../stores/stores';
+import { session, apiURL } from '../../stores/stores';
 import type { Session } from '$lib/types/session';
 
 let s: Partial<Session> = {};
 
+let baseURL: string = '';
+
 export async function continueWithGoogle(v: any) {
-	const url = 'http://localhost:5000/public/account';
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	const url = `${baseURL}/public/account`;
 
 	const res = await fetch(url, {
 		method: 'POST',
@@ -30,5 +38,7 @@ export async function continueWithGoogle(v: any) {
 
 	window.localStorage.setItem('session', JSON.stringify(data[0]));
 
-	goto('http://localhost:5173/auth/thankyou');
+	//goto('http://localhost:5173/auth/thankyou');
+
+	window.location.href = '/auth/thankyou';
 }

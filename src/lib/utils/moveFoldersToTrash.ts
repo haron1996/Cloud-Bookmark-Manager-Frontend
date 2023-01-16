@@ -1,13 +1,21 @@
 import type { Folder } from '$lib/types/folder';
-import { folderName, folders, foldersFound } from '../../stores/stores';
+import { folderName, folders, foldersFound, apiURL } from '../../stores/stores';
 import { getSession } from './getSession';
 import { removeItemsSelected } from './removeItemsSelected';
 import { toggleDeleteItemsConfirmationPopup } from './toggleDeleteItemsConfirmationPopup';
 
 let f: Partial<Folder>[] = [];
 
+let baseURL: string = '';
+
 export async function moveFoldersToTrash(fs: Partial<Folder>[]) {
-	const response = await fetch('http://localhost:5000/private/folder/moveFoldersToTrash', {
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	const response = await fetch(`${baseURL}/private/folder/moveFoldersToTrash`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

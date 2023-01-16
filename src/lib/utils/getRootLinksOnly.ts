@@ -1,13 +1,19 @@
 import type { Link } from '$lib/types/link';
-import { linksToRenderInMoveItemsPopup } from '../../stores/stores';
+import { linksToRenderInMoveItemsPopup, apiURL } from '../../stores/stores';
 import { getSession } from './getSession';
 
+let baseURL: string = '';
+
 export async function getRootLinksOnly() {
-	console.log('getting root links only...');
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
 
 	const account_id = JSON.parse(getSession()).Account.id;
 
-	const getLinksEndPoint = `http://localhost:5000/private/link/getRootLinks/${account_id}`;
+	const getLinksEndPoint = `${baseURL}/private/link/getRootLinks/${account_id}`;
 
 	const res = await fetch(getLinksEndPoint, {
 		method: 'GET',

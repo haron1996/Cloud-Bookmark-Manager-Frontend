@@ -1,15 +1,22 @@
 import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
-import { folders, links } from '../../stores/stores';
+import { folders, links, apiURL } from '../../stores/stores';
 import { getSession } from './getSession';
 import { hideContextMenu } from './hideContextMenu';
 import { removeItemsSelected } from './removeItemsSelected';
 
 let fs: Partial<Folder>[];
 let ls: Partial<Link>[];
+let baseURL: string = '';
 
 export async function deleteLinksAndFoldersForever(f: Partial<Folder>[], l: Partial<Link>[]) {
-	const fsResponse = await fetch('http://localhost:5000/private/folder/deleteFoldersForever', {
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	const fsResponse = await fetch(`${baseURL}/private/folder/deleteFoldersForever`, {
 		method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

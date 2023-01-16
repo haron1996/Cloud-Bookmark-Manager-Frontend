@@ -1,9 +1,11 @@
-import { selectedFolders } from '../../stores/stores';
+import { selectedFolders, apiURL } from '../../stores/stores';
 import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
 import { getSession } from './getSession';
 
 let allSelectedFolders: Partial<Folder>[] = [];
+
+let baseURL: string = '';
 
 export async function openAllLinksInFolder() {
 	const unsub = selectedFolders.subscribe((values) => {
@@ -17,7 +19,13 @@ export async function openAllLinksInFolder() {
 			const folder_id = allSelectedFolders[0].folder_id;
 			const account_id = JSON.parse(getSession()).Account.id;
 
-			const getLinksEndPoint = `http://localhost:5000/private/link/get_folder_links/${account_id}/${folder_id}`;
+			const unsub = apiURL.subscribe((value) => {
+				baseURL = value;
+			});
+
+			unsub();
+
+			const getLinksEndPoint = `${baseURL}/private/link/get_folder_links/${account_id}/${folder_id}`;
 
 			const response = await fetch(getLinksEndPoint, {
 				method: 'GET',

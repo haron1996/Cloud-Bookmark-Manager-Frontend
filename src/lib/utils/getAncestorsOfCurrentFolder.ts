@@ -1,13 +1,19 @@
 import { getSession } from './getSession';
 import type { Folder } from '$lib/types/folder';
-import { ancestorsOfCurrentFolder } from '../../stores/stores';
+import { ancestorsOfCurrentFolder, apiURL } from '../../stores/stores';
 import { get } from 'svelte/store';
 import { resetAncestorsOfCurrentFolder } from './resetAncestorsOfCurrentFolder';
 
+let baseURL: string = '';
+
 export async function getAncestorsOfCurrentFolder(folderID: string) {
-	// console.log(folderID);
-	// return;
-	let url = `http://localhost:5000/private/folder/getFolderAncestors/${folderID}`;
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	let url = `${baseURL}/private/folder/getFolderAncestors/${folderID}`;
 
 	const res = await fetch(url, {
 		method: 'GET',

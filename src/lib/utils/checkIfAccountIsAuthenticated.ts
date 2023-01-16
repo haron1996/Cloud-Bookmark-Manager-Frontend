@@ -1,14 +1,24 @@
 import { goto } from '$app/navigation';
+import { apiURL } from '../../stores/stores';
+
+let baseURL: string = '';
 
 export async function checkIfIsAuthenticated() {
 	const s = window.localStorage.getItem('session');
 
 	if (s === null) {
-		goto('http://localhost:5173/accounts/sign_in');
+		//goto('http://localhost:5173/accounts/sign_in');
+		window.location.href = '/accounts/sign_in';
 		return;
 	}
 
-	const response = await fetch('http://localhost:5000/public/checkIfIsAuthenticated', {
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	const response = await fetch(`${baseURL}/public/checkIfIsAuthenticated`, {
 		method: 'POST', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -29,14 +39,17 @@ export async function checkIfIsAuthenticated() {
 
 	if (result.message) {
 		if (result.message === 'account not found') {
-			goto('http://localhost:5173/accounts/sign_in');
+			//goto('http://localhost:5173/accounts/sign_in');
+			window.location.href = '/accounts/sign_in';
 			return;
 		} else if (result.message === 'user not found') {
-			goto('http://localhost:5173/accounts/sign_in');
+			//goto('http://localhost:5173/accounts/sign_in');
+			window.location.href = '/accounts/sign_in';
 			return;
 		} else if (result.message === 'false') {
 			//window.alert('You need to login first!');
-			goto('http://localhost:5173/accounts/sign_in');
+			//goto('http://localhost:5173/accounts/sign_in');
+			window.location.href = '/accounts/sign_in';
 			return;
 		}
 	}

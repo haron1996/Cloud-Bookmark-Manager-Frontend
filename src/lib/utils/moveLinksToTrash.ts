@@ -1,13 +1,21 @@
 import { getSession } from './getSession';
-import { links, linksFound } from '../../stores/stores';
+import { links, linksFound, apiURL } from '../../stores/stores';
 import type { Link } from '$lib/types/link';
 import { toggleDeleteItemsConfirmationPopup } from './toggleDeleteItemsConfirmationPopup';
 import { removeItemsSelected } from './removeItemsSelected';
 
 let l: Partial<Link>[] = [];
 
+let baseURL: string = '';
+
 export async function moveLinksToTrash(ls: Partial<Link>[]) {
-	const response = await fetch('http://localhost:5000/private/link/moveLinksToTrash', {
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	const response = await fetch(`${baseURL}/private/link/moveLinksToTrash`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

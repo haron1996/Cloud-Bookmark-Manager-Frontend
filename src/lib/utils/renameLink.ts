@@ -1,14 +1,21 @@
 import { getSession } from './getSession';
 import type { Link } from '$lib/types/link';
-import { links } from '../../stores/stores';
-import { selectedLinks } from '../../stores/stores';
+import { links, selectedLinks, apiURL } from '../../stores/stores';
 
 let myLinks: Partial<Link>[] = [];
+
+let baseURL: string = '';
 
 export async function renameLink(link_title: string | undefined, link_id: string | undefined) {
 	if (link_title === undefined || link_id === undefined) return;
 
-	const response = await fetch('http://localhost:5000/private/link/rename', {
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	const response = await fetch(`${baseURL}/private/link/rename`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

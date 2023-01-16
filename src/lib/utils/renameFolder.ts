@@ -1,16 +1,24 @@
 import type { Folder } from '$lib/types/folder';
-import { folders, selectedFolders } from '../../stores/stores';
+import { folders, selectedFolders, apiURL } from '../../stores/stores';
 import { getSession } from './getSession';
 import { hideRenameFolderForm } from './hideRenameFolderForm';
 
 let myFolders: Partial<Folder>[] = [];
+
+let baseURL: string = '';
 
 export async function renameFolder(folder_name: string | undefined, folder_id: string | undefined) {
 	if (folder_name === undefined || folder_id === undefined) return;
 
 	hideRenameFolderForm();
 
-	const response = await fetch('http://localhost:5000/private/folder/rename', {
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	const response = await fetch(`${baseURL}/private/folder/rename`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

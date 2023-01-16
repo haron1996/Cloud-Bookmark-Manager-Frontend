@@ -2,7 +2,7 @@ import { getSession } from './getSession';
 import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
 import { page } from '$app/stores';
-import { folders, links } from '../../stores/stores';
+import { folders, links, apiURL } from '../../stores/stores';
 import { hideMoveItemsPopup } from './hideMoveItemsPopup';
 import { get } from 'svelte/store';
 import { resetLinksCut } from './resetLinksCut';
@@ -11,12 +11,20 @@ import { goto } from '$app/navigation';
 
 // let currentPath: string;
 
+let baseURL: string = '';
+
 export async function moveLinksAndFoldersToRoot(
 	folderz: Partial<Folder>[],
 	linkz: Partial<Link>[],
 	folderID: string
 ) {
-	const moveFoldersPromise = await fetch('http://localhost:5000/private/folder/moveFoldersToRoot', {
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	const moveFoldersPromise = await fetch(`${baseURL}/private/folder/moveFoldersToRoot`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

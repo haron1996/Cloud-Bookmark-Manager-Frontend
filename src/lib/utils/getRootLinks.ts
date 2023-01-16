@@ -2,12 +2,13 @@ import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
 import { getSession } from './getSession';
 import { folders, loading } from '../../stores/stores';
-import { links } from '../../stores/stores';
+import { links, apiURL } from '../../stores/stores';
+
+let folderID,
+	baseURL: string = '';
 
 export async function getLinksAndLinkFolders(folder_id: string) {
 	loading.set(true);
-
-	let folderID: string = '';
 
 	if (folder_id === '') {
 		folderID = 'null';
@@ -17,9 +18,15 @@ export async function getLinksAndLinkFolders(folder_id: string) {
 
 	const account_id = JSON.parse(getSession()).Account.id;
 
-	const getFoldersEndPoint = `http://localhost:5000/private/folder/get-folders/${account_id}/${folderID}`;
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
 
-	const getLinksEndPoint = `http://localhost:5000/private/link/getRootLinks/${account_id}`;
+	unsub();
+
+	const getFoldersEndPoint = `${baseURL}/private/folder/get-folders/${account_id}/${folderID}`;
+
+	const getLinksEndPoint = `${baseURL}/private/link/getRootLinks/${account_id}`;
 
 	const responses = await Promise.all([
 		await fetch(getFoldersEndPoint, {

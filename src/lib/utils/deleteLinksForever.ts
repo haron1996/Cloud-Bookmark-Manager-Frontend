@@ -1,13 +1,21 @@
 import type { Link } from '$lib/types/link';
-import { links } from '../../stores/stores';
+import { links, apiURL } from '../../stores/stores';
 import { getSession } from './getSession';
 import { hideContextMenu } from './hideContextMenu';
 import { removeItemsSelected } from './removeItemsSelected';
 
 const l: Partial<Link>[] = [];
 
+let baseURL: string = '';
+
 export async function deleteLinksForever(l: Partial<Link>[]) {
-	const response = await fetch('http://localhost:5000/private/link/deleteLinksForever', {
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	const response = await fetch(`${baseURL}/private/link/deleteLinksForever`, {
 		method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

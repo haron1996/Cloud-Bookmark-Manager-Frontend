@@ -1,5 +1,5 @@
 import { validateFolderName } from './validateFolderName';
-import { createFolderMode, selectedDestinationFolder } from '../../stores/stores';
+import { createFolderMode, selectedDestinationFolder, apiURL } from '../../stores/stores';
 import { getSession } from './getSession';
 import type { Folder } from '$lib/types/folder';
 import { page } from '$app/stores';
@@ -11,7 +11,9 @@ let myFolders: Partial<Folder>[] = [];
 
 let folderID: string = '';
 
-let currentPath: string;
+let currentPath: string = '';
+
+let baseURL: string = '';
 
 let currentFolderIdParam: string | undefined;
 
@@ -33,7 +35,13 @@ export async function createFolderFromMoveItemsPopup(
 
 	createFolderMode.set(false);
 
-	const response = await fetch('http://localhost:5000/private/folder/create', {
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	const response = await fetch(`${baseURL}/private/folder/create`, {
 		method: 'POST', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

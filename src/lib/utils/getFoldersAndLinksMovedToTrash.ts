@@ -1,17 +1,24 @@
 import { getSession } from './getSession';
 import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
-import { folders, links, loading } from '../../stores/stores';
+import { folders, links, loading, apiURL } from '../../stores/stores';
 
 let f: Partial<Folder>[] = [];
 let l: Partial<Link>[] = [];
+let baseURL: string = '';
 
 export async function getFoldersAndLinksMovedToTrash() {
 	loading.set(true);
 
 	const accountID = JSON.parse(getSession()).Account.id;
 
-	let url = `http://localhost:5000/private/getFoldersAndLinksMovedToTrash/${accountID}`;
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	let url = `${baseURL}/private/getFoldersAndLinksMovedToTrash/${accountID}`;
 
 	const res = await fetch(url, {
 		method: 'GET',

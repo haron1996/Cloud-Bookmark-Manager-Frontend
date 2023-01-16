@@ -1,8 +1,17 @@
 import type { Folder } from '$lib/types/folder';
 import { getSession } from './getSession';
+import { apiURL } from '../../stores/stores';
+
+let baseURL: string = '';
 
 export async function getFolder(folderID: string): Promise<Partial<Folder>> {
-	let url = `http://localhost:5000/private/folder/${folderID}`;
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	let url = `${baseURL}/private/folder/${folderID}`;
 
 	const res = await fetch(url, {
 		method: 'GET',

@@ -1,6 +1,6 @@
 import type { Link } from '$lib/types/link';
 import type { Folder } from '$lib/types/folder';
-import { folders, links } from '../../stores/stores';
+import { folders, links, apiURL } from '../../stores/stores';
 import { getSession } from './getSession';
 import { toggleDeleteItemsConfirmationPopup } from './toggleDeleteItemsConfirmationPopup';
 import { removeItemsSelected } from './removeItemsSelected';
@@ -8,9 +8,16 @@ import { hideContextMenu } from './hideContextMenu';
 import { resetSelectedFolders } from './resetSelectedFolders';
 import { resetSelectedLinks } from './resetSelectedLinks';
 
+let baseURL: string = '';
+
 export async function moveLinksAndFoldersToTrash(fs: Partial<Folder>[], ls: Partial<Link>[]) {
-	console.log('moving folders and links...');
-	const foldersPromise = await fetch('http://localhost:5000/private/folder/moveFoldersToTrash', {
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	const foldersPromise = await fetch(`${baseURL}/private/folder/moveFoldersToTrash`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

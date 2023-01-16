@@ -1,16 +1,22 @@
 import { getSession } from './getSession';
 import type { Link } from '$lib/types/link';
 import { get } from 'svelte/store';
-import { linksToRenderInMoveItemsPopup } from '../../stores/stores';
+import { linksToRenderInMoveItemsPopup, apiURL } from '../../stores/stores';
+
+let baseURL: string = '';
 
 export async function getFolderLinks(folderID: string | undefined) {
-	console.log('getting folder links...');
-
 	if (folderID === undefined) return;
 
 	const accountID = JSON.parse(getSession()).Account.id;
 
-	let url = `http://localhost:5000/private/link/get_folder_links/${accountID}/${folderID}`;
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	let url = `${baseURL}/private/link/get_folder_links/${accountID}/${folderID}`;
 	const res = await fetch(url, {
 		method: 'GET',
 		mode: 'cors',

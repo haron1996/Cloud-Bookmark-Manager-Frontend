@@ -1,11 +1,19 @@
 import type { newUser } from '$lib/types/newUser';
 import type { Session } from '$lib/types/session';
-import { accessToken, errors, session, user } from '../../stores/stores';
+import { accessToken, errors, session, user, apiURL } from '../../stores/stores';
 import { goto } from '$app/navigation';
 
 let s: Partial<Session> = {};
 
-export async function createNewAccount(a: Partial<newUser>, baseURL: string) {
+let baseURL: string = '';
+
+export async function createNewAccount(a: Partial<newUser>) {
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
 	const response = await fetch(`${baseURL}/public/account/create`, {
 		method: 'POST', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
@@ -48,7 +56,9 @@ export async function createNewAccount(a: Partial<newUser>, baseURL: string) {
 
 		window.localStorage.setItem('session', JSON.stringify(s));
 
-		goto('http://localhost:5173/auth/thankyou');
+		//goto('http://localhost:5173/auth/thankyou');
+
+		window.location.href = '/auth/thankyou';
 	} catch (error) {
 		console.log(error);
 	}

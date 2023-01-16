@@ -1,12 +1,19 @@
 import { getSession } from './getSession';
 import type { Folder } from '$lib/types/folder';
+import { apiURL } from '../../stores/stores';
+
+let baseURL: string = '';
 
 export async function getRootFoldersOnly(): Promise<Partial<Folder>[]> {
-	console.log('getting root folders only...');
-
 	const account_id = JSON.parse(getSession()).Account.id;
 
-	const getFoldersEndPoint = `http://localhost:5000/private/folder/get-folders/${account_id}`;
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	const getFoldersEndPoint = `${baseURL}/private/folder/get-folders/${account_id}`;
 
 	const response = await fetch(getFoldersEndPoint, {
 		method: 'GET',

@@ -1,12 +1,13 @@
 import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
-import { folders, links, loading } from '../../stores/stores';
+import { folders, links, loading, apiURL } from '../../stores/stores';
 import { getSession } from './getSession';
 
 let f: Partial<Folder>[] = [];
 let l: Partial<Link>[] = [];
 
-let folderID: string = '';
+let folderID,
+	baseURL: string = '';
 
 export async function getLinksAndFolders(folder_id: string) {
 	loading.set(true);
@@ -24,7 +25,13 @@ export async function getLinksAndFolders(folder_id: string) {
 		folderID = folder_id;
 	}
 
-	let url = `http://localhost:5000/private/getLinksAndFolders/${accountID}/${folderID}`;
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	let url = `${baseURL}/private/getLinksAndFolders/${accountID}/${folderID}`;
 	const res = await fetch(url, {
 		method: 'GET',
 		mode: 'cors',

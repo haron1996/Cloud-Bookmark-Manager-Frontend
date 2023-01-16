@@ -1,13 +1,21 @@
 import type { Folder } from '$lib/types/folder';
 import { getSession } from './getSession';
 import { page } from '$app/stores';
-import { folders } from '../../stores/stores';
+import { folders, apiURL } from '../../stores/stores';
 import { resetFoldersCut } from './resetFoldersCut';
 import { hideMoveItemsPopup } from './hideMoveItemsPopup';
 import { goto } from '$app/navigation';
 
+let baseURL: string = '';
+
 export async function moveFoldersToRoot(folderz: Partial<Folder>[]) {
-	const response = await fetch('http://localhost:5000/private/folder/moveFoldersToRoot', {
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	unsub();
+
+	const response = await fetch(`${baseURL}/private/folder/moveFoldersToRoot`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
