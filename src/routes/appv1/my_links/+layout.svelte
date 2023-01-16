@@ -72,20 +72,20 @@
 	// }
 
 	afterNavigate(async () => {
-		beforeUpdate(async () => {
-			await checkIfUserIsLoggedIn();
-		});
 		// hide profile popup
 		hideProfileMenu();
 
-		await checkIfIsAuthenticated();
-		//checkIfUserIsLoggedIn();
+		await checkIfUserIsLoggedIn();
 
 		setCurrentFolder();
 
 		getAccountID();
 
 		//console.log(Navigation)
+	});
+
+	beforeUpdate(async () => {
+		await checkIfUserIsLoggedIn();
 	});
 
 	afterUpdate(() => {

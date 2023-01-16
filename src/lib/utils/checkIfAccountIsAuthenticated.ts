@@ -38,19 +38,8 @@ export async function checkIfIsAuthenticated() {
 	const result = await response.json();
 
 	if (result.message) {
-		if (result.message === 'account not found') {
-			//goto('http://localhost:5173/accounts/sign_in');
-			window.location.href = '/accounts/sign_in';
-			return;
-		} else if (result.message === 'user not found') {
-			//goto('http://localhost:5173/accounts/sign_in');
-			window.location.href = '/accounts/sign_in';
-			return;
-		} else if (result.message === 'false') {
-			//window.alert('You need to login first!');
-			//goto('http://localhost:5173/accounts/sign_in');
-			window.location.href = '/accounts/sign_in';
-			return;
-		}
+		alert(result.message);
+		window.location.href = '/accounts/sign_in';
+		return;
 	}
 }

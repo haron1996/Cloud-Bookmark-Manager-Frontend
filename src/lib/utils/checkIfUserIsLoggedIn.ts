@@ -41,5 +41,6 @@ async function checkIfIsAuthenticated(s: string, baseURL: string) {
 	if (result.message !== 'true') {
 		console.log(result.message);
 		window.location.href = '/accounts/sign_in';
+		return;
 	}
 }
