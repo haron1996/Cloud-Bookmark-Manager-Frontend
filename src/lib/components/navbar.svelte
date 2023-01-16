@@ -49,7 +49,7 @@
 	function handleClickOnOption() {
 		el = window.event?.currentTarget as HTMLOptionElement;
 
-		const domain: string = 'https://www.bookmarkbucket.com/';
+		const domain: string = 'https://www.bookmarkbucket.com';
 
 		optionValue = el.value;
 

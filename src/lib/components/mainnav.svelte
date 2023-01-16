@@ -41,7 +41,7 @@
 	</div> -->
 	<div class="sign_in">
 		<a
-			href="http://localhost:5173/accounts/email"
+			href="https://www.bookmarkbucket.com/accounts/email"
 			on:click|preventDefault|stopPropagation={goToSignIn}
 		>
 			<span>Sign in</span>
