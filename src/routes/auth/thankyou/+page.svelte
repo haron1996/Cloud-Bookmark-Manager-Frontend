@@ -3,7 +3,8 @@
 
 	afterNavigate(() => {
 		setTimeout(() => {
-			goto('http://localhost:5173/appv1/my_links');
+			//goto('http://localhost:5173/appv1/my_links');
+			window.location.href = 'appv1/my_links';
 		}, 3000);
 	});
 </script>
