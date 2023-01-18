@@ -102,7 +102,7 @@
 		display: flex;
 		flex-direction: column;
 		background-color: #e3f6ff;
-		padding-bottom: 2em;
+		padding-bottom: 1em;
 		align-items: center;
 		//justify-content: center;
 		gap: 2em;
