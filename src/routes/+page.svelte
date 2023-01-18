@@ -2,6 +2,7 @@
 	import Mainnav from '$lib/components/mainnav.svelte';
 	import BookmarkManagerScreenshot from '$lib/images/bookmarkbucket_screenshot.png';
 	import Logo from '$lib/images/flavicon.png';
+	import { prevent_default } from 'svelte/internal';
 </script>
 
 <svelte:head>
@@ -43,8 +44,8 @@
 	</div>
 	<div class="features">
 		<div class="heading">
-			<h2>A brief overview of what's inside.</h2>
-			<p>Here's what you get when you create a free account.</p>
+			<h2>Brief overview of what's inside.</h2>
+			<p>Here's what you get when you create your free account.</p>
 		</div>
 		<div class="bullets">
 			<div class="nested_folders">
@@ -89,8 +90,15 @@
 		</div>
 	</div>
 	<div class="footer">
-		<span>Need help? <b>Contact us</b></span>
-		<span>Made with <i class="las la-heart" /> in Nairobi, Kenya.</span>
+		<div class="footer_links">
+			<a href="/about" on:click|preventDefault={prevent_default}>
+				<span>About us</span>
+			</a>
+			<a href="mailto:support@bookmarkbucket.com" target="_blank">
+				<span>Email us</span>
+			</a>
+		</div>
+		<span>Copyright © 2023 bookmarkbucket</span>
 	</div>
 </div>
 
@@ -102,7 +110,7 @@
 		display: flex;
 		flex-direction: column;
 		background-color: #e3f6ff;
-		padding-bottom: 1em;
+		padding-bottom: 2em;
 		align-items: center;
 		//justify-content: center;
 		gap: 2em;
@@ -227,13 +235,13 @@
 		display: flex;
 		flex-direction: column;
 		text-align: center;
-		border: 0.2rem dashed $green;
+		//border: 0.2rem dashed $green;
 		align-items: center;
 		justify-content: center;
 		margin-top: 3em;
 		gap: 3em;
 		padding: 1em 0;
-		background-color: rgb(255, 255, 255);
+		//background-color: rgb(255, 255, 255);
 
 		.heading {
 			flex: 1;
@@ -339,23 +347,19 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		gap: 0.5em;
+		gap: 1em;
 
-		span,
-		b {
-			font-size: 1.4rem;
+		.footer_links {
+			display: flex;
+			align-items: center;
+			gap: 1em;
+		}
+
+		span {
+			font-size: 1.3rem;
 			font-family: 'Arial CE', sans-serif;
 			font-weight: 500;
 			color: $text-color-medium;
-		}
-
-		b {
-			text-decoration: underline;
-			cursor: pointer;
-		}
-
-		i {
-			color: $blue;
 		}
 	}
 </style>

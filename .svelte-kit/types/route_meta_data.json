@@ -2,6 +2,7 @@
 	"/": [
 		"src/routes/+page.ts"
 	],
+	"/about": [],
 	"/accounts": [],
 	"/accounts/email": [],
 	"/accounts/sign_in": [],
@@ -17,5 +18,6 @@
 	"/appv1/settings/my_profile/change_password": [],
 	"/appv1/settings/my_profile/confirm_email": [],
 	"/auth/continue_with_google": [],
-	"/auth/thankyou": []
+	"/auth/thankyou": [],
+	"/contact": []
 }

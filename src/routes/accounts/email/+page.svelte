@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { createNewAccount } from '$lib/utils/createNewAccount';
+	import { stop_propagation } from 'svelte/internal';
 	import { apiURL, errors, user } from '../../../stores/stores';
 	//import { loading } from '../../../stores/stores';
 
@@ -26,12 +27,7 @@
 	<div class="container">
 		<form class:email_error={$errors.includes('Email address exists')}>
 			<div class="heading">
-				<span class="sign_in_heading">Sign up with email</span>
-				<span
-					class="sign_up_heading"
-					on:click|preventDefault|stopPropagation={signinInstead}
-					on:keyup>Sign in instead</span
-				>
+				<h3 class="sign_in_heading">Create a free account</h3>
 			</div>
 			<div class="inputs">
 				<div class="name">
@@ -62,6 +58,7 @@
 						id="password"
 						placeholder="Enter your password"
 						bind:value={$user.password}
+						on:contextmenu|stopPropagation={stop_propagation}
 					/>
 				</div>
 			</div>
@@ -78,9 +75,16 @@
 					{#if loading}
 						<div class="loader" />
 					{:else}
-						<span>Sign up</span>
+						<span>Create my free account</span>
 					{/if}
 				</button>
+			</div>
+			<div class="sign_in_instead">
+				<span
+					class="sign_up_heading"
+					on:click|preventDefault|stopPropagation={signinInstead}
+					on:keyup>Already have an account? Sign in to your account</span
+				>
 			</div>
 		</form>
 	</div>
@@ -89,14 +93,18 @@
 <style lang="scss">
 	.content {
 		position: fixed;
-		top: 0vh;
+		top: 0;
 		left: 0;
 		width: 100vw;
-		height: 100%;
+		height: 100vh;
 		overflow: auto;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		background-image: url('/src/lib/images/background.png');
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
 
 		.container {
 			height: 80%;
@@ -106,39 +114,32 @@
 			justify-content: center;
 
 			form {
-				height: 100%;
+				min-height: max-content;
 				width: 50%;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				gap: 1.5em;
+				gap: 2em;
+				background-color: rgb(227, 246, 255);
+				padding: 2em;
+				border-radius: 0.3rem;
+				box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+					rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+				border-radius: 0.3rem;
+				background-color: white;
 
 				.heading {
 					text-align: left;
 					width: 100%;
 					display: flex;
 					align-items: center;
-					justify-content: space-between;
+					justify-content: center;
 
-					span {
-						font-size: 1.6rem;
+					h3 {
+						font-size: 2rem;
 						font-weight: 500;
 						font-family: 'Product Sans Medium', sans-serif;
-					}
-
-					span.sign_up_heading {
-						font-size: 1.3rem;
-						font-family: 'Arial CE', sans-serif;
-						text-decoration: underline;
-						text-decoration-color: $text-color-medium;
-						color: $text-color-medium;
-						cursor: pointer;
-						transition: all 200ms ease-in-out;
-
-						&:hover {
-							color: $text-color-regular;
-							text-decoration-color: $yellow;
-						}
+						color: #181d31;
 					}
 				}
 
@@ -151,10 +152,11 @@
 					.name {
 						display: flex;
 						flex-direction: column;
-						gap: 0.2em;
+						gap: 0.4em;
 
 						label {
 							font-size: 1.3rem;
+							font-weight: 500;
 							font-family: 'Arial CE', sans-serif;
 							color: $text-color-regular;
 						}
@@ -164,8 +166,8 @@
 							border: 0.1rem solid $border-color-regular;
 							outline: none;
 							transition: all 200ms ease-in-out;
-							font-family: 'Product Sans Medium', sans-serif;
-							color: $text-color-regular;
+							font-family: 'Arial CE', sans-serif;
+							border-radius: 0.3rem;
 
 							&::placeholder {
 								color: $text-color-medium;
@@ -182,10 +184,11 @@
 					.email {
 						display: flex;
 						flex-direction: column;
-						gap: 0.2em;
+						gap: 0.4em;
 
 						label {
 							font-size: 1.3rem;
+							font-weight: 500;
 							font-family: 'Arial CE', sans-serif;
 							color: $text-color-regular;
 						}
@@ -195,7 +198,8 @@
 							border: 0.1rem solid $border-color-regular;
 							outline: none;
 							transition: all 200ms ease-in-out;
-							font-family: 'Product Sans Medium', sans-serif;
+							font-family: 'Arial CE', sans-serif;
+							border-radius: 0.3rem;
 
 							&::placeholder {
 								color: $text-color-medium;
@@ -212,10 +216,11 @@
 					.password {
 						display: flex;
 						flex-direction: column;
-						gap: 0.2em;
+						gap: 0.4em;
 
 						label {
 							font-size: 1.3rem;
+							font-weight: 500;
 							font-family: 'Arial CE', sans-serif;
 							color: $text-color-regular;
 						}
@@ -225,6 +230,7 @@
 							border: 0.1rem solid $border-color-regular;
 							outline: none;
 							transition: all 200ms ease-in-out;
+							border-radius: 0.3rem;
 
 							&::placeholder {
 								color: $text-color-medium;
@@ -245,26 +251,26 @@
 					button[type='submit'] {
 						width: 100%;
 						border: none;
-						padding: 0.5em 0;
 						cursor: pointer;
-						background-color: $yellow;
+						background-color: $blue;
 						transition: all 200ms ease-in-out;
-						min-height: 4rem;
+						min-height: 4.5rem;
 						display: flex;
 						align-items: center;
 						justify-content: center;
+						border-radius: 0.3rem;
 
 						span {
 							font-size: 1.5rem;
-							color: $text-color-regular;
+							color: white;
 							font-family: 'Arial CE', sans-serif;
 						}
 
 						.loader {
 							border: 0.2rem solid #f3f3f3; /* Light grey */
-							border-top: 0.2rem solid rgb(16, 143, 100); /* Blue */
-							border-right: 0.2rem solid rgb(16, 143, 100); /* Blue */
-							border-left: 0.2rem solid rgb(16, 143, 100); /* Blue */
+							border-top: 0.2rem solid $green; /* Blue */
+							border-right: 0.2rem solid $green; /* Blue */
+							border-left: 0.2rem solid $green; /* Blue */
 							border-radius: 50%;
 							width: 2.5rem;
 							height: 2.5rem;
@@ -281,18 +287,35 @@
 						}
 
 						&:hover {
-							box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
-								rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+							box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+								rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+								rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 						}
 					}
 
 					.disabled {
 						pointer-events: none;
-						background-color: rgb(239, 239, 239) !important;
 					}
 
 					.loading {
 						pointer-events: none;
+					}
+				}
+
+				.sign_in_instead {
+					width: 100%;
+					text-align: left;
+
+					span {
+						font-size: 1.3rem;
+						font-family: 'Arial CE', sans-serif;
+						color: $text-color-medium;
+						cursor: pointer;
+						transition: all 200ms ease-in-out;
+
+						&:hover {
+							color: $blue;
+						}
 					}
 				}
 			}

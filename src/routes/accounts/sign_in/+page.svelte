@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { stop_propagation } from 'svelte/internal';
 
 	async function signupInstead() {
 		//await goto('http://localhost:5173/accounts/email');
@@ -15,12 +16,7 @@
 	<div class="container">
 		<form>
 			<div class="heading">
-				<span class="sign_in_heading">Sign in with email</span>
-				<span
-					class="sign_up_heading"
-					on:click|preventDefault|stopPropagation={signupInstead}
-					on:keyup>Sign up instead</span
-				>
+				<h3 class="sign_in_heading">Sign in to your account</h3>
 			</div>
 			<div class="inputs">
 				<div class="email">
@@ -29,13 +25,26 @@
 				</div>
 				<div class="password">
 					<label for="password">Password</label>
-					<input type="password" name="password" id="password" placeholder="Enter your password" />
+					<input
+						type="password"
+						name="password"
+						id="password"
+						placeholder="Enter your password"
+						on:contextmenu|stopPropagation={stop_propagation}
+					/>
 				</div>
 			</div>
 			<div class="button">
 				<button type="submit">
-					<span>Sign in</span>
+					<span>Sign in to my account</span>
 				</button>
+			</div>
+			<div class="sign_up_instead">
+				<span
+					class="sign_up_heading"
+					on:click|preventDefault|stopPropagation={signupInstead}
+					on:keyup>Don't have an account? Create your free account.</span
+				>
 			</div>
 		</form>
 	</div>
@@ -53,48 +62,45 @@
 		align-items: center;
 		justify-content: center;
 		backdrop-filter: blur(2px);
+		background-image: url('/src/lib/images/background.png');
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
 
 		.container {
-			height: 80%;
-			min-width: 60%;
+			height: 100%;
+			width: 100%;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 
 			form {
-				height: 100%;
-				width: 50%;
+				min-height: max-content;
+				width: 30%;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				gap: 1.5em;
+				gap: 2em;
+				background-color: rgb(227, 246, 255);
+				padding: 2em;
+				border-radius: 0.3rem;
+				box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+					rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+				border-radius: 0.3rem;
+				background-color: white;
 
 				.heading {
 					text-align: left;
 					width: 100%;
 					display: flex;
 					align-items: center;
-					justify-content: space-between;
+					justify-content: center;
 
-					span {
-						font-size: 1.6rem;
+					h3 {
+						font-size: 2rem;
 						font-weight: 500;
 						font-family: 'Product Sans Medium', sans-serif;
-					}
-
-					span.sign_up_heading {
-						font-size: 1.3rem;
-						font-family: 'Arial CE', sans-serif;
-						text-decoration: underline;
-						text-decoration-color: $text-color-medium;
-						color: $text-color-medium;
-						cursor: pointer;
-						transition: all 200ms ease-in-out;
-
-						&:hover {
-							color: $text-color-regular;
-							text-decoration-color: $yellow;
-						}
+						color: #181d31;
 					}
 				}
 
@@ -121,6 +127,7 @@
 							outline: none;
 							transition: all 200ms ease-in-out;
 							font-family: 'Product Sans Medium', sans-serif;
+							border-radius: 0.3rem;
 
 							&::placeholder {
 								color: $text-color-medium;
@@ -150,6 +157,8 @@
 							border: 0.1rem solid $border-color-regular;
 							outline: none;
 							transition: all 200ms ease-in-out;
+							font-family: 'Arial CE', sans-serif;
+							border-radius: 0.3rem;
 
 							&::placeholder {
 								color: $text-color-medium;
@@ -170,18 +179,39 @@
 					button[type='submit'] {
 						width: 100%;
 						border: none;
-						padding: 0.5em 0;
 						cursor: pointer;
 						transition: all 200ms ease-in-out;
+						background-color: $blue;
+						border-radius: 0.3rem;
+						min-height: 4.5rem;
 
 						span {
-							font-size: 1.5rem;
-							color: $text-color-regular;
+							font-size: 1.4rem;
+							color: white;
 							font-family: 'Arial CE', sans-serif;
 						}
 
 						&:hover {
-							background-color: $yellow;
+							box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+								rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+								rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+						}
+					}
+				}
+
+				.sign_up_instead {
+					width: 100%;
+					text-align: left;
+
+					span {
+						font-size: 1.3rem;
+						font-family: 'Arial CE', sans-serif;
+						color: $text-color-medium;
+						cursor: pointer;
+						transition: all 200ms ease-in-out;
+
+						&:hover {
+							color: $blue;
 						}
 					}
 				}
