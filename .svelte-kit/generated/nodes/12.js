@@ -1,1 +1,1 @@
-export { default as component } from "../../../src/routes/appv1/my_links/recycle_bin/+page.svelte";
+export { default as component } from "../../../src/routes/appv1/settings/+page.svelte";

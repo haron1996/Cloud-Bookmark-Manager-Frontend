@@ -89,7 +89,7 @@
 		</div>
 	</div>
 	<div class="footer">
-		<span>Need help? <a href="/contact">Contact us.</a></span>
+		<span>Need help? <b>Contact us</b></span>
 		<span>Made with <i class="las la-heart" /> in Nairobi, Kenya.</span>
 	</div>
 </div>
@@ -102,7 +102,7 @@
 		display: flex;
 		flex-direction: column;
 		background-color: #e3f6ff;
-		//padding-bottom: 2em;
+		padding-bottom: 2em;
 		align-items: center;
 		//justify-content: center;
 		gap: 2em;
@@ -342,11 +342,16 @@
 		gap: 0.5em;
 
 		span,
-		a {
+		b {
 			font-size: 1.4rem;
 			font-family: 'Arial CE', sans-serif;
 			font-weight: 500;
 			color: $text-color-medium;
+		}
+
+		b {
+			text-decoration: underline;
+			cursor: pointer;
 		}
 
 		i {
