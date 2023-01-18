@@ -20,7 +20,8 @@ export const nodes = [() => import('./nodes/0'),
 	() => import('./nodes/17'),
 	() => import('./nodes/18'),
 	() => import('./nodes/19'),
-	() => import('./nodes/20')];
+	() => import('./nodes/20'),
+	() => import('./nodes/21')];
 
 export const server_loads = [];
 
@@ -30,18 +31,19 @@ export const dictionary = {
 	"/accounts/email": [6],
 	"/accounts/sign_in": [7],
 	"/appv1": [8],
-	"/appv1/my_links": [9,[2]],
-	"/appv1/my_links/recycle_bin": [11,[2]],
-	"/appv1/my_links/[folder_id=folder_id]": [10,[2]],
-	"/appv1/settings": [12,[3]],
-	"/appv1/settings/billing": [13,[3]],
-	"/appv1/settings/members": [14,[3]],
-	"/appv1/settings/my_profile": [15,[3]],
-	"/appv1/settings/my_profile/change_email": [16,[3]],
-	"/appv1/settings/my_profile/change_password": [17,[3]],
-	"/appv1/settings/my_profile/confirm_email": [18,[3]],
-	"/auth/continue_with_google": [19],
-	"/auth/thankyou": [20]
+	"/appv1/contact": [9],
+	"/appv1/my_links": [10,[2]],
+	"/appv1/my_links/recycle_bin": [12,[2]],
+	"/appv1/my_links/[folder_id=folder_id]": [11,[2]],
+	"/appv1/settings": [13,[3]],
+	"/appv1/settings/billing": [14,[3]],
+	"/appv1/settings/members": [15,[3]],
+	"/appv1/settings/my_profile": [16,[3]],
+	"/appv1/settings/my_profile/change_email": [17,[3]],
+	"/appv1/settings/my_profile/change_password": [18,[3]],
+	"/appv1/settings/my_profile/confirm_email": [19,[3]],
+	"/auth/continue_with_google": [20],
+	"/auth/thankyou": [21]
 };
 
 export const hooks = {

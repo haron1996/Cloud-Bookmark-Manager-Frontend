@@ -89,7 +89,7 @@
 		</div>
 	</div>
 	<div class="footer">
-		<span>Have a great day. Need help? <a href="/contact">Contact us.</a></span>
+		<span>Need help? <a href="/contact">Contact us.</a></span>
 		<span>Made with <i class="las la-heart" /> in Nairobi, Kenya.</span>
 	</div>
 </div>
