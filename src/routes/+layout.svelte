@@ -125,9 +125,9 @@
 	::-webkit-scrollbar {
 		width: 0.8rem;
 		height: 0.5rem;
-		// display: none;
-		// -ms-overflow-style: none; /* IE and Edge */
-		// scrollbar-width: none; /* Firefox */
+		display: none;
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
 	}
 
 	/* Track */

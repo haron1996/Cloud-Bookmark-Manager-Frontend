@@ -80,7 +80,7 @@ export const activePath = writable<string>('');
 
 export const showSelectSearchCategory = writable<boolean>(false);
 
-export const activeSearchCategory = writable<string>('My links');
+export const activeSearchCategory = writable<string>('My links (Root)');
 
 export const showSearchForm = writable<boolean>(false);
 

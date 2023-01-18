@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Googlebutton from './googlebutton.svelte';
+	import Logo from '$lib/images/flavicon.png';
 
 	async function goToSignIn() {
 		//await goto('http://localhost:5173/accounts/sign_in');
@@ -11,19 +12,18 @@
 <nav>
 	<div class="logo-sec">
 		<div class="logo">
-			<i class="las la-fill-drip" />
-			<!-- <span>bookmarkbucket</span> -->
+			<img src={Logo} alt="logo" />
 		</div>
 	</div>
 	<!-- <div class="google_button">
 		<Googlebutton />
 	</div> -->
 	<div class="links">
-		<a
-			href="https://www.bookmarkbucket.com/accounts/email"
-			on:click|preventDefault|stopPropagation={goToSignIn}
-		>
-			<span>Sign In</span>
+		<a href="/accounts/sign_in">
+			<span>Sign in</span>
+		</a>
+		<a href="/accounts/email" class="signup">
+			<span>Create my free account</span>
 		</a>
 	</div>
 </nav>
@@ -53,18 +53,13 @@
 				font-family: 'Product Sans Black', sans-serif;
 				cursor: pointer;
 				margin-left: 2em;
+				height: 3.5rem;
+				width: 3.5rem;
 
-				i {
-					color: $blue;
-					font-size: 4rem;
+				img {
+					width: 100%;
+					object-fit: contain;
 				}
-
-				// span {
-				// 	font-size: 2rem;
-				// 	font-family: 'Product Sans Medium', sans-serif;
-				// 	//text-transform: capitalize;
-				// 	font-family: 'Product Sans Black', sans-serif;
-				// }
 			}
 		}
 
@@ -83,24 +78,32 @@
 				text-decoration-style: solid;
 				text-decoration-color: $text-color-medium;
 				transition: all 200ms ease-in-out;
-				background-color: $blue;
-				min-width: 7rem;
+				min-width: max-content;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				min-height: 3.5rem;
 				border-radius: 0.3rem;
 				transition: all 200ms ease-in-out;
+				padding: 0.5em 1em;
 
 				span {
 					font-size: 1.5rem;
-					color: white;
+					color: $text-color-regular-2;
 					font-family: 'Arial CE', sans-serif;
-					font-weight: 600;
+					font-weight: 500;
+				}
+			}
+
+			a.signup {
+				background-color: $blue;
+
+				span {
+					color: white;
 				}
 
 				&:hover {
-					box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+					box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+						rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 				}
 			}
 		}
