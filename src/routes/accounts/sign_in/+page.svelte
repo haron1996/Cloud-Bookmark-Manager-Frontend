@@ -1,6 +1,22 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { SignIn } from '$lib/utils/signin';
 	import { stop_propagation } from 'svelte/internal';
+	import { invalid_email, invalid_password } from '../../../stores/stores';
+
+	let email: string = '';
+
+	let password: string = '';
+
+	let submitting: boolean = false;
+
+	async function submitCreds() {
+		submitting = true;
+
+		await SignIn(email, password);
+
+		submitting = false;
+	}
 
 	async function signupInstead() {
 		//await goto('http://localhost:5173/accounts/email');
@@ -19,11 +35,18 @@
 				<h3 class="sign_in_heading">Sign in to your account</h3>
 			</div>
 			<div class="inputs">
-				<div class="email">
+				<div class="email" class:invalid_email={$invalid_email}>
 					<label for="email">Email address</label>
-					<input type="email" name="email" id="email" placeholder="Enter your email address" />
+					<input
+						type="email"
+						name="email"
+						id="email"
+						placeholder="Enter your email address"
+						bind:value={email}
+					/>
+					<span>Invalid email</span>
 				</div>
-				<div class="password">
+				<div class="password" class:invalid_password={$invalid_password}>
 					<label for="password">Password</label>
 					<input
 						type="password"
@@ -31,12 +54,14 @@
 						id="password"
 						placeholder="Enter your password"
 						on:contextmenu|stopPropagation={stop_propagation}
+						bind:value={password}
 					/>
+					<span>Invalid password</span>
 				</div>
 			</div>
 			<div class="button">
-				<button type="submit">
-					<span>Sign in to my account</span>
+				<button type="submit" on:click|preventDefault|stopPropagation={submitCreds}>
+					<span>{submitting ? 'Processing...' : 'Sign in to my account'}</span>
 				</button>
 			</div>
 			<div class="sign_up_instead">
@@ -126,7 +151,7 @@
 							border: 0.1rem solid $border-color-regular;
 							outline: none;
 							transition: all 200ms ease-in-out;
-							font-family: 'Product Sans Medium', sans-serif;
+							font-family: 'Arial CE', sans-serif;
 							border-radius: 0.3rem;
 
 							&::placeholder {
@@ -144,12 +169,31 @@
 									rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 							}
 						}
+
+						span {
+							font-family: 'Arial CE', sans-serif;
+							font-size: 1.3rem;
+							font-weight: 500;
+							color: $form_error_red;
+							display: none;
+						}
+					}
+
+					.invalid_email {
+						input[type='email'] {
+							border-color: $form_error_red;
+						}
+
+						span {
+							display: inline-block;
+						}
 					}
 
 					.password {
 						display: flex;
 						flex-direction: column;
 						gap: 0.2em;
+						font-family: 'Arial CE', sans-serif;
 
 						label {
 							font-size: 1.3rem;
@@ -179,6 +223,24 @@
 								box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
 									rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 							}
+						}
+
+						span {
+							font-family: 'Arial CE', sans-serif;
+							font-size: 1.3rem;
+							font-weight: 500;
+							color: $form_error_red;
+							display: none;
+						}
+					}
+
+					.invalid_password {
+						input[type='password'] {
+							border-color: $form_error_red;
+						}
+
+						span {
+							display: inline-block;
 						}
 					}
 				}

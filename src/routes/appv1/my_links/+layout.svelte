@@ -53,7 +53,7 @@
 	import SignIn from '$lib/components/signIn.svelte';
 	import { json } from '@sveltejs/kit';
 	import { resetLinksCut } from '$lib/utils/resetLinksCut';
-	import { checkIfIsAuthenticated } from '$lib/utils/checkIfAccountIsAuthenticated';
+	//import { checkIfIsAuthenticated } from '$lib/utils/checkIfAccountIsAuthenticated';
 	import { browser } from '$app/environment';
 	import { getLinksAndLinkFolders } from '$lib/utils/getRootLinks';
 	import SucessNotif from '$lib/components/sucess_notif.svelte';
@@ -61,7 +61,7 @@
 	import { hideProfileMenu } from '$lib/utils/toggleProfileMenu';
 	import Menu from '$lib/components/menu.svelte';
 	import SearchResults from '$lib/components/searchResults.svelte';
-	import { checkIfUserIsLoggedIn } from '$lib/utils/checkIfUserIsLoggedIn';
+	//import { checkIfUserIsLoggedIn } from '$lib/utils/checkIfUserIsLoggedIn';
 
 	let el: HTMLElement;
 
@@ -72,10 +72,10 @@
 	// }
 
 	afterNavigate(async () => {
+		checkIfUserHasAccessToken();
+
 		// hide profile popup
 		hideProfileMenu();
-
-		await checkIfUserIsLoggedIn();
 
 		setCurrentFolder();
 
@@ -84,13 +84,16 @@
 		//console.log(Navigation)
 	});
 
-	beforeUpdate(async () => {
-		await checkIfUserIsLoggedIn();
-	});
-
 	afterUpdate(() => {
 		checkIfNoFoldersAndLinks();
 	});
+
+	function checkIfUserHasAccessToken() {
+		if (window.localStorage.getItem('session') === null) {
+			goto('https://www.bookmarkbucket.com/accounts/sign_in');
+			return;
+		}
+	}
 
 	function checkIfNoFoldersAndLinks() {
 		el = document.getElementById('addLinkOrCreateFolderBtn') as HTMLDivElement;
@@ -101,8 +104,6 @@
 	}
 
 	onMount(() => {
-		//checkIfUserIsLoggedIn();
-
 		getCurrentFolderAfterNavigate();
 	});
 

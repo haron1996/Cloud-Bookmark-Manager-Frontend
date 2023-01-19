@@ -1,4 +1,4 @@
-import { derived, writable, readable } from 'svelte/store';
+import { derived, writable, readable, type Writable } from 'svelte/store';
 import type { Session } from '$lib/types/session';
 import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
@@ -99,3 +99,7 @@ export const profileMenuVisible = writable<boolean>(false);
 export const searchInputFocused = writable<boolean>(false);
 
 export const query = writable<string>('');
+
+export const invalid_email = writable<boolean>(false);
+
+export const invalid_password = writable<boolean>(false);
