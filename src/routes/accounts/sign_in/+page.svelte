@@ -62,10 +62,10 @@
 		align-items: center;
 		justify-content: center;
 		backdrop-filter: blur(2px);
-		background-image: url('/src/lib/images/background.png');
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
+		// background-image: url('/src/lib/images/background.png');
+		// background-position: center;
+		// background-repeat: no-repeat;
+		// background-size: cover;
 
 		.container {
 			height: 100%;
@@ -76,7 +76,7 @@
 
 			form {
 				min-height: max-content;
-				width: 30%;
+				width: 27%;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
@@ -134,6 +134,11 @@
 								font-family: 'Arial CE', sans-serif;
 							}
 
+							&:hover {
+								box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+									rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+							}
+
 							&:focus {
 								box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
 									rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
@@ -163,6 +168,11 @@
 							&::placeholder {
 								color: $text-color-medium;
 								font-family: 'Arial CE', sans-serif;
+							}
+
+							&:hover {
+								box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+									rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 							}
 
 							&:focus {
