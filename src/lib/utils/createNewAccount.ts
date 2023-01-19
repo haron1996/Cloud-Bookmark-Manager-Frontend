@@ -58,7 +58,7 @@ export async function createNewAccount(a: Partial<newUser>) {
 
 		//goto('http://localhost:5173/auth/thankyou');
 
-		window.location.href = '/auth/thankyou';
+		window.location.href = '/accounts/thankyou';
 	} catch (error) {
 		console.log(error);
 	}

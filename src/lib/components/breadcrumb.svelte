@@ -13,8 +13,8 @@
 		<ul>
 			<li
 				on:click|preventDefault|stopPropagation={() => {
-					//goto('http://localhost:5173/appv1/my_links');
-					window.location.href = '/appv1/my_links';
+					goto('https://www.bookmarkbucket.com/appv1/my_links');
+					//window.location.href = '/appv1/my_links';
 				}}
 				on:keyup
 			>
@@ -31,8 +31,8 @@
 					<li data-id={folder_id}>
 						<span
 							on:click|preventDefault|stopPropagation={() => {
-								//goto(`http://localhost:5173/appv1/my_links/${folder_id}`);
-								window.location.href = `/appv1/my_links/${folder_id}`;
+								goto(`https://www.bookmarkbucket.com/appv1/my_links/${folder_id}`);
+								//window.location.href = `/appv1/my_links/${folder_id}`;
 							}}
 							on:keyup>{folder_name}</span
 						>

@@ -124,9 +124,9 @@
 
 		if (folderID === undefined) return;
 
-		//goto(`http://localhost:5173/appv1/my_links/${folderID}`);
+		goto(`https://www.bookmarkbucket.com/appv1/my_links/${folderID}`);
 
-		window.location.href = `/appv1/my_links/${folderID}`;
+		//window.location.href = `/appv1/my_links/${folderID}`;
 	}
 </script>
 

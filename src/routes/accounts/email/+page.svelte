@@ -314,7 +314,7 @@
 					}
 
 					.disabled {
-						pointer-events: auto;
+						pointer-events: none;
 					}
 
 					.loading {

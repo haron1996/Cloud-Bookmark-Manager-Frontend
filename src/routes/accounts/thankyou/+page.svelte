@@ -15,9 +15,9 @@
 
 <div class="thankyou">
 	<div class="container">
-		<h1>Thank you for choosing 6k.plus! 🔥</h1>
+		<h1>Thank you for choosing bookmarkbucket.</h1>
 		<div class="loading-bar-container">
-			<span>Setting up your account...</span>
+			<span>We're setting up your account...</span>
 			<svg
 				id="loading-bar"
 				xmlns="http://www.w3.org/2000/svg"

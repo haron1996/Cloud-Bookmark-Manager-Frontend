@@ -6,6 +6,7 @@
 	"/accounts": [],
 	"/accounts/email": [],
 	"/accounts/sign_in": [],
+	"/accounts/thankyou": [],
 	"/appv1": [],
 	"/appv1/my_links": [],
 	"/appv1/my_links/recycle_bin": [],
@@ -18,6 +19,5 @@
 	"/appv1/settings/my_profile/change_password": [],
 	"/appv1/settings/my_profile/confirm_email": [],
 	"/auth/continue_with_google": [],
-	"/auth/thankyou": [],
 	"/contact": []
 }
