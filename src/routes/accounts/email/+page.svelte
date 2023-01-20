@@ -22,7 +22,7 @@
 	async function submitSignupForm() {
 		if ($user.password) {
 			if ($user.password?.length < 6) {
-				alert('shot pass');
+				passwordIsShort = true;
 				return;
 			}
 		}
