@@ -1,6 +1,6 @@
 import type { newUser } from '$lib/types/newUser';
 import type { Session } from '$lib/types/session';
-import { accessToken, errors, session, user, apiURL } from '../../stores/stores';
+import { accessToken, errors, session, user, apiURL, email_exists } from '../../stores/stores';
 import { goto } from '$app/navigation';
 
 let s: Partial<Session> = {};
@@ -37,8 +37,11 @@ export async function createNewAccount(a: Partial<newUser>) {
 		const data = await response.json();
 
 		if (data.message) {
-			errors.update((values) => ['Email address exists', ...values]);
-			// user.set({});
+			if (data.message === 'email already exists') {
+				email_exists.set(true);
+			} else {
+				console.log(data.message);
+			}
 			return;
 		}
 

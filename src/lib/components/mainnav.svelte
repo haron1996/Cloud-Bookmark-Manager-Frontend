@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { afterNavigate, goto } from '$app/navigation';
 	import Googlebutton from './googlebutton.svelte';
 	import Logo from '$lib/images/flavicon.png';
+	import { page } from '$app/stores';
 
 	async function goToSignIn() {
 		//await goto('http://localhost:5173/accounts/sign_in');
@@ -11,20 +12,24 @@
 
 <nav>
 	<div class="logo-sec">
-		<div class="logo">
+		<a href={$page.url.origin} class="logo">
 			<img src={Logo} alt="logo" />
-		</div>
+		</a>
 	</div>
 	<!-- <div class="google_button">
 		<Googlebutton />
 	</div> -->
 	<div class="links">
-		<a href="/accounts/sign_in">
-			<span>Sign in</span>
-		</a>
-		<a href="/accounts/email" class="signup">
-			<span>Create my free account</span>
-		</a>
+		{#if $page.url.pathname !== '/accounts/sign_in'}
+			<a href="/accounts/sign_in" class="sign_in">
+				<span>Sign in</span>
+			</a>
+		{/if}
+		{#if $page.url.pathname !== '/accounts/email'}
+			<a href="/accounts/email" class="signup">
+				<span>Create my free account</span>
+			</a>
+		{/if}
 	</div>
 </nav>
 
@@ -36,8 +41,9 @@
 		top: 0;
 		left: 0;
 		height: 7vh;
-		width: 100%;
+		width: 100vw;
 		justify-content: space-between;
+		box-shadow: rgb(0 0 0 / 5%) 0px 6px 24px 0px, rgb(0 0 0 / 8%) 0px 0px 0px 1px;
 
 		.logo-sec {
 			min-width: max-content;
@@ -91,6 +97,15 @@
 					color: $text-color-regular-2;
 					font-family: 'Arial CE', sans-serif;
 					font-weight: 500;
+				}
+			}
+
+			a.sign_in {
+				border: 0.1rem solid $green;
+				background-color: $green;
+
+				span {
+					color: white;
 				}
 			}
 

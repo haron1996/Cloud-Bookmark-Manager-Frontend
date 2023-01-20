@@ -1,9 +1,16 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { EmailAddressIsValid } from '$lib/utils/checkIfEmailIsValid';
 	import { createNewAccount } from '$lib/utils/createNewAccount';
 	import { stop_propagation } from 'svelte/internal';
-	import { apiURL, errors, user } from '../../../stores/stores';
-	//import { loading } from '../../../stores/stores';
+	import { user, email_exists } from '../../../stores/stores';
+	import Mainnav from '$lib/components/mainnav.svelte';
+
+	let nameIsEmpty: boolean = false;
+	let emailIsEmpty: boolean = false;
+	let passwordIsEmpty: boolean = false;
+	let passwordIsShort: boolean = false;
+	let emailIsValid: boolean = true;
 
 	function signinInstead() {
 		//goto('http://localhost:5173/accounts/sign_in');
@@ -13,8 +20,52 @@
 	let loading: boolean = false;
 
 	async function submitSignupForm() {
+		if ($user.email_address && $user.password && $user.full_name === undefined) {
+			nameIsEmpty = true;
+			return;
+		} else if ($user.full_name && $user.password) {
+			if ($user.email_address === undefined) {
+				emailIsEmpty = true;
+				return;
+			} else {
+				if (!EmailAddressIsValid($user.email_address)) {
+					emailIsValid = false;
+					return;
+				}
+			}
+		} else if ($user.full_name && $user.email_address && $user.password === undefined) {
+			passwordIsEmpty = true;
+			return;
+		} else if (
+			$user.full_name === undefined &&
+			$user.email_address === undefined &&
+			$user.password === undefined
+		) {
+			nameIsEmpty = true;
+			emailIsEmpty = true;
+			passwordIsEmpty = true;
+			return;
+		} else if (
+			$user.full_name &&
+			$user.email_address &&
+			$user.password &&
+			$user.password.length < 6
+		) {
+			passwordIsShort = true;
+			return;
+		}
+
+		// if ($user.email_address) {
+		// 	if (!EmailAddressIsValid($user.email_address)) {
+		// 		emailIsValid = false;
+		// 	}
+		// 	return;
+		// }
+
 		loading = true;
+
 		await createNewAccount($user);
+
 		loading = false;
 	}
 </script>
@@ -24,13 +75,14 @@
 </svelte:head>
 
 <div class="content">
+	<Mainnav />
 	<div class="container">
-		<form class:email_error={$errors.includes('Email address exists')}>
+		<form>
 			<div class="heading">
 				<h3 class="sign_in_heading">Create your free account</h3>
 			</div>
 			<div class="inputs">
-				<div class="name">
+				<div class="name" class:name_required={nameIsEmpty}>
 					<label for="name">Full name</label>
 					<input
 						type="text"
@@ -39,8 +91,14 @@
 						placeholder="Enter your full name"
 						bind:value={$user.full_name}
 					/>
+					<span>Required</span>
 				</div>
-				<div class="email">
+				<div
+					class="email"
+					class:email_required={emailIsEmpty}
+					class:email_exists={$email_exists}
+					class:email_invalid={!emailIsValid}
+				>
 					<label for="email">Email address</label>
 					<input
 						type="email"
@@ -49,8 +107,15 @@
 						placeholder="Enter your email address"
 						bind:value={$user.email_address}
 					/>
+					<span class="email_required">Required</span>
+					<span class="email_exists">Exists</span>
+					<span class="email_invalid">Invalid</span>
 				</div>
-				<div class="password">
+				<div
+					class="password"
+					class:password_required={passwordIsEmpty}
+					class:short_pass={passwordIsShort}
+				>
 					<label for="password">Password</label>
 					<input
 						type="password"
@@ -60,15 +125,13 @@
 						bind:value={$user.password}
 						on:contextmenu|stopPropagation={stop_propagation}
 					/>
+					<span class="password_required">Required</span>
+					<span class="password_length_error">Must be at least 6 characters long</span>
 				</div>
 			</div>
 			<div class="button">
 				<button
 					type="submit"
-					class:disabled={$user.email_address === undefined ||
-						$user.full_name === undefined ||
-						$user.password === undefined ||
-						$user.password.length < 6}
 					class:loading
 					on:click|preventDefault|stopPropagation={submitSignupForm}
 				>
@@ -92,11 +155,11 @@
 
 <style lang="scss">
 	.content {
-		position: fixed;
-		top: 0;
-		left: 0;
+		// position: fixed;
+		// top: 0;
+		// left: 0;
 		width: 100vw;
-		height: 100vh;
+		height: 93vh;
 		overflow: auto;
 		display: flex;
 		align-items: center;
@@ -184,6 +247,24 @@
 									rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 							}
 						}
+
+						span {
+							font-family: 'Arial CE', sans-serif;
+							color: $form_error_red;
+							font-size: 1.3rem;
+							font-weight: 500;
+							display: none;
+						}
+					}
+
+					.name_required {
+						input[type='text'] {
+							border-color: $form_error_red;
+						}
+
+						span {
+							display: inline-block;
+						}
 					}
 
 					.email {
@@ -220,6 +301,44 @@
 								box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
 									rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 							}
+						}
+
+						span {
+							font-family: 'Arial CE', sans-serif;
+							color: $form_error_red;
+							font-size: 1.3rem;
+							font-weight: 500;
+							display: none;
+						}
+					}
+
+					.email_required {
+						input[type='email'] {
+							border-color: $form_error_red;
+						}
+
+						span.email_required {
+							display: inline-block;
+						}
+					}
+
+					.email_exists {
+						input[type='email'] {
+							border-color: $form_error_red;
+						}
+
+						span.email_exists {
+							display: inline-block;
+						}
+					}
+
+					.email_invalid {
+						input[type='email'] {
+							border-color: $form_error_red;
+						}
+
+						span.email_invalid {
+							display: inline-block;
 						}
 					}
 
@@ -261,6 +380,34 @@
 								box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
 									rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 							}
+						}
+
+						span {
+							font-family: 'Arial CE', sans-serif;
+							color: $form_error_red;
+							font-size: 1.3rem;
+							font-weight: 500;
+							display: none;
+						}
+					}
+
+					.password_required {
+						input[type='password'] {
+							border-color: $form_error_red;
+						}
+
+						span.password_required {
+							display: inline-block;
+						}
+					}
+
+					.short_pass {
+						input[type='password'] {
+							border-color: $form_error_red;
+						}
+
+						span.password_length_error {
+							display: inline-block;
 						}
 					}
 				}
@@ -313,10 +460,6 @@
 						}
 					}
 
-					.disabled {
-						pointer-events: none;
-					}
-
 					.loading {
 						pointer-events: none;
 					}
@@ -335,20 +478,6 @@
 
 						&:hover {
 							color: $blue;
-						}
-					}
-				}
-			}
-
-			.email_error {
-				.inputs {
-					.email {
-						label {
-							color: #d61c4e;
-						}
-
-						input[type='email'] {
-							border-color: #d61c4e;
 						}
 					}
 				}

@@ -3,6 +3,8 @@
 	import { SignIn } from '$lib/utils/signin';
 	import { stop_propagation } from 'svelte/internal';
 	import { invalid_email, invalid_password } from '../../../stores/stores';
+	import Mainnav from '$lib/components/mainnav.svelte';
+	import { EmailAddressIsValid } from '$lib/utils/checkIfEmailIsValid';
 
 	let email: string = '';
 
@@ -10,7 +12,31 @@
 
 	let submitting: boolean = false;
 
+	let emailIsEmpty: boolean = false;
+
+	let passwordIsEmpty: boolean = false;
+
 	async function submitCreds() {
+		if (email === '' && password === '') {
+			emailIsEmpty = true;
+
+			passwordIsEmpty = true;
+
+			return;
+		} else if (email === '' && password !== '') {
+			emailIsEmpty = true;
+
+			return;
+		} else if (email !== '' && password === '') {
+			passwordIsEmpty = true;
+			return;
+		}
+
+		if (!EmailAddressIsValid(email)) {
+			invalid_email.set(true);
+			return;
+		}
+
 		submitting = true;
 
 		await SignIn(email, password);
@@ -28,6 +54,8 @@
 	<title>Sign In | Bookmark Bucket</title>
 </svelte:head>
 
+<Mainnav />
+
 <div class="content">
 	<div class="container">
 		<form>
@@ -35,18 +63,24 @@
 				<h3 class="sign_in_heading">Sign in to your account</h3>
 			</div>
 			<div class="inputs">
-				<div class="email" class:invalid_email={$invalid_email}>
+				<div class="email" class:invalid_email={$invalid_email} class:email_required={emailIsEmpty}>
 					<label for="email">Email address</label>
 					<input
 						type="email"
 						name="email"
 						id="email"
 						placeholder="Enter your email address"
+						spellcheck="false"
 						bind:value={email}
 					/>
-					<span>Invalid email</span>
+					<span class="required">Required</span>
+					<span class="invalid">Invalid</span>
 				</div>
-				<div class="password" class:invalid_password={$invalid_password}>
+				<div
+					class="password"
+					class:invalid_password={$invalid_password}
+					class:password_required={passwordIsEmpty}
+				>
 					<label for="password">Password</label>
 					<input
 						type="password"
@@ -56,7 +90,8 @@
 						on:contextmenu|stopPropagation={stop_propagation}
 						bind:value={password}
 					/>
-					<span>Invalid password</span>
+					<span class="required">Required</span>
+					<span class="invalid">Invalid</span>
 				</div>
 			</div>
 			<div class="button">
@@ -77,16 +112,15 @@
 
 <style lang="scss">
 	.content {
-		position: fixed;
-		top: 0vh;
-		left: 0;
+		// position: fixed;
+		// top: 0vh;
+		// left: 0;
 		width: 100vw;
-		height: 100%;
+		height: 93vh;
 		overflow: auto;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		backdrop-filter: blur(2px);
 		// background-image: url('/src/lib/images/background.png');
 		// background-position: center;
 		// background-repeat: no-repeat;
@@ -179,12 +213,22 @@
 						}
 					}
 
+					.email_required {
+						input[type='email'] {
+							border-color: $form_error_red;
+						}
+
+						span.required {
+							display: inline-block;
+						}
+					}
+
 					.invalid_email {
 						input[type='email'] {
 							border-color: $form_error_red;
 						}
 
-						span {
+						span.invalid {
 							display: inline-block;
 						}
 					}
@@ -234,12 +278,22 @@
 						}
 					}
 
+					.password_required {
+						input[type='password'] {
+							border-color: $form_error_red;
+						}
+
+						span.required {
+							display: inline-block;
+						}
+					}
+
 					.invalid_password {
 						input[type='password'] {
 							border-color: $form_error_red;
 						}
 
-						span {
+						span.invalid {
 							display: inline-block;
 						}
 					}

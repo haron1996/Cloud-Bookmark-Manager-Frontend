@@ -16,7 +16,7 @@
 	$: $errors,
 		setTimeout(() => {
 			clearErrors();
-		}, 4000);
+		}, 6000);
 </script>
 
 <div class="errors">
@@ -73,8 +73,8 @@
 <style lang="scss">
 	.errors {
 		position: fixed;
-		top: 0;
-		left: 0;
+		bottom: 0;
+		right: 0;
 		width: 100vw;
 		height: 100vh;
 		background-color: transparent;
@@ -83,6 +83,8 @@
 		align-items: flex-end;
 		justify-content: flex-end;
 		z-index: 100;
+
+		// ! ! fixing error
 
 		.error {
 			min-height: 5rem;

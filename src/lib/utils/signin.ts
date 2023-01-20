@@ -34,11 +34,6 @@ export async function SignIn(email: string, password: string) {
 
 	if (promise.message) {
 		promise.message === 'invalid email' ? invalid_email.set(true) : invalid_password.set(true);
-		setTimeout(() => {
-			invalid_email.set(false);
-
-			invalid_password.set(false);
-		}, 6000);
 		return;
 	}
 
