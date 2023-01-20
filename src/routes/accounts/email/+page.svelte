@@ -20,6 +20,13 @@
 	let loading: boolean = false;
 
 	async function submitSignupForm() {
+		if ($user.password) {
+			if ($user.password?.length < 6) {
+				alert('shot pass');
+				return;
+			}
+		}
+
 		if ($user.email_address && $user.password && $user.full_name === undefined) {
 			nameIsEmpty = true;
 			return;
@@ -45,22 +52,7 @@
 			emailIsEmpty = true;
 			passwordIsEmpty = true;
 			return;
-		} else if (
-			$user.full_name &&
-			$user.email_address &&
-			$user.password &&
-			$user.password.length < 6
-		) {
-			passwordIsShort = true;
-			return;
 		}
-
-		// if ($user.email_address) {
-		// 	if (!EmailAddressIsValid($user.email_address)) {
-		// 		emailIsValid = false;
-		// 	}
-		// 	return;
-		// }
 
 		loading = true;
 
