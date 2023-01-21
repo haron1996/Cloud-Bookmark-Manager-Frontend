@@ -13,25 +13,21 @@
 		<ul>
 			<li
 				on:click|preventDefault|stopPropagation={() => {
-					goto('https://www.bookmarkbucket.com/appv1/my_links');
+					goto(`${$page.url.origin}/appv1/my_links`);
 					//window.location.href = '/appv1/my_links';
 				}}
 				on:keyup
 			>
 				<span>{rootFolderName === '' ? 'My links' : rootFolderName}</span>
 			</li>
-			<div class="separator">
-				<span>&#8594;</span>
-			</div>
+			<i class="las la-long-arrow-alt-right" />
 			{#if $ancestorsOfCurrentFolder.length > 0}
 				{#each $ancestorsOfCurrentFolder as { folder_name, folder_id }}
-					<div class="separator">
-						<span>&#8594;</span>
-					</div>
+					<i class="las la-long-arrow-alt-right" />
 					<li data-id={folder_id}>
 						<span
 							on:click|preventDefault|stopPropagation={() => {
-								goto(`https://www.bookmarkbucket.com/appv1/my_links/${folder_id}`);
+								goto(`${$page.url.origin}/appv1/my_links/${folder_id}`);
 								//window.location.href = `/appv1/my_links/${folder_id}`;
 							}}
 							on:keyup>{folder_name}</span
@@ -48,7 +44,7 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		height: 7vh;
+		height: 3.5rem;
 		width: 100vw;
 		z-index: 15;
 		display: flex;
@@ -63,34 +59,21 @@
 			display: flex;
 			align-items: center;
 			overflow-x: scroll;
+			padding-left: 1em;
 
 			ul {
 				display: flex;
 				align-items: center;
 				height: 100%;
-				gap: 0.3em;
+				gap: 1em;
 				width: min-content;
 				inline-size: max-content;
 				max-width: inherit;
 
-				.separator {
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					height: 75%;
+				i {
+					font-size: 1.3rem;
 
-					span {
-						height: 100%;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						font-size: 1.3rem;
-						color: #565959;
-					}
-				}
-
-				.separator:first-of-type {
-					span {
+					&:first-of-type {
 						display: none;
 					}
 				}
@@ -107,33 +90,27 @@
 						display: flex;
 						align-items: center;
 						justify-content: center;
-						height: 55%;
-						backdrop-filter: brightness(100%);
-						inline-size: max-content;
-						padding: 0 1em;
-						border-radius: 0.3rem;
-						color: #565959;
-						font-family: 'Product Sans Medium', sans-serif;
-						font-size: 1.1rem;
+						color: $text-color-light;
+						font-family: 'Arial CE', sans-serif;
+						font-size: 1.25rem;
 						cursor: pointer;
-						//background-color: rgb(30, 144, 255);
-						box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-
-						&:hover {
-							//backdrop-filter: brightness(95%);
-							box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
-								rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
-							background-color: $yellow;
-							color: $text-color-regular;
-						}
 					}
-				}
 
-				li:last-of-type {
-					pointer-events: none;
+					&:last-of-type {
+						pointer-events: none;
 
-					span {
-						color: $text-color-regular;
+						// span {
+						// 	color: $text-color-medium;
+						// }
+					}
+
+					&:not(li:last-of-type) {
+						&:hover {
+							span {
+								color: $text-color-regular;
+								text-decoration: underline;
+							}
+						}
 					}
 				}
 			}

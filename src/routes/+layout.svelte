@@ -79,11 +79,12 @@
 
 		main {
 			position: fixed;
-			top: 7vh;
+			top: 4.5rem;
 			left: 0;
 			height: calc(100vh - 7vh);
 			max-height: calc(100vh - 7vh);
 			width: 100vw;
+			//background-color: orange;
 		}
 	}
 
@@ -91,9 +92,9 @@
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
-		//-webkit-user-select: none; /* Safari */
-		//-ms-user-select: none; /* IE 10 and IE 11 */
-		//user-select: none; /* Standard syntax */
+		-webkit-user-select: none; /* Safari */
+		-ms-user-select: none; /* IE 10 and IE 11 */
+		user-select: none; /* Standard syntax */
 		line-height: 1.6;
 		text-rendering: optimizeLegibility;
 		-webkit-font-smoothing: antialiased;

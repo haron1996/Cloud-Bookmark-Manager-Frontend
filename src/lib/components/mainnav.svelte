@@ -40,10 +40,11 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		height: 7vh;
+		height: 4.5rem;
 		width: 100vw;
 		justify-content: space-between;
-		box-shadow: rgb(0 0 0 / 5%) 0px 6px 24px 0px, rgb(0 0 0 / 8%) 0px 0px 0px 1px;
+		//box-shadow: rgb(0 0 0 / 5%) 0px 6px 24px 0px, rgb(0 0 0 / 8%) 0px 0px 0px 1px;
+		border-bottom: 0.1rem solid $border-color-regular;
 
 		.logo-sec {
 			min-width: max-content;

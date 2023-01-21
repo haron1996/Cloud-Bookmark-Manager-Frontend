@@ -29,6 +29,10 @@
 >
 	<div class="card" on:click|preventDefault|stopPropagation={stop_propagation} on:keyup>
 		<div class="top">
+			<span>Move {selectedItems.length > 1 ? `these items` : `this item`} to trash?</span>
+			<i class="las la-times" />
+		</div>
+		<div class="middle">
 			<span>
 				Are you sure you want to move {selectedItems.length > 1 ? `these items` : `this item`} to trash?
 				You can restore {selectedItems.length > 1 ? `them` : `it`} later.
@@ -60,25 +64,54 @@
 		left: 0;
 		width: 100vw;
 		height: 100vh;
+		z-index: 1000;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		backdrop-filter: blur(2px) brightness(50%);
-		z-index: 100;
+		background-color: rgba(0, 0, 0, 0.4);
+		backdrop-filter: blur(8px);
 
 		.card {
-			min-height: 23%;
-			min-width: 30%;
+			min-height: 20rem;
+			min-width: 40rem;
 			background-color: white;
 			display: flex;
 			flex-direction: column;
-			box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
-				rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
-			padding: 0.5em 1em;
-			transform: scale(1);
-			animation: zoomin 0.2s ease-in-out;
+			box-shadow: $modal_box_shadow;
+			padding: 2em;
+			//transform: scale(1);
+			animation: zoomin 0.5s ease-in-out;
+			border-radius: 0.6rem;
+			gap: 1em;
 
 			.top {
+				height: 10%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				span {
+					font-family: 'Arial CE', sans-serif;
+					font-size: 1.5rem;
+					color: $text-color-regular;
+				}
+
+				i {
+					font-size: 1.8rem;
+					color: $text-color-regular;
+					cursor: pointer;
+					background-color: transparent;
+					border-radius: 100vh;
+					padding: 0.1em;
+					transition: background-color 150ms ease-in-out;
+
+					&:hover {
+						background-color: $gray;
+					}
+				}
+			}
+
+			.middle {
 				flex: 1;
 				display: flex;
 				align-items: center;
@@ -106,6 +139,8 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
+					transition: all 200ms ease-in-out;
+					border-radius: 0.3rem;
 
 					span {
 						font-family: 'Product Sans Medium', sans-serif;
@@ -114,7 +149,7 @@
 					}
 
 					&:hover {
-						filter: brightness(80%);
+						filter: brightness(95%);
 					}
 				}
 
@@ -132,11 +167,13 @@
 
 			@keyframes zoomin {
 				0% {
-					transform: scale(0.3);
+					transform: translateY(-50px);
+					opacity: 0;
 				}
 
 				100% {
-					transform: scale(1);
+					transform: translateY(0);
+					opacity: 1;
 				}
 			}
 		}

@@ -208,31 +208,8 @@
 					on:click|preventDefault|stopPropagation={returnToPreviousFolder}
 					on:keyup
 				>
-					<div class="back_icon">
-						<svg
-							width="24px"
-							height="24px"
-							stroke-width="1.5"
-							viewBox="0 0 24 24"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-							color="#000000"
-							><path
-								d="M10.25 4.75l-3.5 3.5 3.5 3.5"
-								stroke="#000000"
-								stroke-width="1.5"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							/><path
-								d="M6.75 8.25h6a4 4 0 014 4v7"
-								stroke="#000000"
-								stroke-width="1.5"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							/></svg
-						>
-					</div>
-					<span>Back</span>
+					<i class="las la-arrow-left" />
+					<span>Previous</span>
 				</div>
 			</div>
 		</div>
@@ -345,12 +322,12 @@
 		left: 0;
 		width: 100vw;
 		height: 100vh;
-		backdrop-filter: brightness(60%);
-		z-index: 260;
+		z-index: 1000;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+		background-color: rgba(0, 0, 0, 0.4);
+		backdrop-filter: blur(8px);
 
 		.card {
 			height: 90%;
@@ -358,8 +335,10 @@
 			background-color: white;
 			display: flex;
 			flex-direction: column;
-			padding: 0 0.5em;
-			animation: zoomIn 200ms ease-in-out;
+			padding: 2em;
+			animation: zoomIn 0.5s ease-in-out;
+			border-radius: 0.5rem;
+			box-shadow: $modal_box_shadow;
 
 			.top_bar {
 				height: 8%;
@@ -415,22 +394,17 @@
 					.back_button {
 						display: flex;
 						align-items: center;
-						width: 7rem;
+						justify-content: center;
+						width: 10rem;
 						height: 3.5rem;
 						background-color: $gray;
 						gap: 0.5em;
 						cursor: pointer;
+						transition: all 200ms ease-in-out;
+						border-radius: 0.3rem;
 
-						.back_icon {
-							display: flex;
-							align-items: center;
-							justify-content: center;
-
-							svg {
-								path {
-									stroke: $text-color-regular-2;
-								}
-							}
+						i {
+							font-size: 2rem;
 						}
 
 						span {
@@ -440,7 +414,7 @@
 						}
 
 						&:hover {
-							filter: brightness(90%);
+							filter: brightness(95%);
 						}
 					}
 
@@ -503,10 +477,9 @@
 							font-family: 'Product Sans Medium', sans-serif;
 							cursor: pointer;
 							text-decoration-line: underline;
-							text-decoration-style: wavy;
+							text-decoration-style: solid;
 							text-decoration-skip: spaces;
 							text-decoration-skip-ink: none;
-							text-underline-offset: 0.5rem;
 							text-decoration-color: transparent;
 						}
 					}
@@ -598,10 +571,11 @@
 						display: flex;
 						align-items: center;
 						justify-content: center;
-						background-image: linear-gradient(to top, $red 50%, $gray 50%);
+						background-image: linear-gradient(to top, #e1e8eb 50%, $gray 50%);
 						background-size: 100% 200%;
 						background-position: top;
-						transition: background-position 100ms ease-in-out;
+						transition: all 200ms ease-in-out;
+						border-radius: 0.3rem;
 
 						span {
 							font-family: 'Product Sans Medium', sans-serif;
@@ -613,14 +587,13 @@
 							background-position: bottom;
 
 							span {
-								color: white;
+								color: $text-color-regular;
 							}
 						}
 					}
 
 					div.select {
-						background-color: $main-blue;
-						background-image: linear-gradient(to top, $green 50%, $main-blue 50%);
+						background-image: linear-gradient(to top, #0081c9 50%, $blue 50%);
 
 						span {
 							color: white;
@@ -628,6 +601,10 @@
 
 						&:hover {
 							background-position: bottom;
+
+							span {
+								color: white;
+							}
 						}
 					}
 
@@ -640,11 +617,13 @@
 
 			@keyframes zoomIn {
 				0% {
-					transform: scale(0.5);
+					transform: translateY(-50px);
+					opacity: 0;
 				}
 
 				100% {
-					transform: scale(1);
+					transform: translateY(0);
+					opacity: 1;
 				}
 			}
 		}

@@ -5,8 +5,11 @@ import { hideMoveItemsPopup } from './hideMoveItemsPopup';
 import { resetFoldersCut } from './resetFoldersCut';
 import { get } from 'svelte/store';
 import { goto } from '$app/navigation';
+import { page } from '$app/stores';
 
 let myFolders: Partial<Folder>[] = [];
+
+let origin: string = '';
 
 export async function moveFolders(folders: Partial<Folder>[], folderID: string | undefined) {
 	if (folderID !== undefined) {
@@ -17,8 +20,6 @@ export async function moveFolders(folders: Partial<Folder>[], folderID: string |
 }
 
 async function moveFoldersToAnotherFolder(folderz: Partial<Folder>[], folderID: string) {
-	console.log(folderID);
-
 	const response = await fetch('http://localhost:5000/private/folder/moveFolders', {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
@@ -67,7 +68,13 @@ async function moveFoldersToAnotherFolder(folderz: Partial<Folder>[], folderID: 
 
 	// unsub();
 
-	goto(`http://localhost:5173/appv1/my_links/${fs[0].subfolder_of?.String}`);
+	const unsubscribe = page.subscribe((value) => {
+		origin = value.url.origin;
+	});
+
+	unsubscribe();
+
+	goto(`${origin}/appv1/my_links/${fs[0].subfolder_of?.String}`);
 }
 
 async function moveFoldersToRoot() {

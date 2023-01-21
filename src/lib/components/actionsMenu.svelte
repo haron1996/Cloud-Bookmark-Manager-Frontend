@@ -129,7 +129,7 @@
 
 <style lang="scss">
 	.actions_menu {
-		height: 7vh;
+		height: 4.5rem;
 		width: 100%;
 		background-color: white;
 		position: fixed;
@@ -140,6 +140,7 @@
 		display: flex;
 		align-items: center;
 		gap: 1em;
+		border-bottom: 0.1rem solid $border-color-regular;
 
 		div {
 			background-color: $gray;

@@ -2,7 +2,7 @@
 	import { menuToggled } from '../../stores/stores';
 </script>
 
-<div class="menu" class:menu_visible={$menuToggled}>
+<div class="menu">
 	<div class="new_link">
 		<i class="las la-plus" />
 		<span>New link</span>
@@ -70,7 +70,7 @@
 		}
 	}
 
-	.menu_visible {
-		transform: translateX(0);
-	}
+	// .menu_visible {
+	// 	transform: translateX(0);
+	// }
 </style>

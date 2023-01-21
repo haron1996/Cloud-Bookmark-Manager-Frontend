@@ -24,6 +24,10 @@
 	on:keyup
 >
 	<form on:click|preventDefault|stopPropagation={stop_propagation} on:keyup>
+		<div class="top">
+			<span>Add link</span>
+			<i class="las la-times" />
+		</div>
 		<div class="input_wrapper">
 			<input
 				type="url"
@@ -59,23 +63,52 @@
 		left: 0;
 		width: 100vw;
 		height: 100vh;
+		z-index: 1000;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		backdrop-filter: blur(1px) brightness(50%);
-		z-index: 150;
+		background-color: rgba(0, 0, 0, 0.4);
+		backdrop-filter: blur(8px);
 
 		form {
-			min-height: 20%;
-			min-width: 30%;
+			min-height: 20rem;
+			min-width: 40rem;
 			background-color: white;
 			display: flex;
 			flex-direction: column;
-			box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
-				rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
-			padding: 0.5em 1em;
+			box-shadow: $modal_box_shadow;
+			padding: 1em;
 			transform: scale(1);
-			animation: zoomin 0.2s ease-in-out;
+			animation: zoomin 0.5s ease-in-out;
+			gap: 2em;
+			border-radius: 0.6rem;
+
+			.top {
+				height: 10%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				span {
+					font-family: 'Arial CE', sans-serif;
+					font-size: 1.5rem;
+					color: $text-color-regular;
+				}
+
+				i {
+					font-size: 1.8rem;
+					color: $text-color-regular;
+					cursor: pointer;
+					background-color: transparent;
+					border-radius: 100vh;
+					padding: 0.1em;
+					transition: background-color 150ms ease-in-out;
+
+					&:hover {
+						background-color: $gray;
+					}
+				}
+			}
 
 			.input_wrapper {
 				flex: 1;
@@ -86,16 +119,17 @@
 					width: 100%;
 					height: 3.5rem;
 					border: none;
-					outline: 0.2rem solid $border-color-regular;
+					outline: 0.1rem solid $border-color-regular;
 					padding: 0.5em;
 					font-family: 'Arial CE', sans-serif;
+					border-radius: 0.3rem;
 
 					&::placeholder {
 						font-family: 'Arial CE', sans-serif;
 					}
 
 					&:focus {
-						outline-color: #219ebc;
+						outline-color: $blue;
 					}
 				}
 			}
@@ -121,6 +155,7 @@
 					// background-position: top;
 					// transition: background-position 100ms ease-in-out;
 					transition: all 200ms ease-in-out;
+					border-radius: 0.3rem;
 
 					span {
 						font-family: 'Product Sans Medium', sans-serif;
@@ -156,23 +191,25 @@
 
 			@keyframes zoomin {
 				0% {
-					transform: scale(0);
+					transform: translateY(-50px);
+					opacity: 0;
 				}
 
 				100% {
-					transform: scale(1);
+					transform: translateY(0);
+					opacity: 1;
 				}
 			}
 
-			@media screen and (max-width: 440px) {
-				min-width: 98%;
-				min-height: 30%;
-			}
+			// @media screen and (max-width: 440px) {
+			// 	min-width: 98%;
+			// 	min-height: 30%;
+			// }
 
-			@media screen and (min-width: 441px) and (max-width: 1200px) {
-				min-width: 90%;
-				min-height: 30%;
-			}
+			// @media screen and (min-width: 441px) and (max-width: 1200px) {
+			// 	min-width: 90%;
+			// 	min-height: 30%;
+			// }
 		}
 	}
 </style>

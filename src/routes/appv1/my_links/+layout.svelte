@@ -62,6 +62,8 @@
 	import Menu from '$lib/components/menu.svelte';
 	import SearchResults from '$lib/components/searchResults.svelte';
 	//import { checkIfUserIsLoggedIn } from '$lib/utils/checkIfUserIsLoggedIn';
+	import New from '$lib/components/new.svelte';
+	import { SwitchOnCreateMode } from '$lib/utils/switchOnCreateMode';
 
 	let el: HTMLElement;
 
@@ -215,6 +217,8 @@
 
 <Contextmenu />
 
+<New />
+
 <div class="container">
 	<ActionsMenu />
 
@@ -253,28 +257,11 @@
 							<div
 								class="button"
 								id="addLinkOrCreateFolderBtn"
-								on:click|preventDefault|stopPropagation={handleClickOnAddLinkOrFolderButton}
+								on:click|preventDefault|stopPropagation={SwitchOnCreateMode}
 								on:keyup
 							>
-								<div class="plus_icon">
-									<svg
-										width="24px"
-										height="24px"
-										stroke-width="1.5"
-										viewBox="0 0 24 24"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-										color="#000000"
-										><path
-											d="M6 12h6m6 0h-6m0 0V6m0 6v6"
-											stroke="#000000"
-											stroke-width="1.5"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										/>
-									</svg>
-								</div>
-								<span>Click to add link or create folder</span>
+								<span>New</span>
+								<i class="las la-plus" />
 							</div>
 						{/if}
 					</div>
@@ -294,18 +281,17 @@
 
 		.links {
 			position: absolute;
-			top: 7vh;
+			top: 3.5rem;
 			left: 0;
 			width: 100%;
 			height: 100%;
 			max-height: calc(100vh - 14vh);
-			padding: 1.5em;
+			padding: 1em;
 			display: flex;
 			gap: 1.5em;
 			overflow-y: auto;
 			flex-wrap: wrap;
 			align-content: flex-start;
-			//background-color: #f3ecb0;
 
 			.no_items_container {
 				height: 100%;
@@ -321,42 +307,26 @@
 				}
 
 				.button {
-					background-color: $yellow;
+					height: 3.5rem;
+					width: 9rem;
 					display: flex;
 					align-items: center;
-					padding: 0 1em;
-					height: 4rem;
-					gap: 0.5em;
+					justify-content: center;
+					gap: 1em;
+					background-color: $blue;
 					cursor: pointer;
-					transition: all 200ms ease-in-out;
-					box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-
-					.plus_icon {
-						background-color: white;
-						height: 1.7rem;
-						width: 1.7rem;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						border-radius: 100vh;
-
-						svg {
-							path {
-								stroke: $text-color-regular;
-							}
-						}
-					}
+					border-radius: 0.3rem;
 
 					span {
-						color: $text-color-regular;
-						font-size: 1.3rem;
 						font-family: 'Arial CE', sans-serif;
-						font-weight: 500;
+						color: white;
+						font-size: 1.3rem;
 					}
 
-					&:hover {
-						box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
-							rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+					i {
+						font-size: 1.5rem;
+						background-color: white;
+						border-radius: 100vh;
 					}
 				}
 			}

@@ -105,3 +105,5 @@ export const invalid_email = writable<boolean>(false);
 export const invalid_password = writable<boolean>(false);
 
 export const email_exists = writable<boolean>(false);
+
+export const createMode = writable<boolean>(false);

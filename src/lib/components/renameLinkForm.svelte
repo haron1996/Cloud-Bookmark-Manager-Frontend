@@ -16,6 +16,10 @@
 
 <div class="rename_link" on:click|preventDefault|stopPropagation={hideRenameLinkForm} on:keyup>
 	<form on:click|preventDefault|stopPropagation={stop_propagation} on:keyup>
+		<div class="top">
+			<span>Rename link</span>
+			<i class="las la-times" />
+		</div>
 		<div class="input">
 			<input
 				type="text"
@@ -49,23 +53,52 @@
 		left: 0;
 		width: 100vw;
 		height: 100vh;
+		z-index: 1000;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		backdrop-filter: blur(1px) brightness(50%);
-		z-index: 26;
+		background-color: rgba(0, 0, 0, 0.4);
+		backdrop-filter: blur(8px);
 
 		form {
-			min-height: 23%;
-			min-width: 30%;
+			min-height: 20rem;
+			min-width: 40rem;
 			background-color: white;
 			display: flex;
 			flex-direction: column;
-			box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
-				rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
-			padding: 0.7em;
-			transform: scale(1);
-			animation: zoomin 0.2s ease-in-out;
+			box-shadow: $modal_box_shadow;
+			padding: 2em;
+			//transform: scale(1);
+			animation: zoomin 0.5s ease-in-out;
+			border-radius: 0.6rem;
+			gap: 1em;
+
+			.top {
+				height: 10%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				span {
+					font-family: 'Arial CE', sans-serif;
+					font-size: 1.5rem;
+					color: $text-color-regular;
+				}
+
+				i {
+					font-size: 1.8rem;
+					color: $text-color-regular;
+					cursor: pointer;
+					background-color: transparent;
+					border-radius: 100vh;
+					padding: 0.1em;
+					transition: background-color 150ms ease-in-out;
+
+					&:hover {
+						background-color: $gray;
+					}
+				}
+			}
 
 			.input {
 				flex: 1;
@@ -113,10 +146,11 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
-					background-image: linear-gradient(to top, $red 50%, $gray 50%);
+					background-image: linear-gradient(to top, #e1e8eb 50%, $gray 50%);
 					background-size: 100% 200%;
 					background-position: top;
-					transition: background-position 100ms ease-in-out;
+					transition: all 200ms ease-in-out;
+					border-radius: 0.3rem;
 
 					span {
 						font-family: 'Product Sans Medium', sans-serif;
@@ -128,14 +162,13 @@
 						background-position: bottom;
 
 						span {
-							color: white;
+							color: $text-color-regular;
 						}
 					}
 				}
 
 				button[type='submit'] {
-					background-color: $main-blue;
-					background-image: linear-gradient(to top, $green 50%, $main-blue 50%);
+					background-image: linear-gradient(to top, #0081c9 50%, $blue 50%);
 
 					span {
 						color: white;
@@ -154,11 +187,13 @@
 
 			@keyframes zoomin {
 				0% {
-					transform: scale(0);
+					transform: translateY(-50px);
+					opacity: 0;
 				}
 
 				100% {
-					transform: scale(1);
+					transform: translateY(0);
+					opacity: 1;
 				}
 			}
 		}
