@@ -34,11 +34,11 @@ export let createFolderMode = writable<Boolean>(false);
 
 export let addLinkMode = writable<Boolean>(false);
 
-export const folderName = writable<string>('Untitled folder');
+export const folderName = writable<string>('Untitled collection');
 
 export const controlKeyIsPressed = writable<Boolean>(false);
 
-export const newLink = writable<string>('https://example.com');
+export const newLink = writable<string>('');
 
 export let currentFolder = writable<string>('');
 
@@ -107,3 +107,9 @@ export const invalid_password = writable<boolean>(false);
 export const email_exists = writable<boolean>(false);
 
 export const createMode = writable<boolean>(false);
+
+// drag and drop stores
+export const draggedFolder = writable<Partial<Folder>>({});
+
+export const draggedLink = writable<Partial<Link>>({});
+// end of drap and drop stores

@@ -10,7 +10,7 @@
 	<div class="wrapper" on:click|preventDefault|stopPropagation={SwitchOffCreateMode} on:keyup>
 		<div class="card" on:keydown|stopPropagation={stop_propagation}>
 			<div class="top">
-				<span>What do you want to do?</span>
+				<span>Add link or create collection.</span>
 				<i
 					class="las la-times"
 					on:click|preventDefault|stopPropagation={SwitchOffCreateMode}
@@ -18,6 +18,10 @@
 				/>
 			</div>
 			<div class="choices">
+				<div class="link" on:click|preventDefault|stopPropagation={showAddLinkForm} on:keyup>
+					<i class="las la-link" />
+					<span>Add link</span>
+				</div>
 				<div
 					class="collection"
 					on:click|preventDefault|stopPropagation={showCreateFolderForm}
@@ -25,10 +29,6 @@
 				>
 					<i class="las la-folder-open" />
 					<span>Create collection</span>
-				</div>
-				<div class="link" on:click|preventDefault|stopPropagation={showAddLinkForm} on:keyup>
-					<i class="las la-link" />
-					<span>Add link</span>
 				</div>
 			</div>
 		</div>

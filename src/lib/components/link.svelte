@@ -10,6 +10,7 @@
 	import { showContextMenu } from '$lib/utils/showContextMenu';
 	import { stop_propagation } from 'svelte/internal';
 	import { hideContextMenu } from '$lib/utils/hideContextMenu';
+	import { dragLink } from './dragLink';
 
 	export let link: Partial<Link>;
 
@@ -147,11 +148,13 @@
 	data-linktitle={link.link_title}
 	data-accountid={link.account_id}
 	data-folderid={link.folder_id?.String}
-	data-link_url={link.link_url}
+	data-linkurl={link.link_url}
 	on:contextmenu|preventDefault|stopPropagation={handleLinkContextMenu}
 	on:click|preventDefault|stopPropagation={handleClickOnLink}
 	on:keyup
 	class:link-selected={$selectedLinks.map((li) => li.link_id).includes(link.link_id)}
+	draggable="true"
+	on:drag={dragLink}
 >
 	<div class="top">
 		<div class="img-container">

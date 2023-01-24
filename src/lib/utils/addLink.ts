@@ -81,7 +81,7 @@ export async function addLink(url: string, folderID: string) {
 			links.set([...myLinks, link]);
 		}
 
-		newLink.set('https://example.com');
+		newLink.set('');
 
 		const unsubscribe = page.subscribe((values) => {
 			path = values.url.pathname;

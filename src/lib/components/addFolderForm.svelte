@@ -206,12 +206,8 @@
 						}
 					}
 
-					&:hover {
-						outline-color: $secondary-blue;
-					}
-
 					&:focus-within {
-						outline-color: $secondary-blue;
+						outline-color: $yellow;
 					}
 				}
 

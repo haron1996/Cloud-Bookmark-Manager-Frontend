@@ -129,7 +129,7 @@
 					}
 
 					&:focus {
-						outline-color: $blue;
+						outline-color: $yellow;
 					}
 				}
 			}

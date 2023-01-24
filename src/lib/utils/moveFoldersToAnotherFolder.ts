@@ -50,23 +50,11 @@ async function moveFoldersToAnotherFolder(folderz: Partial<Folder>[], folderID: 
 		} else {
 			folders.update((values) => [...values, element]);
 		}
-
-		//folders.update((values) => values.filter((val) => val.folder_id !== element.folder_id));
 	}
 
 	resetFoldersCut();
 
 	hideMoveItemsPopup();
-
-	// const unsub = contextMenuTargetElement.subscribe((value) => {
-	// 	if (value) {
-	// 		if (value.dataset.folderid) {
-	// 			goto(`http://localhost:5173/appv1/my_links/${value.dataset.folderid}`);
-	// 		}
-	// 	}
-	// });
-
-	// unsub();
 
 	const unsubscribe = page.subscribe((value) => {
 		origin = value.url.origin;

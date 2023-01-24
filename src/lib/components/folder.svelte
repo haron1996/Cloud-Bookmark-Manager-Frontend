@@ -3,13 +3,15 @@
 	import { controlKeyIsPressed, selectedLinks } from './../../stores/stores';
 	import { selectedFolders } from './../../stores/stores';
 	import type { Folder } from '$lib/types/folder';
-	import { stop_propagation } from 'svelte/internal';
+	import { prevent_default, stop_propagation } from 'svelte/internal';
 	import { showContextMenu } from '$lib/utils/showContextMenu';
 	import { hideContextMenu } from '$lib/utils/hideContextMenu';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import interact from 'interactjs';
 	import { parse } from 'cookie';
+	import { dragFolder } from '$lib/utils/dragFolder';
+	import { ListenToDrop } from '$lib/utils/listenToDrop';
 
 	export let folder: Partial<Folder>;
 
@@ -132,6 +134,7 @@
 
 <div
 	class="folder"
+	draggable="true"
 	class:folder_cut={$foldersCut.map((f) => f.folder_id).includes(folder.folder_id)}
 	data-folderid={folder.folder_id}
 	data-foldername={folder.folder_name}
@@ -143,6 +146,9 @@
 	on:click|preventDefault|stopPropagation={handleFolderClick}
 	on:keyup
 	on:contextmenu|preventDefault|stopPropagation={handleFolderContextMenu}
+	on:dragstart={dragFolder}
+	on:dragover|preventDefault={prevent_default}
+	on:drop|preventDefault={ListenToDrop}
 >
 	<div class="top">
 		<div class="icon">

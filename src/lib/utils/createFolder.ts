@@ -70,7 +70,7 @@ export async function CreateFolder(folder_name: string, parent_folder_id: string
 
 		lastCreatedFolder.set(folder);
 
-		folderName.set('Untitled Folder');
+		folderName.set('Untitled collection');
 
 		const unsubscribe = page.subscribe((values) => {
 			path = values.url.pathname;

@@ -64,6 +64,7 @@
 	//import { checkIfUserIsLoggedIn } from '$lib/utils/checkIfUserIsLoggedIn';
 	import New from '$lib/components/new.svelte';
 	import { SwitchOnCreateMode } from '$lib/utils/switchOnCreateMode';
+	import Menubar from '$lib/components/menubar.svelte';
 
 	let el: HTMLElement;
 
@@ -211,6 +212,8 @@
 
 <SearchResults />
 
+<Menubar />
+
 <!-- {#if !$userIsLoggedin}
 	<SignIn />
 {/if} -->
@@ -252,9 +255,9 @@
 				{#if $page.url.pathname}
 					<div class="no_items_container">
 						{#if $page.url.pathname === '/appv1/my_links/recycle_bin'}
-							<span>No items in trash</span>
+							<span>No thing found</span>
 						{:else}
-							<div
+							<!-- <div
 								class="button"
 								id="addLinkOrCreateFolderBtn"
 								on:click|preventDefault|stopPropagation={SwitchOnCreateMode}
@@ -262,7 +265,8 @@
 							>
 								<span>New</span>
 								<i class="las la-plus" />
-							</div>
+							</div> -->
+							<span>Nothing found</span>
 						{/if}
 					</div>
 				{/if}
@@ -285,11 +289,11 @@
 			left: 0;
 			width: 100%;
 			height: 100%;
-			max-height: calc(100vh - 14vh);
+			max-height: calc(100% - 3.5rem);
 			padding: 1em;
 			display: flex;
 			gap: 1.5em;
-			overflow-y: auto;
+			overflow: auto;
 			flex-wrap: wrap;
 			align-content: flex-start;
 
@@ -306,29 +310,29 @@
 					color: $text-color-regular-2;
 				}
 
-				.button {
-					height: 3.5rem;
-					width: 9rem;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					gap: 1em;
-					background-color: $blue;
-					cursor: pointer;
-					border-radius: 0.3rem;
+				// .button {
+				// 	height: 3.5rem;
+				// 	width: 9rem;
+				// 	display: flex;
+				// 	align-items: center;
+				// 	justify-content: center;
+				// 	gap: 1em;
+				// 	background-color: $blue;
+				// 	cursor: pointer;
+				// 	border-radius: 0.3rem;
 
-					span {
-						font-family: 'Arial CE', sans-serif;
-						color: white;
-						font-size: 1.3rem;
-					}
+				// 	span {
+				// 		font-family: 'Arial CE', sans-serif;
+				// 		color: white;
+				// 		font-size: 1.3rem;
+				// 	}
 
-					i {
-						font-size: 1.5rem;
-						background-color: white;
-						border-radius: 100vh;
-					}
-				}
+				// 	i {
+				// 		font-size: 1.5rem;
+				// 		background-color: white;
+				// 		border-radius: 100vh;
+				// 	}
+				// }
 			}
 		}
 	}

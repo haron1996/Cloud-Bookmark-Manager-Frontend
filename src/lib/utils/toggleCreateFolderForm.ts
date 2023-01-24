@@ -23,7 +23,7 @@ export function showCreateFolderForm() {
 
 	createFolderMode.set(currentCreateFolderMode);
 
-	folderName.set('Untitled folder');
+	folderName.set('Untitled collection');
 
 	setTimeout(() => {
 		highlightInitialInputContent('create-folder-input');
