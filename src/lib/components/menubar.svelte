@@ -15,7 +15,8 @@
 			<span>Report bug</span>
 		</div>
 		<div class="suggest_feature">
-			<i class="las la-lightbulb" />
+			<!-- <i class="las la-lightbulb" /> -->
+			<i class="las la-bolt" />
 			<span>Suggest feature</span>
 		</div>
 		<div class="contact_support">

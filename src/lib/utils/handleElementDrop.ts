@@ -3,6 +3,7 @@ import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
 import { moveFolders } from './moveFoldersToAnotherFolder';
 import { moveLinks } from './moveLinks';
+import { getDomFolders } from './getDomFolders';
 
 let el: HTMLElement;
 let f: Partial<Folder> = {};
@@ -12,6 +13,8 @@ let folderID: string = '';
 let foldersToMove: Partial<Folder>[] = [];
 
 let linksToMove: Partial<Link>[] = [];
+
+let currentDomFolders: NodeListOf<HTMLDivElement>;
 
 export async function ListenToDrop(e: DragEvent) {
 	selectedFolders.set([]);
@@ -39,7 +42,9 @@ export async function ListenToDrop(e: DragEvent) {
 	}
 
 	if (f.folder_id && l.link_id === undefined) {
-		await moveFolders([...foldersToMove, f], folderID);
+		if (f.folder_id !== folderID) {
+			await moveFolders([...foldersToMove, f], folderID);
+		}
 	} else if (l.link_id && f.folder_id === undefined) {
 		moveLinks([...linksToMove, l], folderID);
 	}
@@ -47,4 +52,12 @@ export async function ListenToDrop(e: DragEvent) {
 	draggedFolder.set({});
 
 	draggedLink.set({});
+
+	currentDomFolders = getDomFolders();
+
+	currentDomFolders.forEach((cdf) => {
+		cdf.classList.remove('folder_drag_over');
+
+		cdf.classList.remove('dragged_folder');
+	});
 }

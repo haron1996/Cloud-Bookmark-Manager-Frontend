@@ -1,7 +1,10 @@
 <script lang="ts">
-	import { foldersCut } from './../../stores/stores';
-	import { controlKeyIsPressed, selectedLinks } from './../../stores/stores';
-	import { selectedFolders } from './../../stores/stores';
+	import {
+		foldersCut,
+		controlKeyIsPressed,
+		selectedLinks,
+		selectedFolders
+	} from './../../stores/stores';
 	import type { Folder } from '$lib/types/folder';
 	import { prevent_default, stop_propagation } from 'svelte/internal';
 	import { showContextMenu } from '$lib/utils/showContextMenu';
@@ -11,7 +14,9 @@
 	import interact from 'interactjs';
 	import { parse } from 'cookie';
 	import { dragFolder } from '$lib/utils/dragFolder';
-	import { ListenToDrop } from '$lib/utils/listenToDrop';
+	import { ListenToDrop } from '$lib/utils/handleElementDrop';
+	import { FolderDragOver } from '$lib/utils/handleFolderDragOver';
+	import { FolderDragLeave } from '$lib/utils/handleFolderDragLeave';
 
 	export let folder: Partial<Folder>;
 
@@ -147,7 +152,8 @@
 	on:keyup
 	on:contextmenu|preventDefault|stopPropagation={handleFolderContextMenu}
 	on:dragstart={dragFolder}
-	on:dragover|preventDefault={prevent_default}
+	on:dragover|preventDefault={FolderDragOver}
+	on:dragleave={FolderDragLeave}
 	on:drop|preventDefault={ListenToDrop}
 >
 	<div class="top">
@@ -403,5 +409,13 @@
 		&:hover {
 			box-shadow: none !important;
 		}
+	}
+
+	:global(.dragged_folder) {
+		opacity: 0.4 !important;
+	}
+
+	:global(.folder_drag_over) {
+		border: 0.2rem dashed $blue !important;
 	}
 </style>

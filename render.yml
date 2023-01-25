@@ -1,6 +1,7 @@
 services:
   type: web
-  name: sveltekit
-  env: node
+  name: sveltekit-static
+  env: static
   buildCommand: npm install && npm run build
-  startCommand: node build/index.js
+  staticPublishPath: build
+  autoDeploy: false
