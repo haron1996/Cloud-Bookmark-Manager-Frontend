@@ -5,4 +5,4 @@ services:
     buildCommand: npm install && npm run build
     staticPublishPath: build
     autoDeploy: false
-    startCommand: build/index.js
+    startCommand: node build/index.js
