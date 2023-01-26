@@ -147,14 +147,14 @@
 			.cta {
 				display: flex;
 				flex-direction: column;
-				min-width: 50%;
+				width: 100vw;
 				display: flex;
 				align-items: center;
 				gap: 2em;
 
 				a.sign_up {
 					text-decoration: none;
-					min-width: 40%;
+					width: 40rem;
 					height: 5rem;
 					display: flex;
 					align-items: center;
