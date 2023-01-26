@@ -113,21 +113,20 @@
 		align-items: center;
 
 		.above_the_fold {
-			//background-color: yellow;
 			min-height: max-content;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			flex-direction: column;
 			gap: 2em;
-			padding: 2em 0;
+			padding: 5em 0;
 
 			.heading_and_subheading {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				text-align: center;
-				gap: 1em;
+				gap: 1.5em;
 
 				h1 {
 					font-size: 3rem;
@@ -151,7 +150,7 @@
 				min-width: 50%;
 				display: flex;
 				align-items: center;
-				gap: 1.5em;
+				gap: 2em;
 
 				a.sign_up {
 					text-decoration: none;
@@ -233,7 +232,7 @@
 			}
 
 			// large mobile screens
-			@media only screen and (min-width: 376px) and (max-width: 425px) {
+			@media only screen and (min-width: 376px) and (max-width: 568px) {
 				.heading_and_subheading {
 					p {
 						font-size: 2rem;
@@ -242,7 +241,7 @@
 
 				.cta {
 					padding: 1em 0.5em;
-					width: 100%;
+					width: 100vw;
 					align-items: center;
 
 					a.sign_up {
@@ -253,6 +252,37 @@
 						div {
 							flex-direction: column;
 							text-align: center;
+
+							i {
+								font-size: 2rem;
+							}
+						}
+					}
+				}
+			}
+
+			// table screens
+			@media only screen and (min-width: 569px) and (max-width: 768px) {
+				.heading_and_subheading {
+					p {
+						font-size: 2rem;
+					}
+				}
+
+				.cta {
+					padding: 1em 0.5em;
+					width: 100vw;
+					align-items: center;
+
+					a.sign_up {
+						width: 70%;
+					}
+
+					.benefits {
+						min-width: max-content;
+
+						div {
+							flex-direction: row;
 
 							i {
 								font-size: 2rem;
@@ -292,7 +322,14 @@
 		}
 
 		// large mobile screens
-		@media only screen and (min-width: 376px) and (max-width: 425px) {
+		@media only screen and (min-width: 376px) and (max-width: 568px) {
+			.screenshot_container {
+				width: 98%;
+			}
+		}
+
+		// tablet screens
+		@media only screen and (min-width: 569px) and (max-width: 768px) {
 			.screenshot_container {
 				width: 98%;
 			}
@@ -417,7 +454,22 @@
 		}
 
 		// medium mobile screens
-		@media only screen and (min-width: 376px) and (max-width: 425px) {
+		@media only screen and (min-width: 376px) and (max-width: 568px) {
+			width: 100%;
+
+			.bullets {
+				width: 99%;
+			}
+
+			.button {
+				a {
+					width: 98%;
+				}
+			}
+		}
+
+		// tablet screens
+		@media only screen and (min-width: 569px) and (max-width: 768px) {
 			width: 100%;
 
 			.bullets {
