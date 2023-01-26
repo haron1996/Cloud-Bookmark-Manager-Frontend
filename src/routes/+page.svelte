@@ -15,7 +15,7 @@
 	<div class="above_the_fold">
 		<div class="heading_and_subheading">
 			<h1>Free online standalone bookmark manager.</h1>
-			<p>Save your most important links. Online. In one place.</p>
+			<p>Save your links online.</p>
 		</div>
 		<div class="cta">
 			<a href="/accounts/email" class="sign_up">
@@ -110,26 +110,24 @@
 		display: flex;
 		flex-direction: column;
 		background-color: #e3f6ff;
-		padding-bottom: 2em;
 		align-items: center;
-		//justify-content: center;
-		gap: 2em;
 
 		.above_the_fold {
 			//background-color: yellow;
-			min-height: 50%;
+			min-height: max-content;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			flex-direction: column;
-			gap: 2.5em;
+			gap: 2em;
+			padding: 2em 0;
 
 			.heading_and_subheading {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				text-align: center;
-				gap: 1.5em;
+				gap: 1em;
 
 				h1 {
 					font-size: 3rem;
@@ -150,7 +148,6 @@
 			.cta {
 				display: flex;
 				flex-direction: column;
-				//background-color: yellow;
 				min-width: 50%;
 				display: flex;
 				align-items: center;
@@ -204,12 +201,72 @@
 					}
 				}
 			}
+
+			// small to medium mobile screens
+			@media only screen and (max-width: 375px) {
+				.heading_and_subheading {
+					p {
+						font-size: 2rem;
+					}
+				}
+
+				.cta {
+					padding: 1em 0.5em;
+					width: 100%;
+					align-items: center;
+
+					a.sign_up {
+						width: 100%;
+					}
+
+					.benefits {
+						div {
+							flex-direction: column;
+							text-align: center;
+
+							i {
+								font-size: 2rem;
+							}
+						}
+					}
+				}
+			}
+
+			// large mobile screens
+			@media only screen and (min-width: 376px) and (max-width: 425px) {
+				.heading_and_subheading {
+					p {
+						font-size: 2rem;
+					}
+				}
+
+				.cta {
+					padding: 1em 0.5em;
+					width: 100%;
+					align-items: center;
+
+					a.sign_up {
+						width: 100%;
+					}
+
+					.benefits {
+						div {
+							flex-direction: column;
+							text-align: center;
+
+							i {
+								font-size: 2rem;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
 	.screenshot {
 		width: 100vw;
-		height: auto;
+		min-height: max-content;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -226,22 +283,33 @@
 				box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 			}
 		}
+
+		// small to medium mobile screens
+		@media only screen and (max-width: 375px) {
+			.screenshot_container {
+				width: 98%;
+			}
+		}
+
+		// large mobile screens
+		@media only screen and (min-width: 376px) and (max-width: 425px) {
+			.screenshot_container {
+				width: 98%;
+			}
+		}
 	}
 
 	.features {
-		min-height: 80vh;
+		min-height: max-content;
 		width: 90%;
 		border-radius: 0.6rem;
 		display: flex;
 		flex-direction: column;
 		text-align: center;
-		//border: 0.2rem dashed $green;
 		align-items: center;
 		justify-content: center;
-		margin-top: 3em;
 		gap: 3em;
 		padding: 1em 0;
-		//background-color: rgb(255, 255, 255);
 
 		.heading {
 			flex: 1;
@@ -249,12 +317,10 @@
 			flex-direction: column;
 			align-items: center;
 			gap: 0.5em;
-			//background-color: chocolate;
 			width: 100%;
 
 			h2 {
 				font-size: 2.5rem;
-				line-height: 1.6;
 				color: #2b3a55;
 				font-family: 'Product Sans Medium', sans-serif;
 				font-weight: 600;
@@ -273,7 +339,6 @@
 			flex: 2;
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
-			//background-color: yellow;
 			align-items: center;
 			align-content: center;
 			gap: 2em;
@@ -281,7 +346,6 @@
 			div {
 				display: flex;
 				flex-direction: column;
-				//background-color: lightgreen;
 				align-items: center;
 				gap: 1em;
 
@@ -297,7 +361,6 @@
 				}
 
 				p {
-					//max-width: 75%;
 					font-family: 'Arial CE', sans-serif;
 					font-weight: 500;
 					font-size: 1.4rem;
@@ -307,7 +370,6 @@
 		}
 
 		.button {
-			//background-color: bisque;
 			flex: 1;
 			width: 100%;
 			display: flex;
@@ -338,16 +400,48 @@
 				}
 			}
 		}
+
+		// small to medium mobile screens
+		@media only screen and (max-width: 375px) {
+			width: 100%;
+
+			.bullets {
+				width: 100%;
+			}
+
+			.button {
+				a {
+					width: 98%;
+				}
+			}
+		}
+
+		// medium mobile screens
+		@media only screen and (min-width: 376px) and (max-width: 425px) {
+			width: 100%;
+
+			.bullets {
+				width: 99%;
+			}
+
+			.button {
+				a {
+					width: 98%;
+				}
+			}
+		}
 	}
 
 	.footer {
-		min-height: 5vh;
+		min-height: max-content;
 		width: 100vw;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		gap: 1em;
+		background-color: rgb(0, 95, 153);
+		padding: 2em 0;
 
 		.footer_links {
 			display: flex;
@@ -355,11 +449,30 @@
 			gap: 1em;
 		}
 
+		a {
+			text-decoration: none;
+
+			span {
+				font-size: 1.3rem;
+				font-family: 'Arial CE', sans-serif;
+				font-weight: 500;
+				color: white;
+			}
+
+			&:hover {
+				text-decoration: underline;
+				text-decoration-color: white;
+			}
+		}
+
 		span {
 			font-size: 1.3rem;
 			font-family: 'Arial CE', sans-serif;
 			font-weight: 500;
-			color: $text-color-medium;
+			color: white;
+		}
+		@media only screen and (max-width: 375px) {
+			//background-color: orangered;
 		}
 	}
 </style>

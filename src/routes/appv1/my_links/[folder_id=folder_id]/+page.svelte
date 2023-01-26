@@ -66,7 +66,7 @@
 	<title
 		>{$openedFolder.folder_name === undefined
 			? 'Loading...'
-			: `${$openedFolder.folder_name} - Nested`}</title
+			: `${$openedFolder.folder_name} - BookmarkBucket`}</title
 	>
 </svelte:head>
 

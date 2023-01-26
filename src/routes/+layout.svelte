@@ -81,10 +81,9 @@
 			position: fixed;
 			top: 4.5rem;
 			left: 0;
-			height: calc(100vh - 7vh);
-			max-height: calc(100vh - 7vh);
+			height: calc(100% - 3.5rem);
+			max-height: calc(100% - 3.5rem);
 			width: 100vw;
-			//background-color: orange;
 		}
 	}
 

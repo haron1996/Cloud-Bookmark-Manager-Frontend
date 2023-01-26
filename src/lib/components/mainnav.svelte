@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { afterNavigate, goto } from '$app/navigation';
 	import Googlebutton from './googlebutton.svelte';
-	import Logo from '$lib/images/flavicon.png';
+	import Logo from '$lib/images/logo.png';
 	import { page } from '$app/stores';
 
 	async function goToSignIn() {
@@ -59,7 +59,7 @@
 				gap: 0.3em;
 				font-family: 'Product Sans Black', sans-serif;
 				cursor: pointer;
-				margin-left: 2em;
+				margin-left: 1em;
 				height: 3.5rem;
 				width: 3.5rem;
 
@@ -102,11 +102,10 @@
 			}
 
 			a.sign_in {
-				border: 0.1rem solid $green;
-				background-color: $green;
+				background-color: $yellow;
 
 				span {
-					color: white;
+					color: rgb(0, 95, 153);
 				}
 			}
 

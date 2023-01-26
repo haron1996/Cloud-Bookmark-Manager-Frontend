@@ -32,7 +32,7 @@
 </script>
 
 <svelte:head>
-	<title>My links - Nested</title>
+	<title>My links - BookmarkBucket</title>
 </svelte:head>
 
 <Breadcrumb rootFolderName={'My links'} />
