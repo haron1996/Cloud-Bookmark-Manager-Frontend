@@ -111,6 +111,7 @@
 		flex-direction: column;
 		background-color: #e3f6ff;
 		align-items: center;
+		gap: 3em;
 
 		.above_the_fold {
 			min-height: max-content;

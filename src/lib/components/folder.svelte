@@ -365,6 +365,7 @@
 	}
 
 	.folder_cut {
+		border-width: 0.2rem;
 		border-style: dashed;
 		opacity: 0.5;
 		pointer-events: none;

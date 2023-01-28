@@ -81,8 +81,8 @@
 			position: fixed;
 			top: 4.5rem;
 			left: 0;
-			height: calc(100% - 3.5rem);
-			max-height: calc(100% - 3.5rem);
+			height: calc(100% - 4.5rem);
+			max-height: calc(100% - 4.5rem);
 			width: 100vw;
 		}
 	}

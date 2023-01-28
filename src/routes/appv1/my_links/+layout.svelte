@@ -285,11 +285,11 @@
 
 		.links {
 			position: absolute;
-			top: 3.5rem;
+			top: 4.5rem;
 			left: 0;
 			width: 100%;
 			height: 100%;
-			max-height: calc(100% - 3.5rem);
+			max-height: calc(100% - 4.5rem);
 			padding: 1em;
 			display: flex;
 			gap: 1.5em;
