@@ -1,6 +1,6 @@
 {
 	"engines": {
-		"node": "18.0.0"
+		"node": "18.12.1"
 	},
 	"name": "my-app",
 	"version": "0.0.1",
