@@ -4,7 +4,7 @@ import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
 import type { newUser } from '$lib/types/newUser';
 
-export const apiURL = readable<string>('http://api.bookmarkbucket.com');
+export const apiURL = readable<string>('https://api.bookmarkbucket.com');
 
 export const accessToken = writable<string>('');
 
