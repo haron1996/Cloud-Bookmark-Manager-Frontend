@@ -1,6 +1,7 @@
 import { getSession } from './getSession';
 import type { Folder } from '$lib/types/folder';
 import {
+	apiURL,
 	createFolderMode,
 	folderName,
 	folders,
@@ -18,6 +19,8 @@ let myFolders: Folder[] = [];
 let folderID: string = '';
 
 let path: string;
+
+let baseUrl: string;
 
 export async function CreateFolder(folder_name: string, parent_folder_id: string) {
 	loading.set(true);
@@ -37,7 +40,13 @@ export async function CreateFolder(folder_name: string, parent_folder_id: string
 
 	createFolderMode.set(false);
 
-	const response = await fetch('http://localhost:5000/private/folder/create', {
+	const unsub = apiURL.subscribe((value) => {
+		baseUrl = value;
+	});
+
+	unsub();
+
+	const response = await fetch(`${baseUrl}/private/folder/create`, {
 		method: 'POST', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
