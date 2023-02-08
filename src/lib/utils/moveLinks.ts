@@ -1,6 +1,6 @@
 import type { Link } from '$lib/types/link';
 import { getSession } from './getSession';
-import { links } from '../../stores/stores';
+import { apiURL, links } from '../../stores/stores';
 import { page } from '$app/stores';
 import { hideMoveItemsPopup } from './hideMoveItemsPopup';
 import { goto } from '$app/navigation';
@@ -10,9 +10,16 @@ import { get } from 'svelte/store';
 // let currentPath: string;
 
 let myLinks: Partial<Link>[] = [];
+let baseUrl: string;
 
 export async function moveLinks(linkss: Partial<Link>[], folderID: string) {
-	const response = await fetch('http://localhost:5000/private/link/move', {
+	const unsub = apiURL.subscribe((value) => {
+		baseUrl = value;
+	});
+
+	unsub();
+
+	const response = await fetch(`${baseUrl}/private/link/move`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

@@ -1,11 +1,24 @@
 import { Session } from '$lib/types/session';
-import { accessToken, session, showCheckMarkLottie, showOtpModal } from '../../stores/stores';
+import {
+	accessToken,
+	session,
+	showCheckMarkLottie,
+	showOtpModal,
+	apiURL
+} from '../../stores/stores';
 import { MakeCheckMarkLotieVisible } from './showCheckMarkLottie';
 
 let s: Session;
+let baseUrl: string;
 
 export const VerifyOTP = async (otp: string, s: Session) => {
-	const response = await fetch('http://localhost:5000/public/verifyOTP', {
+	const unsubscribe = apiURL.subscribe((value) => {
+		baseUrl = value;
+	});
+
+	unsubscribe();
+
+	const response = await fetch(`${baseUrl}/public/verifyOTP`, {
 		method: 'POST', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

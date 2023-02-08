@@ -1,28 +1,33 @@
 import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
-import { foldersFound, linksFound } from '../../stores/stores';
+import { apiURL, foldersFound, linksFound } from '../../stores/stores';
 import { getSession } from './getSession';
 
 let l: Partial<Link>[] = [];
 
 let f: Partial<Folder>[] = [];
 
+let baseUrl: string;
+
 export async function searchLinksAndFolders(searchPhrase: string) {
-	const searchLinksPromise = await fetch(
-		`http://localhost:5000/private/link/searchLinks/${searchPhrase}`,
-		{
-			method: 'GET',
-			mode: 'cors',
-			credentials: 'include',
-			headers: {
-				'Content-Type': 'application/json',
-				authorization: `Bearer${JSON.parse(getSession()).access_token}`
-			}
+	const getBaseUrl = apiURL.subscribe((value) => {
+		baseUrl = value;
+	});
+
+	getBaseUrl();
+
+	const searchLinksPromise = await fetch(`${baseUrl}/private/link/searchLinks/${searchPhrase}`, {
+		method: 'GET',
+		mode: 'cors',
+		credentials: 'include',
+		headers: {
+			'Content-Type': 'application/json',
+			authorization: `Bearer${JSON.parse(getSession()).access_token}`
 		}
-	);
+	});
 
 	const searchFoldersPromise = await fetch(
-		`http://localhost:5000/private/folder/searchFolders/${searchPhrase}`,
+		`${baseUrl}/private/folder/searchFolders/${searchPhrase}`,
 		{
 			method: 'GET',
 			mode: 'cors',

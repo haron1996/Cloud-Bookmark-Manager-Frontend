@@ -1,15 +1,22 @@
 import { getSession } from './getSession';
 import type { Folder } from '$lib/types/folder';
-import { folders } from '../../stores/stores';
+import { apiURL, folders } from '../../stores/stores';
 import { hideContextMenu } from './hideContextMenu';
 import { removeItemsSelected } from './removeItemsSelected';
 
 let fs: Partial<Folder>[] = [];
+let baseUrl: string;
 
 export async function restoreFoldersFromTrash(f: Partial<Folder>[]) {
 	if (f === null) return;
 
-	const response = await fetch('http://localhost:5000/private/folder/restoreFoldersFromTrash', {
+	const getBaseUrl = apiURL.subscribe((value) => {
+		baseUrl = value;
+	});
+
+	getBaseUrl();
+
+	const response = await fetch(`${baseUrl}/private/folder/restoreFoldersFromTrash`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

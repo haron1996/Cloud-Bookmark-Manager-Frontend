@@ -1,6 +1,6 @@
 import type { Folder } from '$lib/types/folder';
 import { getSession } from './getSession';
-import { contextMenuTargetElement, folders } from '../../stores/stores';
+import { apiURL, contextMenuTargetElement, folders } from '../../stores/stores';
 import { hideMoveItemsPopup } from './hideMoveItemsPopup';
 import { resetFoldersCut } from './resetFoldersCut';
 import { get } from 'svelte/store';
@@ -11,6 +11,8 @@ let myFolders: Partial<Folder>[] = [];
 
 let origin: string = '';
 
+let baseUrl: string;
+
 export async function moveFolders(folders: Partial<Folder>[], folderID: string | undefined) {
 	if (folderID !== undefined) {
 		await moveFoldersToAnotherFolder(folders, folderID);
@@ -20,7 +22,13 @@ export async function moveFolders(folders: Partial<Folder>[], folderID: string |
 }
 
 async function moveFoldersToAnotherFolder(folderz: Partial<Folder>[], folderID: string) {
-	const response = await fetch('http://localhost:5000/private/folder/moveFolders', {
+	const unsub = apiURL.subscribe((value) => {
+		baseUrl = value;
+	});
+
+	unsub();
+
+	const response = await fetch(`${baseUrl}/private/folder/moveFolders`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

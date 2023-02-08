@@ -3,7 +3,7 @@ import { page } from '$app/stores';
 import { Session } from '$lib/types/session';
 import { apiURL, session } from '../../stores/stores';
 
-let baseURL: string = '';
+let baseURL: string;
 let origin: string;
 
 export const RefreshToken = async (s: Partial<Session>) => {
@@ -13,7 +13,13 @@ export const RefreshToken = async (s: Partial<Session>) => {
 
 	unsub();
 
-	const response = await fetch('http://localhost:5000/public/refreshToken', {
+	const getBaseUrl = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	getBaseUrl();
+
+	const response = await fetch(`${baseURL}/public/refreshToken`, {
 		method: 'POST', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

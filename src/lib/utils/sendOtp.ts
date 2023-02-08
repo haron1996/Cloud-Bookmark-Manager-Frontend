@@ -1,8 +1,16 @@
-import { showOtpModal } from '../../stores/stores';
+import { apiURL, showOtpModal } from '../../stores/stores';
 import { Session } from '$lib/types/session';
 
+let baseUrl: string;
+
 export const sendOTP = async (s: Session) => {
-	const response = await fetch('http://localhost:5000/public/sendOTP', {
+	const unsubscribe = apiURL.subscribe((value) => {
+		baseUrl = value;
+	});
+
+	unsubscribe();
+
+	const response = await fetch(`${baseUrl}/public/sendOTP`, {
 		method: 'POST', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

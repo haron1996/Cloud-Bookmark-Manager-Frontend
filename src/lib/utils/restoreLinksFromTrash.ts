@@ -1,14 +1,21 @@
 import { getSession } from './getSession';
 import type { Link } from '$lib/types/link';
-import { links } from '../../stores/stores';
+import { apiURL, links } from '../../stores/stores';
 import { hideContextMenu } from './hideContextMenu';
 
 let ls: Partial<Link>[] = [];
+let baseUrl: string;
 
 export async function restoreLinksFromTrash(l: Partial<Link>[]) {
 	if (l === null) return;
 
-	const response = await fetch('http://localhost:5000/private/link/restoreLinksFromTrash', {
+	const getBaseUrl = apiURL.subscribe((value) => {
+		baseUrl = value;
+	});
+
+	getBaseUrl();
+
+	const response = await fetch(`${baseUrl}/private/link/restoreLinksFromTrash`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

@@ -1,16 +1,23 @@
 import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
 import { getSession } from './getSession';
-import { folders } from '../../stores/stores';
+import { apiURL, folders } from '../../stores/stores';
 import { links } from '../../stores/stores';
 import { hideContextMenu } from './hideContextMenu';
 import { removeItemsSelected } from './removeItemsSelected';
 
 let fs: Partial<Folder>[] = [];
 let ls: Partial<Link>[] = [];
+let baseUrl: string;
 
 export async function restoreLinksAndFoldersFromTrash(f: Partial<Folder>[], l: Partial<Link>[]) {
-	const fresponse = await fetch('http://localhost:5000/private/folder/restoreFoldersFromTrash', {
+	const getBaseUrl = apiURL.subscribe((value) => {
+		baseUrl = value;
+	});
+
+	getBaseUrl();
+
+	const fresponse = await fetch(`${baseUrl}/private/folder/restoreFoldersFromTrash`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -27,7 +34,7 @@ export async function restoreLinksAndFoldersFromTrash(f: Partial<Folder>[], l: P
 		}) // body data type must match "Content-Type" header
 	});
 
-	const lresponse = await fetch('http://localhost:5000/private/link/restoreLinksFromTrash', {
+	const lresponse = await fetch(`${baseUrl}/private/link/restoreLinksFromTrash`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
