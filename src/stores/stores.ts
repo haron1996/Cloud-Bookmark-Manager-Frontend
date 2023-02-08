@@ -113,3 +113,7 @@ export const draggedFolder = writable<Partial<Folder>>({});
 
 export const draggedLink = writable<Partial<Link>>({});
 // end of drap and drop stores
+
+export const showOtpModal = writable<boolean>(false);
+
+export const showCheckMarkLottie = writable<boolean>(false);

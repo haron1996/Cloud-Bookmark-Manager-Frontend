@@ -1,15 +1,19 @@
 <script lang="ts">
 	import { afterNavigate, goto } from '$app/navigation';
 	import { clearURLPath } from '$lib/utils/clearURLPath';
+	import { MakeCheckMarkLotieVisible } from '$lib/utils/showCheckMarkLottie';
 
 	let origin: string = '';
 
 	afterNavigate(() => {
 		setTimeout(() => {
-			origin = clearURLPath();
-			//goto('http://localhost:5173/appv1/my_links');
-			window.location.href = `${origin}/appv1/my_links`;
+			MakeCheckMarkLotieVisible();
 		}, 3000);
+
+		setTimeout(() => {
+			origin = clearURLPath();
+			window.location.href = `${origin}/appv1/my_links`;
+		}, 5000);
 	});
 </script>
 

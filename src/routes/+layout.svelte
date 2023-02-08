@@ -10,6 +10,8 @@
 	import Errors from '$lib/components/errors.svelte';
 	import { onMount } from 'svelte';
 	import { hideProfileMenu } from '$lib/utils/toggleProfileMenu';
+	import { afterNavigate } from '$app/navigation';
+	import Checkmark from '$lib/components/checkmark.svelte';
 
 	function handleBodyClick() {
 		hideProfileMenu();
@@ -48,6 +50,8 @@
 		href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
 	/>
 </svelte:head>
+
+<Checkmark />
 
 {#if $errors.length > 0}
 	<Errors />

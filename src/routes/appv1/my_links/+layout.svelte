@@ -7,6 +7,7 @@
 		linksFound,
 		linksToRenderInMoveItemsPopup,
 		openedFolder,
+		session,
 		userIsLoggedin
 	} from './../../../stores/stores';
 	import ActionsMenu from '$lib/components/actionsMenu.svelte';
@@ -65,6 +66,11 @@
 	import New from '$lib/components/new.svelte';
 	import { SwitchOnCreateMode } from '$lib/utils/switchOnCreateMode';
 	import Menubar from '$lib/components/menubar.svelte';
+	import VerifyEmailWarning from '$lib/components/verifyEmailWarning.svelte';
+	import OtpModal from '$lib/components/otpModal.svelte';
+	import { checkIfIsAuthenticated } from '$lib/utils/checkIfAccountIsAuthenticated';
+	import { checkIfUserIsLoggedIn } from '$lib/utils/checkIfUserIsLoggedIn';
+	import Checkmark from '$lib/components/checkmark.svelte';
 
 	let el: HTMLElement;
 
@@ -75,6 +81,10 @@
 	// }
 
 	afterNavigate(async () => {
+		await checkIfUserIsLoggedIn();
+
+		setSession();
+
 		checkIfUserHasAccessToken();
 
 		// hide profile popup
@@ -84,7 +94,7 @@
 
 		getAccountID();
 
-		//console.log(Navigation)
+		console.log($session.Account?.email_verified);
 	});
 
 	afterUpdate(() => {
@@ -130,6 +140,10 @@
 		} else {
 			currentFolder.set($page.params.folder_id);
 		}
+	}
+
+	function setSession() {
+		session.set(JSON.parse(getSession()));
 	}
 
 	function handleWindowKeyDown(e: KeyboardEvent) {
@@ -214,6 +228,8 @@
 
 <Menubar />
 
+<OtpModal />
+
 <!-- {#if !$userIsLoggedin}
 	<SignIn />
 {/if} -->
@@ -221,6 +237,10 @@
 <Contextmenu />
 
 <New />
+
+<VerifyEmailWarning />
+
+<Checkmark />
 
 <div class="container">
 	<ActionsMenu />

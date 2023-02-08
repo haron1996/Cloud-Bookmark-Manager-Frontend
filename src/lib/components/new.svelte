@@ -96,7 +96,6 @@
 
 				div {
 					flex: 1;
-					//border: 0.1rem solid $yellow;
 					height: 70%;
 					display: flex;
 					flex-direction: column;
@@ -121,10 +120,6 @@
 
 					&:hover {
 						box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-
-						// i {
-						// 	color: $blue;
-						// }
 					}
 				}
 

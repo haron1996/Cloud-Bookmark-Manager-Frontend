@@ -1,51 +1,43 @@
 import { goto } from '$app/navigation';
-import {
-	apiURL,
-	accessToken,
-	session,
-	invalid_email,
-	invalid_password,
-	showCheckMarkLottie
-} from '../../stores/stores';
-import type { Session } from '$lib/types/session';
-import { MakeCheckMarkLotieVisible } from './showCheckMarkLottie';
-
-let s: Partial<Session> = {};
+import { page } from '$app/stores';
+import { Session } from '$lib/types/session';
+import { apiURL, session } from '../../stores/stores';
 
 let baseURL: string = '';
+let origin: string;
 
-export async function SignIn(email: string, password: string) {
-	const unsub = apiURL.subscribe((value) => {
-		baseURL = value;
+export const RefreshToken = async (s: Partial<Session>) => {
+	const unsub = page.subscribe((value) => {
+		origin = value.url.origin;
 	});
 
 	unsub();
 
-	const response = await fetch(`${baseURL}/public/account/signin`, {
+	const response = await fetch('http://localhost:5000/public/refreshToken', {
 		method: 'POST', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
 		credentials: 'include', // include, *same-origin, omit
 		headers: {
 			'Content-Type': 'application/json'
-			// 'Content-Type': 'application/x-www-form-urlencoded',
 		},
 		redirect: 'follow', // manual, *follow, error
 		referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
 		body: JSON.stringify({
-			email: email,
-			password: password
+			refresh_token: s.refresh_token
 		}) // body data type must match "Content-Type" header
 	});
 
-	const promise = await response.json();
+	const data = await response.json();
 
-	if (promise.message) {
-		promise.message === 'invalid email' ? invalid_email.set(true) : invalid_password.set(true);
+	if (data.message) {
+		// handle this error
+		console.log(data.message);
+		goto(`${origin}/accounts/sign_in`);
 		return;
 	}
 
-	s = promise[0];
+	s = data[0];
 
 	if (s === null) return;
 
@@ -55,9 +47,11 @@ export async function SignIn(email: string, password: string) {
 
 	window.localStorage.setItem('session', JSON.stringify(s));
 
-	MakeCheckMarkLotieVisible();
+	const unsubscribe = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
 
-	setTimeout(() => {
-		window.location.href = '/appv1/my_links';
-	}, 3000);
-}
+	unsubscribe();
+
+	goto(`${origin}/appv1/my_links`);
+};

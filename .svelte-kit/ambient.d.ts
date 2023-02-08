@@ -46,6 +46,7 @@ declare module '$env/static/private' {
 	export const npm_config_local_prefix: string;
 	export const MAKEFLAGS: string;
 	export const DBUS_SESSION_BUS_ADDRESS: string;
+	export const IM_CONFIG_CHECK_ENV: string;
 	export const SYSTEMD_EXEC_PID: string;
 	export const npm_config_engine_strict: string;
 	export const COLORTERM: string;
@@ -159,6 +160,7 @@ declare module '$env/dynamic/private' {
 		npm_config_local_prefix: string;
 		MAKEFLAGS: string;
 		DBUS_SESSION_BUS_ADDRESS: string;
+		IM_CONFIG_CHECK_ENV: string;
 		SYSTEMD_EXEC_PID: string;
 		npm_config_engine_strict: string;
 		COLORTERM: string;

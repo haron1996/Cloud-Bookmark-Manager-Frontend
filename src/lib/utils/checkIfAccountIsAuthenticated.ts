@@ -37,7 +37,7 @@ export async function checkIfIsAuthenticated() {
 
 	const result = await response.json();
 
-	if (result.message) {
+	if (result.message !== 'user logged in') {
 		alert(result.message);
 		window.location.href = '/accounts/sign_in';
 		return;

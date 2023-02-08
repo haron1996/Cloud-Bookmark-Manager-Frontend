@@ -1,6 +1,9 @@
-import { apiURL } from '../../stores/stores';
+import { Session } from '$lib/types/session';
+import { apiURL, session } from '../../stores/stores';
+import { RefreshToken } from './resfreshToken';
 
 let baseURL: string = '';
+let ses: Partial<Session>;
 
 export async function checkIfUserIsLoggedIn() {
 	const s: string | null = window.localStorage.getItem('session');
@@ -38,9 +41,15 @@ async function checkIfIsAuthenticated(s: string, baseURL: string) {
 
 	const result = await response.json();
 
-	if (result.message !== 'true') {
-		console.log(result.message);
-		window.location.href = '/accounts/sign_in';
+	if (result.message !== 'user logged in') {
+		const unsubscribe = session.subscribe((value) => {
+			ses = value;
+		});
+
+		unsubscribe();
+
+		await RefreshToken(ses);
+
 		return;
 	}
 }
