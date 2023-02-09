@@ -17,7 +17,8 @@ export const sendOTP = async (s: Session) => {
 		credentials: 'include', // include, *same-origin, omit
 		headers: {
 			'Content-Type': 'application/json',
-			authorization: `Bearer${s.access_token}`
+			authorization: `Bearer${s.access_token}`,
+			'Access-Control-Allow-Origin': '*'
 			// 'Content-Type': 'application/x-www-form-urlencoded',
 		},
 		redirect: 'follow', // manual, *follow, error
