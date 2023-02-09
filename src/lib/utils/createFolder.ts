@@ -23,12 +23,12 @@ let path: string;
 let baseUrl: string;
 
 export async function CreateFolder(folder_name: string, parent_folder_id: string) {
-	loading.set(true);
+	//loading.set(true);
 
 	const err = validateFolderName(folder_name);
 	if (err !== '') {
 		console.log(err);
-		loading.set(false);
+		//loading.set(false);
 		return;
 	}
 
@@ -87,13 +87,13 @@ export async function CreateFolder(folder_name: string, parent_folder_id: string
 
 		unsubscribe();
 
-		loading.set(false);
+		//loading.set(false);
 
 		if (path === '/appv1/my_links/recycle_bin') {
 			goto('http://localhost:5173/appv1/my_links');
 		}
 	} catch (error) {
 		console.log(error);
-		loading.set(false);
+		//loading.set(false);
 	}
 }
