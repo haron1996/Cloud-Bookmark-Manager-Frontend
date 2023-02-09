@@ -1,6 +1,12 @@
 import { getSession } from './getSession';
 import { get } from 'svelte/store';
-import { errorNotifVisible, links, loading, successNotifVisible } from '../../stores/stores';
+import {
+	apiURL,
+	errorNotifVisible,
+	links,
+	loading,
+	successNotifVisible
+} from '../../stores/stores';
 import type { Link } from '$lib/types/link';
 import { addLinkMode } from '../../stores/stores';
 import { newLink } from '../../stores/stores';
@@ -11,10 +17,11 @@ export let errorInvalidUrl: string = '';
 
 let myLinks: Link[] = [];
 
+let origin: string;
 let path: string;
+let baseUrl: string;
 
 export async function addLink(url: string, folderID: string) {
-	console.log('adding link...');
 	//loading.set(true);
 
 	if (url === 'https://example.com') {
@@ -34,7 +41,13 @@ export async function addLink(url: string, folderID: string) {
 		successNotifVisible.set(false);
 	}, 3000);
 
-	const response = await fetch('http://localhost:5000/private/link/add', {
+	const getApiPath = apiURL.subscribe((value) => {
+		baseUrl = value;
+	});
+
+	getApiPath();
+
+	const response = await fetch(`${baseUrl}/private/link/add`, {
 		method: 'POST', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -91,8 +104,14 @@ export async function addLink(url: string, folderID: string) {
 
 		//loading.set(false);
 
+		const getPageOrigin = page.subscribe((value) => {
+			origin = value.url.origin;
+		});
+
+		getPageOrigin();
+
 		if (path === '/appv1/my_links/recycle_bin') {
-			goto('http://localhost:5173/appv1/my_links');
+			goto(`${origin}/appv1/my_links`);
 		}
 	} catch (error) {
 		alert(error);

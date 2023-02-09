@@ -59,5 +59,5 @@ export const RefreshToken = async (s: Partial<Session>) => {
 
 	unsubscribe();
 
-	goto(`${origin}/appv1/my_links`);
+	//goto(`${origin}/appv1/my_links`);
 };
