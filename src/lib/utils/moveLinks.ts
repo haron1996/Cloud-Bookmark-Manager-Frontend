@@ -11,6 +11,7 @@ import { get } from 'svelte/store';
 
 let myLinks: Partial<Link>[] = [];
 let baseUrl: string;
+let origin: string;
 
 export async function moveLinks(linkss: Partial<Link>[], folderID: string) {
 	const unsub = apiURL.subscribe((value) => {
@@ -67,9 +68,15 @@ export async function moveLinks(linkss: Partial<Link>[], folderID: string) {
 
 	hideMoveItemsPopup();
 
+	const getCurrentOrigin = page.subscribe((value) => {
+		origin = value.url.origin
+	})
+
+	getCurrentOrigin()
+
 	if (folderID !== '') {
-		goto(`http://localhost:5173/appv1/my_links/${linksMoved[0].folder_id?.String}`);
+		goto(`${origin}/appv1/my_links/${linksMoved[0].folder_id?.String}`);
 	} else {
-		goto('http://localhost:5173/appv1/my_links');
+		goto(`${origin}/appv1/my_links`);
 	}
 }
