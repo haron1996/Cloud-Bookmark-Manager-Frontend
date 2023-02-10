@@ -7,6 +7,7 @@ import { hideMoveItemsPopup } from './hideMoveItemsPopup';
 import { goto } from '$app/navigation';
 
 let baseURL: string = '';
+let origin: string
 
 export async function moveFoldersToRoot(folderz: Partial<Folder>[]) {
 	const unsub = apiURL.subscribe((value) => {
@@ -45,5 +46,11 @@ export async function moveFoldersToRoot(folderz: Partial<Folder>[]) {
 
 	hideMoveItemsPopup();
 
-	goto('http://localhost:5173/appv1/my_links');
+	const getPageOrigin = page.subscribe((value) => {
+		origin = value.url.origin
+	})
+
+	getPageOrigin()
+
+	goto(`${origin}/appv1/my_links`);
 }
