@@ -12,6 +12,7 @@ import { goto } from '$app/navigation';
 // let currentPath: string;
 
 let baseURL: string = '';
+let origin: string
 
 export async function moveLinksAndFoldersToRoot(
 	folderz: Partial<Folder>[],
@@ -86,7 +87,13 @@ export async function moveLinksAndFoldersToRoot(
 
 		hideMoveItemsPopup();
 
-		goto('http://localhost:5173/appv1/my_links');
+		const getCurrentOrigin = page.subscribe((value) => {
+			origin = value.url.origin
+		})
+
+		getCurrentOrigin()
+
+		goto(`${origin}/appv1/my_links`);
 	} catch (error) {
 		console.log(error);
 	}
@@ -162,8 +169,14 @@ export async function moveLinksAndFoldersToSelectedDestinationFolder(
 
 		resetLinksCut();
 
+		const getCurrentOrigin = page.subscribe((value) => {
+			origin = value.url.origin
+		})
+
+		getCurrentOrigin()
+
 		if (folderID) {
-			goto(`http://localhost:5173/appv1/my_links/${folderID}`);
+			goto(`${origin}/appv1/my_links/${folderID}`);
 		}
 	} catch (error) {
 		console.log(error);
