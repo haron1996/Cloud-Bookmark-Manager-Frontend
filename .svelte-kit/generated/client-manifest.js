@@ -35,7 +35,7 @@ export const dictionary = {
 	"/accounts/thankyou": [9],
 	"/appv1": [10],
 	"/appv1/my_links": [11,[2]],
-	"/appv1/my_links/recycle_bin": [13,[2]],
+	"/appv1/my_links/trash": [13,[2]],
 	"/appv1/my_links/[folder_id=folder_id]": [12,[2]],
 	"/appv1/settings": [14,[3]],
 	"/appv1/settings/billing": [15,[3]],

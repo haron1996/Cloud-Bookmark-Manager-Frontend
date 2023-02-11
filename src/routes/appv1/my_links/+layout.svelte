@@ -71,6 +71,7 @@
 	import { checkIfIsAuthenticated } from '$lib/utils/checkIfAccountIsAuthenticated';
 	import { checkIfUserIsLoggedIn } from '$lib/utils/checkIfUserIsLoggedIn';
 	import Checkmark from '$lib/components/checkmark.svelte';
+	import FolderInTrashAlert from '$lib/components/folderInTrashAlert.svelte';
 
 	let el: HTMLElement;
 
@@ -183,9 +184,9 @@
 	}
 
 	$: if ($page.url.pathname === '/appv1/my_links') {
-		activePath.set('My links');
+		activePath.set('Home');
 	} else if ($page.url.pathname === '/appv1/my_links/recycle_bin') {
-		activePath.set('Recycle bin');
+		activePath.set('Trash');
 	}
 	// else if ($page.data.folder_id && $openedFolder.folder_name) {
 	// 	activePath.set($openedFolder.folder_name);
@@ -241,6 +242,8 @@
 <VerifyEmailWarning />
 
 <Checkmark />
+
+<FolderInTrashAlert />
 
 <div class="container">
 	<ActionsMenu />

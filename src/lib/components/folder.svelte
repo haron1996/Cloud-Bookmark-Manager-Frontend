@@ -3,7 +3,8 @@
 		foldersCut,
 		controlKeyIsPressed,
 		selectedLinks,
-		selectedFolders
+		selectedFolders,
+		showFolderInTrashAlert
 	} from './../../stores/stores';
 	import type { Folder } from '$lib/types/folder';
 	import { prevent_default, stop_propagation } from 'svelte/internal';
@@ -22,6 +23,7 @@
 
 	let folderSelected: Partial<Folder> = {};
 	let subfolderOf: string | undefined = '';
+	let path: string
 
 	function handleCheckBoxClick() {
 		const checkBox = window.event?.currentTarget as HTMLDivElement | null;
@@ -123,6 +125,18 @@
 	}
 
 	function handleClickOnFolderName() {
+		const getCurrentPath = page.subscribe((value) => {
+			path = value.url.pathname
+		})
+
+		getCurrentPath()
+
+		if (path === '/appv1/my_links/trash') {
+			showFolderInTrashAlert.set(true)
+			// alert(`Restore before you can open`)
+			return
+		}
+
 		const target = window.event?.currentTarget as HTMLSpanElement;
 
 		const folder = target.closest('.folder') as HTMLDivElement;

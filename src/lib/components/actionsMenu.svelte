@@ -84,7 +84,7 @@
 
 {#if $selectedFolders.length > 0 || $selectedLinks.length > 0}
 	<div class="actions_menu" on:click|preventDefault|stopPropagation={stop_propagation} on:keyup>
-		{#if $page.url.pathname === '/appv1/my_links/recycle_bin'}
+		{#if $page.url.pathname === '/appv1/my_links/trash'}
 			<div
 				class="restore"
 				on:click|preventDefault|stopPropagation={handleClickOnRestoreButton}
@@ -99,7 +99,7 @@
 				on:keyup
 			>
 				<i class="las la-trash" />
-				<span>Delete parmanently</span>
+				<span>Delete</span>
 			</div>
 		{:else}
 			<div

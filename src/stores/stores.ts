@@ -119,3 +119,5 @@ export const draggedLink = writable<Partial<Link>>({});
 export const showOtpModal = writable<boolean>(false);
 
 export const showCheckMarkLottie = writable<boolean>(false);
+
+export const showFolderInTrashAlert = writable<boolean>(false)

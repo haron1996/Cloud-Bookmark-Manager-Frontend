@@ -220,7 +220,7 @@
 					border-radius: 0.3rem;
 
 					span {
-						font-family: 'Product Sans Medium', sans-serif;
+						font-family: 'Arial CE', sans-serif;
 						font-size: 1.3rem;
 						color: $text-color-regular;
 					}

@@ -196,7 +196,7 @@
 </script>
 
 <div class="context_menu" id="context_menu">
-	{#if $page.url.pathname === '/appv1/my_links/recycle_bin'}
+	{#if $page.url.pathname === '/appv1/my_links/trash'}
 		{#if ($rightClickedElement && $rightClickedElement.classList.contains('folder')) || ($rightClickedElement && $rightClickedElement.classList.contains('link'))}
 			<div
 				class="restore"
@@ -252,7 +252,7 @@
 						/>
 					</svg>
 				</div>
-				<span>Delete forever</span>
+				<span>Delete</span>
 			</div>
 		{/if}
 	{:else}

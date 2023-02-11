@@ -18,7 +18,7 @@
 				}}
 				on:keyup
 			>
-				<span>{rootFolderName === '' ? 'My links' : rootFolderName}</span>
+				<span>{rootFolderName === '' ? 'Home' : rootFolderName}</span>
 			</li>
 			<i class="las la-long-arrow-alt-right" />
 			{#if $ancestorsOfCurrentFolder.length > 0}

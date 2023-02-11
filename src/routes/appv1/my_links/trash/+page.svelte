@@ -29,11 +29,11 @@
 </script>
 
 <svelte:head>
-	<title>Recycle bin - Nested</title>
+	<title>Trash - BookmarkBucket</title>
 </svelte:head>
 
 <div>
-	<Breadcrumb rootFolderName={'Recycle bin'} />
+	<Breadcrumb rootFolderName={'Trash'} />
 </div>
 
 <!-- TODO

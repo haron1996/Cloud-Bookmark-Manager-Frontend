@@ -9,7 +9,7 @@ type OutputDataShape<T> = MaybeWithVoid<Omit<App.PageData, RequiredKeys<T>> & Pa
 type EnsureDefined<T> = T extends null | undefined ? {} : T;
 type OptionalUnion<U extends Record<string, any>, A extends keyof U = U extends U ? keyof U : never> = U extends unknown ? { [P in Exclude<A, keyof U>]?: never } & U : never;
 type PageParentData = Omit<EnsureDefined<import('../../$types.js').LayoutData>, keyof LayoutData> & EnsureDefined<LayoutData>;
-type LayoutRouteId = RouteId | "/appv1/my_links" | "/appv1/my_links/[folder_id=folder_id]" | "/appv1/my_links/recycle_bin"
+type LayoutRouteId = RouteId | "/appv1/my_links" | "/appv1/my_links/[folder_id=folder_id]" | "/appv1/my_links/trash"
 type LayoutParams = RouteParams & { folder_id?: string }
 type LayoutParentData = EnsureDefined<import('../../$types.js').LayoutData>;
 

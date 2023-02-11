@@ -1,10 +1,44 @@
+<script lang="ts">
+	import { goto } from "$app/navigation";
+	import { page } from "$app/stores";
+	import { hideMenuBar } from "$lib/utils/toggleMenuBar";
+
+
+	let origin: string
+
+	const goHome = () => {
+		const getPageOrigin = page.subscribe((value) => {
+			origin = value.url.origin
+		})
+
+		getPageOrigin()
+
+		goto(`${origin}/appv1/my_links`)
+
+		hideMenuBar()
+	}
+
+	const goToTrash = () => {
+		const getPageOrigin = page.subscribe((value) => {
+			origin = value.url.origin
+		})
+
+		getPageOrigin()
+
+		goto(`${origin}/appv1/my_links/trash`)
+
+		hideMenuBar()
+	}
+</script>
+
+
 <div class="menu_bar" id="menu_bar">
 	<div class="main">
-		<div class="home">
+		<div class="home" on:click|preventDefault|stopPropagation={goHome} on:keyup>
 			<i class="las la-home" />
 			<span>Home</span>
 		</div>
-		<div class="trash">
+		<div class="trash" on:click|preventDefault|stopPropagation={goToTrash} on:keyup>
 			<i class="las la-trash" />
 			<span>Trash</span>
 		</div>
