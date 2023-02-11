@@ -137,7 +137,7 @@
 
 <nav>
 	<div class="menu">
-		<i class="las la-bars" on:click|preventDefault|stopPropagation={ToggleMenuBar} on:keyup />
+		<i class="las la-bars" on:click|preventDefault|stopPropagation={ToggleMenuBar} on:keyup on:blur|preventDefault={() => {console.log('blured')}} />
 	</div>
 	<div class="search">
 		<form on:submit|preventDefault|stopPropagation={handleSearchFormSubmit}>

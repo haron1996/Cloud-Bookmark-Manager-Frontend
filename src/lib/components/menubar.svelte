@@ -10,15 +10,14 @@
 		</div>
 	</div>
 	<div class="secondary">
-		<div class="report_bug">
+		<!-- <div class="report_bug">
 			<i class="las la-bug" />
 			<span>Report bug</span>
 		</div>
 		<div class="suggest_feature">
-			<!-- <i class="las la-lightbulb" /> -->
 			<i class="las la-bolt" />
 			<span>Suggest feature</span>
-		</div>
+		</div> -->
 		<div class="contact_support">
 			<i class="las la-question" />
 			<span>Contact support</span>
@@ -37,7 +36,7 @@
 		position: fixed;
 		top: 5rem;
 		left: 1em;
-		width: 30rem;
+		width: 25rem;
 		min-height: max-content;
 		background-color: white;
 		display: flex;
