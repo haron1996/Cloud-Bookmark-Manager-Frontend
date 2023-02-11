@@ -25,13 +25,16 @@
 				passwordIsShort = true;
 				return;
 			}
+		} else {
+			passwordIsEmpty = true;
+			return;
 		}
 
 		if ($user.email_address && $user.password && $user.full_name === undefined) {
 			nameIsEmpty = true;
 			return;
 		} else if ($user.full_name && $user.password) {
-			if ($user.email_address === undefined) {
+			if ($user.email_address === undefined || $user.email_address === '') {
 				emailIsEmpty = true;
 				return;
 			} else {
@@ -99,9 +102,13 @@
 						placeholder="Enter your email address"
 						bind:value={$user.email_address}
 					/>
-					<span class="email_required">Required</span>
+					{#if emailIsEmpty}
+						<span class="email_required">Required</span>
+					{/if}
 					<span class="email_exists">Exists</span>
-					<span class="email_invalid">Invalid</span>
+					{#if !emailIsValid}
+						<span class="email_invalid">Invalid</span>
+					{/if}
 				</div>
 				<div
 					class="password"
@@ -117,8 +124,12 @@
 						bind:value={$user.password}
 						on:contextmenu|stopPropagation={stop_propagation}
 					/>
-					<span class="password_required">Required</span>
-					<span class="password_length_error">Must be at least 6 characters long</span>
+					{#if passwordIsEmpty}
+						<span class="password_required">Required</span>
+					{/if}
+					{#if passwordIsShort}
+						<span class="password_length_error">Must be at least 6 characters long</span>
+					{/if}
 				</div>
 			</div>
 			<div class="button">
@@ -147,19 +158,16 @@
 
 <style lang="scss">
 	.content {
-		// position: fixed;
-		// top: 0;
-		// left: 0;
+		position: fixed;
+		top: 4.5rem;
+		left: 0;
 		width: 100vw;
-		height: 93vh;
+		height: calc(100% - 4.5rem);
 		overflow: auto;
 		display: flex;
 		align-items: center;
+		background-color: white;
 		justify-content: center;
-		// background-image: url('/src/lib/images/background.png');
-		// background-position: center;
-		// background-repeat: no-repeat;
-		// background-size: cover;
 
 		.container {
 			height: 100%;
@@ -167,28 +175,22 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			background-color: transparent;
 
 			form {
 				min-height: max-content;
-				min-width: 40rem;
+				width: 40rem;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				gap: 2em;
-				background-color: rgb(227, 246, 255);
-				padding: 2em;
-				border-radius: 0.3rem;
-				box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
-					rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
-				border-radius: 0.3rem;
-				background-color: white;
+				background-color: transparent;
 
 				.heading {
 					text-align: left;
 					width: 100%;
 					display: flex;
 					align-items: center;
-					justify-content: center;
 
 					h3 {
 						font-size: 2rem;
@@ -446,9 +448,7 @@
 						}
 
 						&:hover {
-							box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
-								rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
-								rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+							filter: brightness(90%);
 						}
 					}
 
@@ -473,6 +473,21 @@
 						}
 					}
 				}
+
+				// upto large mobile screen
+				@media screen and (max-width: 425px) {
+					width: 95%;
+				}
+
+				// large mobile screen to tablets
+				@media screen and (min-width: 426px) and (max-width: 768px) {
+					width: 80%;
+				}
+			}
+
+			@media screen and (max-width: 425px) {
+				align-items: flex-start;
+				padding-top: 2em;
 			}
 		}
 	}

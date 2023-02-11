@@ -104,7 +104,7 @@
 				<span
 					class="sign_up_heading"
 					on:click|preventDefault|stopPropagation={signupInstead}
-					on:keyup>Don't have an account? Create your free account.</span
+					on:keyup>Don't have an account? Create my free account.</span
 				>
 			</div>
 		</form>
@@ -133,7 +133,7 @@
 			justify-content: center;
 
 			form {
-				min-width: 70%;
+				min-width: 60%;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
@@ -309,9 +309,7 @@
 						}
 
 						&:hover {
-							box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
-								rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
-								rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+							filter: brightness(90%);
 						}
 					}
 				}
