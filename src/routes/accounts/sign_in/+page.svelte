@@ -5,6 +5,7 @@
 	import { invalid_email, invalid_password } from '../../../stores/stores';
 	import Mainnav from '$lib/components/mainnav.svelte';
 	import { EmailAddressIsValid } from '$lib/utils/checkIfEmailIsValid';
+	import helloGif from '$lib/gifs/login-hello.gif';
 
 	let email: string = '';
 
@@ -60,7 +61,7 @@
 	<div class="container">
 		<form>
 			<div class="heading">
-				<h3 class="sign_in_heading">Sign in to your account</h3>
+				<h3 class="sign_in_heading">Hey 👋, sign in to your account</h3>
 			</div>
 			<div class="inputs">
 				<div class="email" class:invalid_email={$invalid_email} class:email_required={emailIsEmpty}>
@@ -108,44 +109,35 @@
 			</div>
 		</form>
 	</div>
+	<div class="gif">
+		<img src={helloGif} alt="hello" />
+	</div>
 </div>
 
 <style lang="scss">
 	.content {
-		// position: fixed;
-		// top: 0vh;
-		// left: 0;
+		position: fixed;
+		top: 4.5rem;
+		left: 0;
 		width: 100vw;
-		height: 93vh;
+		height: calc(100% - 4.5rem);
 		overflow: auto;
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		// background-image: url('/src/lib/images/background.png');
-		// background-position: center;
-		// background-repeat: no-repeat;
-		// background-size: cover;
 
 		.container {
+			flex: 1;
 			height: 100%;
-			width: 100%;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 
 			form {
-				min-height: max-content;
-				min-width: 40rem;
+				min-width: 70%;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				gap: 2em;
-				background-color: rgb(227, 246, 255);
-				padding: 2em;
-				border-radius: 0.3rem;
-				box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
-					rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
-				border-radius: 0.3rem;
+				gap: 3em;
 				background-color: white;
 
 				.heading {
@@ -153,7 +145,6 @@
 					width: 100%;
 					display: flex;
 					align-items: center;
-					justify-content: center;
 
 					h3 {
 						font-size: 2rem;
@@ -167,7 +158,7 @@
 					width: 100%;
 					display: flex;
 					flex-direction: column;
-					gap: 1em;
+					gap: 2em;
 
 					.email {
 						display: flex;
@@ -341,6 +332,19 @@
 						}
 					}
 				}
+			}
+		}
+
+		.gif {
+			flex: 1;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: white;
+
+			img {
+				object-fit: contain;
 			}
 		}
 	}

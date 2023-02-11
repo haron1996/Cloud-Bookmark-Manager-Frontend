@@ -1,13 +1,11 @@
 <script lang="ts">
-	import checkmark from '$lib/gifs/checkmark.gif';
-	import { showCheckMarkLottie } from '../../stores/stores';
+	import thankyou from '$lib/gifs/thank-you.gif';
+	import { showThankYouGif } from '../../stores/stores';
 </script>
 
-{#if $showCheckMarkLottie}
+{#if $showThankYouGif}
 	<div class="wrapper">
-		<div class="gif_container">
-			<img src={checkmark} alt="checkmark gif" />
-		</div>
+		<img src={thankyou} alt="checkmark gif" />
 	</div>
 {/if}
 
@@ -18,10 +16,14 @@
 		left: 0;
 		width: 100vw;
 		height: calc(100% - 4.5rem);
-		z-index: 6000;
+		z-index: 7000;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background-color: white;
+
+		img {
+			object-fit: contain;
+		}
 	}
 </style>

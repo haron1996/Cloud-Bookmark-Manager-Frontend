@@ -3,7 +3,7 @@
 	import { clearURLPath } from '$lib/utils/clearURLPath';
 	import { MakeCheckMarkLotieVisible } from '$lib/utils/showCheckMarkLottie';
 
-	let origin: string = '';
+	///let origin: string = '';
 
 	afterNavigate(() => {
 		setTimeout(() => {

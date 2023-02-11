@@ -12,6 +12,7 @@
 	import { hideProfileMenu } from '$lib/utils/toggleProfileMenu';
 	import { afterNavigate } from '$app/navigation';
 	import Checkmark from '$lib/components/checkmark.svelte';
+	import ThankYou from '$lib/components/thank-you.svelte';
 
 	function handleBodyClick() {
 		hideProfileMenu();
@@ -52,6 +53,8 @@
 </svelte:head>
 
 <Checkmark />
+
+<ThankYou />
 
 {#if $errors.length > 0}
 	<Errors />

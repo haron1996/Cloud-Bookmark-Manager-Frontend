@@ -1,6 +1,6 @@
 import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
-import { apiURL, foldersFound, linksFound } from '../../stores/stores';
+import { apiURL, foldersFound, linksFound, searching } from '../../stores/stores';
 import { getSession } from './getSession';
 
 let l: Partial<Link>[] = [];
@@ -10,6 +10,8 @@ let f: Partial<Folder>[] = [];
 let baseUrl: string;
 
 export async function searchLinksAndFolders(searchPhrase: string) {
+	searching.set(true);
+
 	const getBaseUrl = apiURL.subscribe((value) => {
 		baseUrl = value;
 	});
@@ -60,4 +62,6 @@ export async function searchLinksAndFolders(searchPhrase: string) {
 	} else {
 		foldersFound.set([]);
 	}
+
+	searching.set(false);
 }

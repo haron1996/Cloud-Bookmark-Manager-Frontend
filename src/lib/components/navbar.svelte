@@ -137,7 +137,14 @@
 
 <nav>
 	<div class="menu">
-		<i class="las la-bars" on:click|preventDefault|stopPropagation={ToggleMenuBar} on:keyup on:blur|preventDefault={() => {console.log('blured')}} />
+		<i
+			class="las la-bars"
+			on:click|preventDefault|stopPropagation={ToggleMenuBar}
+			on:keyup
+			on:blur|preventDefault={() => {
+				console.log('blured');
+			}}
+		/>
 	</div>
 	<div class="search">
 		<form on:submit|preventDefault|stopPropagation={handleSearchFormSubmit}>
@@ -246,6 +253,10 @@
 					i {
 						font-size: 1.5rem;
 					}
+				}
+
+				&:focus-within {
+					border-color: rgb(0, 255, 209);
 				}
 			}
 		}

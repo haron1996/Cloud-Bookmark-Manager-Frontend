@@ -72,6 +72,8 @@
 	import { checkIfUserIsLoggedIn } from '$lib/utils/checkIfUserIsLoggedIn';
 	import Checkmark from '$lib/components/checkmark.svelte';
 	import FolderInTrashAlert from '$lib/components/folderInTrashAlert.svelte';
+	import SearchLoading from '$lib/components/searchLoading.svelte';
+	import ThankYou from '$lib/components/thank-you.svelte';
 
 	let el: HTMLElement;
 
@@ -244,6 +246,8 @@
 <Checkmark />
 
 <FolderInTrashAlert />
+
+<SearchLoading />
 
 <div class="container">
 	<ActionsMenu />

@@ -12,9 +12,9 @@ export const accessToken = writable<string>('');
 
 export const errors = writable<string[]>([]);
 
-export let session = writable<Partial<Session>>({});
+export const session = writable<Partial<Session>>({});
 
-export let createButtonToggled = writable<Boolean>(false);
+export const createButtonToggled = writable<boolean>(false);
 
 export const folders = writable<Partial<Folder>[]>([]);
 
@@ -24,37 +24,37 @@ export const links = writable<Partial<Link>[]>([]);
 
 export const linksFound = writable<Partial<Link>[]>([]);
 
-export let selectedFolders = writable<Partial<Folder>[]>([]);
+export const selectedFolders = writable<Partial<Folder>[]>([]);
 
-export let selectedLinks = writable<Partial<Link>[]>([]);
+export const selectedLinks = writable<Partial<Link>[]>([]);
 
-export let lastCreatedFolder = writable<Partial<Folder>>({});
+export const lastCreatedFolder = writable<Partial<Folder>>({});
 
-export let loading = writable<Boolean>(true);
+export const loading = writable<boolean>(true);
 
-export let createFolderMode = writable<Boolean>(false);
+export const createFolderMode = writable<boolean>(false);
 
-export let addLinkMode = writable<Boolean>(false);
+export const addLinkMode = writable<boolean>(false);
 
 export const folderName = writable<string>('Untitled collection');
 
-export const controlKeyIsPressed = writable<Boolean>(false);
+export const controlKeyIsPressed = writable<boolean>(false);
 
 export const newLink = writable<string>('');
 
-export let currentFolder = writable<string>('');
+export const currentFolder = writable<string>('');
 
-export let ancestorsOfCurrentFolder = writable<Partial<Folder>[]>([]);
+export const ancestorsOfCurrentFolder = writable<Partial<Folder>[]>([]);
 
-export let rightClickedElement = writable<HTMLElement>();
+export const rightClickedElement = writable<HTMLElement>();
 
-export let renameFolderMode = writable<Boolean>(false);
+export const renameFolderMode = writable<boolean>(false);
 
-export let renameLinkMode = writable<Boolean>(false);
+export const renameLinkMode = writable<boolean>(false);
 
-export let moveItemsMode = writable<Boolean>(false);
+export const moveItemsMode = writable<boolean>(false);
 
-export let selectedDestinationFolder = writable<Partial<Folder>>({});
+export const selectedDestinationFolder = writable<Partial<Folder>>({});
 
 export const accountID = writable<string>('');
 
@@ -86,7 +86,7 @@ export const activeSearchCategory = writable<string>('My links (Root)');
 
 export const showSearchForm = writable<boolean>(false);
 
-export let user = writable<Partial<newUser>>({});
+export const user = writable<Partial<newUser>>({});
 
 export const userIsLoggedin = writable<boolean>(true);
 
@@ -120,4 +120,8 @@ export const showOtpModal = writable<boolean>(false);
 
 export const showCheckMarkLottie = writable<boolean>(false);
 
-export const showFolderInTrashAlert = writable<boolean>(false)
+export const showFolderInTrashAlert = writable<boolean>(false);
+
+export const searching = writable<boolean>(false);
+
+export const showThankYouGif = writable<boolean>(false);

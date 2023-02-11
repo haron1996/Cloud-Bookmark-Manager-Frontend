@@ -1,11 +1,10 @@
 import type { newUser } from '$lib/types/newUser';
 import type { Session } from '$lib/types/session';
-import { accessToken, errors, session, user, apiURL, email_exists } from '../../stores/stores';
-import { goto } from '$app/navigation';
+import { accessToken, session, apiURL, email_exists, showThankYouGif } from '../../stores/stores';
 
 let s: Partial<Session> = {};
 
-let baseURL: string = '';
+let baseURL = '';
 
 export async function createNewAccount(a: Partial<newUser>) {
 	const unsub = apiURL.subscribe((value) => {
@@ -15,22 +14,19 @@ export async function createNewAccount(a: Partial<newUser>) {
 	unsub();
 
 	const response = await fetch(`${baseURL}/public/account/create`, {
-		method: 'POST', // *GET, POST, PUT, DELETE, etc.
-		mode: 'cors', // no-cors, *cors, same-origin
-		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-		// credentials: 'include', // include, *same-origin, omit
+		method: 'POST',
+		mode: 'cors',
+		cache: 'no-cache',
 		headers: {
 			'Content-Type': 'application/json'
-			// authorization: `Bearer${JSON.parse(getSession()).access_token}`
-			// 'Content-Type': 'application/x-www-form-urlencoded',
 		},
-		redirect: 'follow', // manual, *follow, error
-		referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+		redirect: 'follow',
+		referrerPolicy: 'no-referrer',
 		body: JSON.stringify({
 			full_name: a.full_name,
 			email_address: a.email_address,
 			password: a.password
-		}) // body data type must match "Content-Type" header
+		})
 	});
 
 	try {
@@ -59,9 +55,11 @@ export async function createNewAccount(a: Partial<newUser>) {
 
 		window.localStorage.setItem('session', JSON.stringify(s));
 
-		//goto('http://localhost:5173/auth/thankyou');
+		showThankYouGif.set(true);
 
-		window.location.href = '/accounts/thankyou';
+		setTimeout(() => {
+			window.location.href = `${origin}/appv1/my_links`;
+		}, 3500);
 	} catch (error) {
 		console.log(error);
 	}

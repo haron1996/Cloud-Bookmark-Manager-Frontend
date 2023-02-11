@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { loading } from '../../stores/stores';
+	import Loading from '$lib/gifs/loading.gif';
 </script>
 
 {#if $loading}
 	<div class="loader_container">
+		<div class="loading-gif-container">
+			<img src={Loading} alt="loading" />
+		</div>
 		<div class="loader" />
 	</div>
 {/if}
@@ -11,16 +15,25 @@
 <style lang="scss">
 	.loader_container {
 		position: fixed;
-		top: 0;
+		top: 4.5rem;
 		left: 0;
-		height: 100vh;
+		height: calc(100% - 4.5rem);
 		width: 100vw;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		z-index: 100;
-		//background-color: white;
-		//backdrop-filter: blur(1px);
+		z-index: 8000;
+		background-color: white;
+
+		.loading-gif-container {
+			height: 20rem;
+			width: 20rem;
+
+			img {
+				width: 100%;
+				object-fit: contain;
+			}
+		}
 
 		.loader {
 			border: 0.2rem solid #f3f3f3;
@@ -29,6 +42,7 @@
 			width: 3rem;
 			height: 3rem;
 			animation: spin 0.5s linear infinite;
+			display: none;
 		}
 
 		@keyframes spin {
