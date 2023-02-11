@@ -62,7 +62,8 @@
 
 		form {
 			min-height: 20rem;
-			min-width: 40rem;
+			width: 40rem;
+			max-width: 40rem;
 			background-color: white;
 			display: flex;
 			flex-direction: column;
@@ -195,6 +196,10 @@
 					transform: translateY(0);
 					opacity: 1;
 				}
+			}
+
+			@media screen and (max-width: 768px) {
+				width: 95%;
 			}
 		}
 	}

@@ -64,7 +64,7 @@
 		left: 0;
 		width: 100vw;
 		height: 100vh;
-		z-index: 1000;
+		z-index: 6000;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -73,13 +73,13 @@
 
 		.card {
 			min-height: 20rem;
-			min-width: 40rem;
+			width: 40rem;
+			max-width: 40rem;
 			background-color: white;
 			display: flex;
 			flex-direction: column;
 			box-shadow: $modal_box_shadow;
 			padding: 2em;
-			//transform: scale(1);
 			animation: zoomin 0.5s ease-in-out;
 			border-radius: 0.6rem;
 			gap: 1em;
@@ -143,7 +143,7 @@
 					border-radius: 0.3rem;
 
 					span {
-						font-family: 'Product Sans Medium', sans-serif;
+						font-family: 'Arial CE', sans-serif;
 						font-size: 1.3rem;
 						color: $text-color-regular-2;
 					}
@@ -175,6 +175,11 @@
 					transform: translateY(0);
 					opacity: 1;
 				}
+			}
+
+			@media screen and (max-width: 768px) {
+				width: 95%;
+				max-width: max-content;
 			}
 		}
 	}

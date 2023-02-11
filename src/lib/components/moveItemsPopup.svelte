@@ -331,7 +331,7 @@
 
 		.card {
 			height: 90%;
-			width: 80%;
+			width: 90%;
 			background-color: white;
 			display: flex;
 			flex-direction: column;
@@ -625,6 +625,10 @@
 					transform: translateY(0);
 					opacity: 1;
 				}
+			}
+
+			@media screen and (max-width: 768px) {
+				width: 95%;
 			}
 		}
 	}
