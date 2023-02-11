@@ -260,11 +260,11 @@
 			<Loader />
 		{:else if !$loading}
 			{#if $folders.length > 0 && $links.length > 0}
-				{#each $folders as folder}
-					<Folder on:click {folder} />
-				{/each}
 				{#each $links as link}
 					<Link {link} />
+				{/each}
+				{#each $folders as folder}
+					<Folder on:click {folder} />
 				{/each}
 			{:else if $folders.length > 0 && $links.length < 1}
 				{#each $folders as folder}

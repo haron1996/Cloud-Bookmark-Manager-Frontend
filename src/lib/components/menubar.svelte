@@ -1,44 +1,61 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
-	import { page } from "$app/stores";
-	import { hideMenuBar } from "$lib/utils/toggleMenuBar";
+	import { afterNavigate, goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
 
+	let origin: string;
+	let pathname: string;
 
-	let origin: string
+	afterNavigate(() => {
+		const getPathname = page.subscribe((value) => {
+			pathname = value.url.pathname;
+		});
+
+		getPathname();
+	});
 
 	const goHome = () => {
 		const getPageOrigin = page.subscribe((value) => {
-			origin = value.url.origin
-		})
+			origin = value.url.origin;
+		});
 
-		getPageOrigin()
+		getPageOrigin();
 
-		goto(`${origin}/appv1/my_links`)
+		goto(`${origin}/appv1/my_links`);
 
-		hideMenuBar()
-	}
+		hideMenuBar();
+	};
 
 	const goToTrash = () => {
 		const getPageOrigin = page.subscribe((value) => {
-			origin = value.url.origin
-		})
+			origin = value.url.origin;
+		});
 
-		getPageOrigin()
+		getPageOrigin();
 
-		goto(`${origin}/appv1/my_links/trash`)
+		goto(`${origin}/appv1/my_links/trash`);
 
-		hideMenuBar()
-	}
+		hideMenuBar();
+	};
 </script>
-
 
 <div class="menu_bar" id="menu_bar">
 	<div class="main">
-		<div class="home" on:click|preventDefault|stopPropagation={goHome} on:keyup>
+		<div
+			class="home"
+			class:active={pathname === '/appv1/my_links'}
+			on:click|preventDefault|stopPropagation={goHome}
+			on:keyup
+		>
 			<i class="las la-home" />
 			<span>Home</span>
 		</div>
-		<div class="trash" on:click|preventDefault|stopPropagation={goToTrash} on:keyup>
+		<div
+			class="trash"
+			class:active={pathname === '/appv1/my_links/trash'}
+			on:click|preventDefault|stopPropagation={goToTrash}
+			on:keyup
+		>
 			<i class="las la-trash" />
 			<span>Trash</span>
 		</div>
@@ -132,6 +149,16 @@
 			display: flex;
 			flex-direction: row;
 			align-items: center;
+		}
+	}
+
+	:global(.active) {
+		i {
+			color: $blue !important;
+		}
+
+		span {
+			color: $blue !important;
 		}
 	}
 
