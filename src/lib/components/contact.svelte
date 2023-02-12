@@ -1,10 +1,27 @@
 <script lang="ts">
 	import { hideContactForm } from '$lib/utils/toggleContactForm';
 	import { stop_propagation } from 'svelte/internal';
-	import { showContactForm } from '../../stores/stores';
+	import { apiURL, showContactForm } from '../../stores/stores';
+
+	let message: string;
+	let apiBaseUrl: string;
+	const endPoint: string = '/private/contactSupport';
 
 	const sendMessage = async () => {
-		alert('send message');
+		const getApiBaseUrl = apiURL.subscribe((value) => {
+			apiBaseUrl = value;
+		});
+
+		getApiBaseUrl();
+
+		fetch(`${apiBaseUrl}${endPoint}`)
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
 	};
 </script>
 
@@ -17,7 +34,15 @@
 			<form>
 				<div class="message">
 					<label for="textarea">Describe your issue or suggestion.</label>
-					<textarea name="textarea" id="textarea" cols="50" rows="10" />
+					<textarea
+						name="textarea"
+						id="textarea"
+						cols="50"
+						rows="10"
+						bind:value={message}
+						spellcheck="false"
+						autocomplete="off"
+					/>
 				</div>
 				<div class="buttons">
 					<button type="submit" on:click|preventDefault|stopPropagation={sendMessage}>
@@ -92,7 +117,7 @@
 						resize: none;
 						border: 0.1rem solid $border-color-regular;
 						font-family: 'Arial CE', sans-serif;
-						padding: 0.5em;
+						padding: 1em;
 						font-size: 1.3rem;
 						border-radius: 0.3rem;
 
