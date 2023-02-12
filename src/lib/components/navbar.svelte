@@ -166,10 +166,6 @@
 		</form>
 	</div>
 	<div class="new_button">
-		<!-- <div class="new" on:click|preventDefault|stopPropagation={SwitchOnCreateMode} on:keyup>
-			<span>New</span>
-			<i class="las la-plus" />
-		</div> -->
 		<i class="las la-plus" on:click|preventDefault|stopPropagation={SwitchOnCreateMode} on:keyup />
 	</div>
 </nav>
@@ -178,9 +174,6 @@
 	::-webkit-scrollbar {
 		width: 0.5rem;
 		height: 0.5rem;
-		// display: none;
-		// -ms-overflow-style: none; /* IE and Edge */
-		// scrollbar-width: none; /* Firefox */
 	}
 
 	nav {
@@ -215,12 +208,13 @@
 			justify-content: center;
 
 			form {
-				width: 90%;
+				width: 100%;
 				height: 3.5rem;
 				border-radius: 0.3rem;
 				border: 0.1rem solid $border-color-regular;
 				display: flex;
 				align-items: center;
+				transition: all 200ms ease-in-out;
 
 				input[type='search'] {
 					width: 90%;
@@ -256,7 +250,7 @@
 				}
 
 				&:focus-within {
-					border-color: rgb(0, 255, 209);
+					box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 				}
 			}
 		}
@@ -269,37 +263,9 @@
 			align-items: center;
 			justify-content: flex-end;
 
-			// .new {
-			// 	height: 3.5rem;
-			// 	min-width: 10rem;
-			// 	display: flex;
-			// 	align-items: center;
-			// 	justify-content: center;
-			// 	gap: 1em;
-			// 	background-color: $blue;
-			// 	cursor: pointer;
-			// 	border-radius: 0.3rem;
-
-			// 	span {
-			// 		font-family: 'Arial CE', sans-serif;
-			// 		color: white;
-			// 		font-size: 1.3rem;
-			// 	}
-
-			// 	i {
-			// 		font-size: 1.5rem;
-			// 		background-color: white;
-			// 		border-radius: 100vh;
-			// 	}
-			// }
-
 			i {
 				font-size: 3rem;
 				cursor: pointer;
-
-				// &:hover {
-				// 	box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-				// }
 			}
 		}
 	}

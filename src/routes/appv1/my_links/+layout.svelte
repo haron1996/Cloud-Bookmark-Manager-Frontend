@@ -74,6 +74,7 @@
 	import FolderInTrashAlert from '$lib/components/folderInTrashAlert.svelte';
 	import SearchLoading from '$lib/components/searchLoading.svelte';
 	import ThankYou from '$lib/components/thank-you.svelte';
+	import Contact from '$lib/components/contact.svelte';
 
 	let el: HTMLElement;
 
@@ -248,6 +249,8 @@
 <FolderInTrashAlert />
 
 <SearchLoading />
+
+<Contact />
 
 <div class="container">
 	<ActionsMenu />

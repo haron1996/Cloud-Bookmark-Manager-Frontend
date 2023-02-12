@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { loading } from '../../stores/stores';
-	import Loading from '$lib/gifs/loading.gif';
+	import Loading from '$lib/gifs/loading-animation.gif';
 </script>
 
 {#if $loading}

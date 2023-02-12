@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { afterNavigate, goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { makeContactFormVisible } from '$lib/utils/toggleContactForm';
 	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
 
 	let origin: string;
@@ -69,15 +70,19 @@
 			<i class="las la-bolt" />
 			<span>Suggest feature</span>
 		</div> -->
-		<div class="contact_support">
+		<div
+			class="contact_support"
+			on:click|preventDefault|stopPropagation={makeContactFormVisible}
+			on:keyup
+		>
 			<i class="las la-question" />
-			<span>Contact support</span>
+			<span>Help</span>
 		</div>
 	</div>
 	<div class="tertiary">
 		<div class="logout">
 			<i class="las la-sign-out-alt" />
-			<span>Sign out</span>
+			<span>Sign Out</span>
 		</div>
 	</div>
 </div>

@@ -125,3 +125,5 @@ export const showFolderInTrashAlert = writable<boolean>(false);
 export const searching = writable<boolean>(false);
 
 export const showThankYouGif = writable<boolean>(false);
+
+export const showContactForm = writable<boolean>(false);

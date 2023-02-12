@@ -29,7 +29,7 @@
 >
 	<div class="card" on:click|preventDefault|stopPropagation={stop_propagation} on:keyup>
 		<div class="top">
-			<span>Move {selectedItems.length > 1 ? `these items` : `this item`} to trash?</span>
+			<span>Delete {selectedItems.length > 1 ? `these items` : `this item`}?</span>
 			<i class="las la-times" />
 		</div>
 		<div class="middle">
@@ -44,7 +44,7 @@
 				on:click|preventDefault|stopPropagation={handleClickOnDeleteButton}
 				on:keyup
 			>
-				<span>I'm sure</span>
+				<span>Delete</span>
 			</div>
 			<div
 				class="button"

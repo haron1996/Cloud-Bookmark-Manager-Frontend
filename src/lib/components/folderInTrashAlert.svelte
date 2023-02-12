@@ -1,23 +1,24 @@
 <script lang="ts">
-	import { page } from "$app/stores";
-	import { onMount } from "svelte";
-    import { selectedFolders, selectedLinks, showFolderInTrashAlert } from "../../stores/stores";
-    import { restoreLinksAndFoldersFromTrash } from "$lib/utils/restoreLinksAndFoldersFromTrash";
-    import { restoreFoldersFromTrash } from "$lib/utils/restoreFoldersFromTrash";
-    import { restoreLinksFromTrash } from "$lib/utils/restoreLinksFromTrash";
-let pathname: string
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import { selectedFolders, selectedLinks, showFolderInTrashAlert } from '../../stores/stores';
+	import { restoreLinksAndFoldersFromTrash } from '$lib/utils/restoreLinksAndFoldersFromTrash';
+	import { restoreFoldersFromTrash } from '$lib/utils/restoreFoldersFromTrash';
+	import { restoreLinksFromTrash } from '$lib/utils/restoreLinksFromTrash';
+	import { stop_propagation } from 'svelte/internal';
+	let pathname: string;
 
-    onMount(() => {
-getPathname()
-    })
+	onMount(() => {
+		getPathname();
+	});
 
-    const getPathname = () => {
-page.subscribe((value) => {
-    pathname = value.url.pathname
-})
-    }
+	const getPathname = () => {
+		page.subscribe((value) => {
+			pathname = value.url.pathname;
+		});
+	};
 
-    async function handleClickOnRestoreButton() {
+	async function handleClickOnRestoreButton() {
 		console.log($selectedFolders, $selectedLinks);
 		if (
 			$selectedFolders &&
@@ -49,35 +50,34 @@ page.subscribe((value) => {
 		}
 	}
 
-    function closeFolderInTrashAlert() {
-        showFolderInTrashAlert.set(false)
-    }
+	function closeFolderInTrashAlert() {
+		showFolderInTrashAlert.set(false);
+	}
 </script>
 
 {#if pathname === '/appv1/my_links/trash' && $showFolderInTrashAlert}
-    <div class="wrapper">
-    <div class="card">
-        <div class="text">
-            <h3>This collection is in your trash!</h3>
-        <p>To view it, you'll need to restore it first.</p>
-        </div>
-        <div class="buttons">
-            <!-- <button on:click|preventDefault|stopPropagation={handleClickOnRestoreButton}
+	<div class="wrapper" on:click|preventDefault|stopPropagation={closeFolderInTrashAlert} on:keyup>
+		<div class="card" on:click|stopPropagation={stop_propagation} on:keyup>
+			<div class="text">
+				<h3>This collection is in your trash!</h3>
+				<p>To view it, you'll need to restore it first.</p>
+			</div>
+			<div class="buttons">
+				<!-- <button on:click|preventDefault|stopPropagation={handleClickOnRestoreButton}
 				on:keyup>
                 <span>Restore</span>
             </button> -->
-            <button on:click|preventDefault|stopPropagation={closeFolderInTrashAlert}
-				on:keyup>
-                <span>Got it</span>
-            </button>
-        </div>
-    </div>
-</div>
+				<button on:click|preventDefault|stopPropagation={closeFolderInTrashAlert} on:keyup>
+					<span>Got it</span>
+				</button>
+			</div>
+		</div>
+	</div>
 {/if}
 
 <style lang="scss">
-    .wrapper {
-        position: fixed;
+	.wrapper {
+		position: fixed;
 		top: 0;
 		left: 0;
 		width: 100vw;
@@ -89,10 +89,10 @@ page.subscribe((value) => {
 		background-color: rgba(0, 0, 0, 0.4);
 		backdrop-filter: blur(8px);
 
-        .card {
-           min-height: max-content;
-           //min-height: 13rem;
+		.card {
+			min-height: max-content;
 			width: 40rem;
+			max-width: 40rem;
 			background-color: rgb(255, 255, 255);
 			border-radius: 0.6rem;
 			box-shadow: $modal_box_shadow;
@@ -101,33 +101,33 @@ page.subscribe((value) => {
 			padding: 2em;
 			animation: animate_card 0.5s ease-in-out;
 
-            .text {
-                flex: 1;
-                gap: .5em;
-                display: flex;
-                flex-direction: column;
+			.text {
+				flex: 1;
+				gap: 0.5em;
+				display: flex;
+				flex-direction: column;
 
-                h3 {
-                    font-size: 1.5rem;
-                    font-family: 'Arial CE', sans-serif;
-                    color: $text-color-medium;
-                }
+				h3 {
+					font-size: 1.5rem;
+					font-family: 'Arial CE', sans-serif;
+					color: $text-color-medium;
+				}
 
-                p {
-                    font-family: 'Arial CE', sans-serif;
-                    color: $text-color-medium;
-                    font-size: 1.4rem;
-                }
-            }
+				p {
+					font-family: 'Arial CE', sans-serif;
+					color: $text-color-medium;
+					font-size: 1.4rem;
+				}
+			}
 
-            .buttons {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                gap: .5em;
+			.buttons {
+				flex: 1;
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+				gap: 0.5em;
 
-                button {
+				button {
 					height: 3.5rem;
 					min-width: 7rem;
 					border: none;
@@ -157,8 +157,8 @@ page.subscribe((value) => {
 					}
 				}
 
-                button:first-of-type {
-                    background-image: linear-gradient(to top, #0081c9 50%, $blue 50%);
+				button:first-of-type {
+					background-image: linear-gradient(to top, #0081c9 50%, $blue 50%);
 
 					span {
 						color: white;
@@ -167,20 +167,24 @@ page.subscribe((value) => {
 					&:hover {
 						background-position: bottom;
 					}
-                }
-            }
-
-            @keyframes animate_card {
-			0% {
-				transform: translateY(-50px);
-				opacity: 0;
+				}
 			}
 
-			100% {
-				transform: translateY(0);
-				opacity: 1;
+			@keyframes animate_card {
+				0% {
+					transform: translateY(-50px);
+					opacity: 0;
+				}
+
+				100% {
+					transform: translateY(0);
+					opacity: 1;
+				}
+			}
+
+			@media screen and (max-width: 768px) {
+				width: 97%;
 			}
 		}
-        }
-    }
+	}
 </style>

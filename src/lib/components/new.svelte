@@ -42,7 +42,7 @@
 		left: 0;
 		width: 100vw;
 		height: 100vh;
-		z-index: 1000;
+		z-index: 6000;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -52,6 +52,7 @@
 		.card {
 			height: 30rem;
 			width: 40rem;
+			max-width: 40rem;
 			background-color: rgb(255, 255, 255);
 			border-radius: 0.6rem;
 			box-shadow: $modal_box_shadow;
@@ -129,17 +130,21 @@
 					}
 				}
 			}
-		}
 
-		@keyframes animate_card {
-			0% {
-				transform: translateY(-50px);
-				opacity: 0;
+			@keyframes animate_card {
+				0% {
+					transform: translateY(-50px);
+					opacity: 0;
+				}
+
+				100% {
+					transform: translateY(0);
+					opacity: 1;
+				}
 			}
 
-			100% {
-				transform: translateY(0);
-				opacity: 1;
+			@media screen and (max-width: 768px) {
+				width: 97%;
 			}
 		}
 	}
