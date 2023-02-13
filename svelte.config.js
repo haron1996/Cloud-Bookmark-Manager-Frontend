@@ -1,5 +1,5 @@
 import node from '@sveltejs/adapter-node';
-import adapter from '@sveltejs/adapter-static';
+//import adapter from '@sveltejs/adapter-static';
 //import adapter from '@sveltejs/adapter-auto';
 //import adapter from 'svelte-adapter-static-digitalocean';
 import preprocess from 'svelte-preprocess';
