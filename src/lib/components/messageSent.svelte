@@ -1,12 +1,12 @@
 <script lang="ts">
-	import checkmark from '$lib/gifs/checkmark.gif';
-	import { showCheckMarkLottie } from '../../stores/stores';
+	import messageSentLottie from '$lib/gifs/message-sent.gif';
+	import { messageSent } from '../../stores/stores';
 </script>
 
-{#if $showCheckMarkLottie}
+{#if $messageSent}
 	<div class="wrapper">
 		<div class="gif_container">
-			<img src={checkmark} alt="checkmark gif" />
+			<img src={messageSentLottie} alt="checkmark gif" />
 		</div>
 	</div>
 {/if}
@@ -25,8 +25,8 @@
 		background-color: white;
 
 		.gif_container {
-			height: 15rem;
-			width: 15rem;
+			height: 50rem;
+			width: 50rem;
 			display: flex;
 			align-items: center;
 			justify-content: center;

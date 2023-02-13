@@ -75,6 +75,7 @@
 	import SearchLoading from '$lib/components/searchLoading.svelte';
 	import ThankYou from '$lib/components/thank-you.svelte';
 	import Contact from '$lib/components/contact.svelte';
+	import MessageSent from '$lib/components/messageSent.svelte';
 
 	let el: HTMLElement;
 
@@ -251,6 +252,8 @@
 <SearchLoading />
 
 <Contact />
+
+<MessageSent />
 
 <div class="container">
 	<ActionsMenu />

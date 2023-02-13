@@ -2,26 +2,55 @@
 	import { hideContactForm } from '$lib/utils/toggleContactForm';
 	import { stop_propagation } from 'svelte/internal';
 	import { apiURL, showContactForm } from '../../stores/stores';
+	import { getSession } from '$lib/utils/getSession';
+	import { MakeCheckMarkLotieVisible } from '$lib/utils/showCheckMarkLottie';
+	import { showMessageSentLottie } from '$lib/utils/showMessageSentLottie';
 
 	let message: string;
 	let apiBaseUrl: string;
 	const endPoint: string = '/private/contactSupport';
 
 	const sendMessage = async () => {
+		hideContactForm();
+
 		const getApiBaseUrl = apiURL.subscribe((value) => {
 			apiBaseUrl = value;
 		});
 
 		getApiBaseUrl();
 
-		fetch(`${apiBaseUrl}${endPoint}`)
-			.then((response) => response.json())
-			.then((data) => {
-				console.log(data);
-			})
-			.catch((error) => {
-				console.error(error);
+		try {
+			const response = await fetch(`${apiBaseUrl}${endPoint}`, {
+				method: 'POST', // *GET, POST, PUT, DELETE, etc.
+				mode: 'cors', // no-cors, *cors, same-origin
+				cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+				credentials: 'include', // include, *same-origin, omit
+				headers: {
+					'Content-Type': 'application/json',
+					authorization: `Bearer${JSON.parse(getSession()).access_token}`
+					// 'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				redirect: 'follow', // manual, *follow, error
+				referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+				body: JSON.stringify({
+					message: message
+				}) // body data type must match "Content-Type" header
 			});
+
+			if (response.ok) {
+				const message = await response.json();
+
+				console.log(message.message);
+
+				showMessageSentLottie();
+			} else {
+				alert(response.status);
+			}
+		} catch (error) {
+			alert(error);
+		}
+
+		message = '';
 	};
 </script>
 
@@ -33,7 +62,7 @@
 			</div>
 			<form>
 				<div class="message">
-					<label for="textarea">Describe your issue or suggestion.</label>
+					<label for="textarea">Briefly describe your issue or suggestion.</label>
 					<textarea
 						name="textarea"
 						id="textarea"
@@ -42,6 +71,8 @@
 						bind:value={message}
 						spellcheck="false"
 						autocomplete="off"
+						maxlength="255"
+						on:contextmenu|stopPropagation={stop_propagation}
 					/>
 				</div>
 				<div class="buttons">
