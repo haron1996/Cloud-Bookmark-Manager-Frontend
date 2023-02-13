@@ -19,6 +19,7 @@ export async function continueWithGoogle(v: any) {
 	const res = await fetch(url, {
 		method: 'POST',
 		mode: 'cors',
+		referrerPolicy: 'no-referrer-when-downgrade',
 		headers: {
 			'Content-Type': 'application/json'
 		},
