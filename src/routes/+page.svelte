@@ -8,16 +8,6 @@
 	import { onMount, prevent_default } from 'svelte/internal';
 
 	let origin: string;
-
-	onMount(() => {
-		origin = $page.url.origin;
-
-		if (origin === 'http://localhost:5173') {
-			apiURL.set('http://localhost:5000');
-		} else if (origin === 'https://www.bookmarkbucket.com') {
-			apiURL.set('https://api.bookmarkbucket.com');
-		}
-	});
 </script>
 
 <svelte:head>
