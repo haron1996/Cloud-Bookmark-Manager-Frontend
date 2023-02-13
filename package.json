@@ -40,11 +40,13 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@babel/runtime": "^7.20.13",
 		"@sveltejs/adapter-static": "^1.0.5",
 		"animate.css": "^4.1.1",
 		"buffer": "^6.0.3",
 		"cors": "^2.8.5",
 		"interactjs": "^1.10.17",
+		"regenerator-runtime": "^0.13.11",
 		"svelte-adapter-static-digitalocean": "^1.0.1",
 		"typesense": "^1.4.4",
 		"u": "^0.1.0"
