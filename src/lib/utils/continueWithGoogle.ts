@@ -1,10 +1,11 @@
 import { goto } from '$app/navigation';
 import { session, apiURL } from '../../stores/stores';
 import type { Session } from '$lib/types/session';
+import { MakeCheckMarkLotieVisible } from './showCheckMarkLottie';
 
 let s: Partial<Session> = {};
 
-let baseURL: string = '';
+let baseURL = '';
 
 export async function continueWithGoogle(v: any) {
 	const unsub = apiURL.subscribe((value) => {
@@ -13,7 +14,7 @@ export async function continueWithGoogle(v: any) {
 
 	unsub();
 
-	const url = `${baseURL}/public/account`;
+	const url = `${baseURL}/public/continueWithGoogle`;
 
 	const res = await fetch(url, {
 		method: 'POST',
@@ -28,6 +29,8 @@ export async function continueWithGoogle(v: any) {
 		})
 	});
 
+	console.log(res);
+
 	const data = await res.json();
 
 	if (data[0] === null) return;
@@ -38,7 +41,11 @@ export async function continueWithGoogle(v: any) {
 
 	window.localStorage.setItem('session', JSON.stringify(data[0]));
 
-	//goto('http://localhost:5173/auth/thankyou');
+	MakeCheckMarkLotieVisible();
 
-	window.location.href = '/auth/thankyou';
+	window.location.href = '/appv1/my_links';
+
+	setTimeout(() => {
+		window.location.href = '/appv1/my_links';
+	}, 3000);
 }

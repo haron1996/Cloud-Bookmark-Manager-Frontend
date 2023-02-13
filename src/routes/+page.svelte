@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Googlebutton from '$lib/components/googlebutton.svelte';
 	import Mainnav from '$lib/components/mainnav.svelte';
 	import BookmarkManagerScreenshot from '$lib/images/bookmarkbucket_screenshot.png';
 	import Logo from '$lib/images/flavicon.png';
@@ -10,6 +11,8 @@
 </svelte:head>
 
 <Mainnav />
+
+<Googlebutton />
 
 <div class="copy">
 	<div class="above_the_fold">
