@@ -133,7 +133,7 @@
 
 		const l = t.closest('.link') as HTMLDivElement;
 
-		const url: string | undefined = l.dataset.link_url;
+		const url: string | undefined = l.dataset.linkurl;
 
 		if (url === undefined) return;
 

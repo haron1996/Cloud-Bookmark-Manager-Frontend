@@ -21,12 +21,20 @@
 	</div> -->
 	<div class="links">
 		{#if $page.url.pathname !== '/accounts/sign_in'}
-			<a href="/accounts/sign_in" class="sign_in">
+			<a
+				href="/accounts/sign_in"
+				class="sign_in"
+				class:hide_button={$page.url.pathname === '/accounts/email'}
+			>
 				<span>Sign in</span>
 			</a>
 		{/if}
 		{#if $page.url.pathname !== '/accounts/email'}
-			<a href="/accounts/email" class="signup">
+			<a
+				href="/accounts/email"
+				class="signup"
+				class:hide_button={$page.url.pathname === '/accounts/sign_in'}
+			>
 				<span>Create my free account</span>
 			</a>
 		{/if}
@@ -102,14 +110,11 @@
 			}
 
 			a.sign_in {
-				background-color: $yellow;
+				background-color: transparent;
+				border: 0.1rem solid $border-color-regular;
 
 				span {
 					color: rgb(0, 95, 153);
-				}
-
-				&:hover {
-					filter: brightness(90%);
 				}
 			}
 
@@ -125,5 +130,9 @@
 				}
 			}
 		}
+	}
+
+	:global(.hide_button) {
+		display: none !important;
 	}
 </style>
