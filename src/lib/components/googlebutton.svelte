@@ -9,13 +9,9 @@
 
 <script lang="ts">
 	globalThis.handleToken = async (response: any) => {
-		if (response) {
-			const v = decodeJwt(response.credential);
+		const v = decodeJwt(response.credential);
 
-			await continueWithGoogle(v);
-		} else {
-			alert('failed to get response from google');
-		}
+		await continueWithGoogle(v);
 	};
 </script>
 
