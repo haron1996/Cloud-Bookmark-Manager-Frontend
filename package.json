@@ -1,7 +1,4 @@
 {
-	"engines": {
-		"node": "18.14.0"
-	},
 	"name": "my-app",
 	"version": "0.0.1",
 	"scripts": {
