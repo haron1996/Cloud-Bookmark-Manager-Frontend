@@ -5,6 +5,7 @@
 	import { stop_propagation } from 'svelte/internal';
 	import { user, email_exists } from '../../../stores/stores';
 	import Mainnav from '$lib/components/mainnav.svelte';
+	import Googlebutton from '$lib/components/googlebutton.svelte';
 
 	let nameIsEmpty: boolean = false;
 	let emailIsEmpty: boolean = false;
@@ -68,6 +69,8 @@
 <svelte:head>
 	<title>Sign Up | Bookmark Bucket</title>
 </svelte:head>
+
+<!-- <Googlebutton /> -->
 
 <div class="content">
 	<Mainnav />

@@ -1,9 +1,23 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import Googlebutton from '$lib/components/googlebutton.svelte';
 	import Mainnav from '$lib/components/mainnav.svelte';
 	import BookmarkManagerScreenshot from '$lib/images/bookmarkbucket_screenshot.png';
 	import Logo from '$lib/images/flavicon.png';
-	import { prevent_default } from 'svelte/internal';
+	import { apiURL } from '../stores/stores';
+	import { onMount, prevent_default } from 'svelte/internal';
+
+	let origin: string;
+
+	onMount(() => {
+		origin = $page.url.origin;
+
+		if (origin === 'http://localhost:5173') {
+			apiURL.set('http://localhost:5000');
+		} else if (origin === 'https://www.bookmarkbucket.com') {
+			apiURL.set('https://api.bookmarkbucket.com');
+		}
+	});
 </script>
 
 <svelte:head>
@@ -12,7 +26,7 @@
 
 <Mainnav />
 
-<Googlebutton />
+<!-- <Googlebutton /> -->
 
 <div class="copy">
 	<div class="above_the_fold">

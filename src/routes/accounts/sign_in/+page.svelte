@@ -6,6 +6,7 @@
 	import Mainnav from '$lib/components/mainnav.svelte';
 	import { EmailAddressIsValid } from '$lib/utils/checkIfEmailIsValid';
 	import helloGif from '$lib/gifs/login-hello.gif';
+	import Googlebutton from '$lib/components/googlebutton.svelte';
 
 	let email: string = '';
 
@@ -56,6 +57,8 @@
 </svelte:head>
 
 <Mainnav />
+
+<!-- <Googlebutton /> -->
 
 <div class="content">
 	<form>
