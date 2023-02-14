@@ -98,8 +98,6 @@
 		setCurrentFolder();
 
 		getAccountID();
-
-		console.log($session.Account?.email_verified);
 	});
 
 	afterUpdate(() => {

@@ -16,7 +16,7 @@
 
 <Mainnav />
 
-<!-- <Googlebutton /> -->
+<Googlebutton />
 
 <div class="copy">
 	<div class="above_the_fold">

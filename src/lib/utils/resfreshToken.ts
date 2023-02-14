@@ -53,11 +53,11 @@ export const RefreshToken = async (s: Partial<Session>) => {
 
 	window.localStorage.setItem('session', JSON.stringify(s));
 
-	const unsubscribe = apiURL.subscribe((value) => {
-		baseURL = value;
-	});
+	// const unsubscribe = apiURL.subscribe((value) => {
+	// 	baseURL = value;
+	// });
 
-	unsubscribe();
+	// unsubscribe();
 
 	//goto(`${origin}/appv1/my_links`);
 };

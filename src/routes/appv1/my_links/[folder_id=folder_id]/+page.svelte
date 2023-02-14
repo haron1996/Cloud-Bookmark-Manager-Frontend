@@ -14,13 +14,24 @@
 		linksFound,
 		openedFolder,
 		query,
-		searchInputFocused
+		searchInputFocused,
+		folders,
+		links,
+		ancestorsOfCurrentFolder
 	} from '../../../../stores/stores';
 	import { loading } from '../../../../stores/stores';
 
 	let folderID: string = '';
 
+	$: $page.data.folders ? folders.set($page.data.folders) : folders.set([]);
+	$: $page.data.links ? links.set($page.data.links) : links.set([]);
+	$: $page.data.currentFolderAncestors
+		? ancestorsOfCurrentFolder.set($page.data.currentFolderAncestors)
+		: ancestorsOfCurrentFolder.set([]);
+
 	afterNavigate(async () => {
+		loading.set(false);
+
 		query.set('');
 
 		searchInputFocused.set(false);
@@ -33,11 +44,11 @@
 
 		resetSelectedLinks();
 
-		await getCurrentFolderID();
+		getCurrentFolderID();
 
-		await getAncestorsOfCurrentFolder(folderID);
+		//await getAncestorsOfCurrentFolder(folderID);
 
-		await getLinksAndFolders($page.params.folder_id);
+		//await getLinksAndFolders($page.params.folder_id);
 
 		hideContextMenu();
 
@@ -50,7 +61,7 @@
 		openedFolder.set(folder);
 	}
 
-	async function getCurrentFolderID() {
+	function getCurrentFolderID() {
 		$page.params.folder_id === ''
 			? console.log('no folder id found!')
 			: (folderID = $page.params.folder_id);

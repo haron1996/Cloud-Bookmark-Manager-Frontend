@@ -8,9 +8,13 @@
 	"/accounts/sign_in": [],
 	"/accounts/thankyou": [],
 	"/appv1": [],
-	"/appv1/my_links": [],
+	"/appv1/my_links": [
+		"src/routes/appv1/my_links/+page.ts"
+	],
 	"/appv1/my_links/trash": [],
-	"/appv1/my_links/[folder_id=folder_id]": [],
+	"/appv1/my_links/[folder_id=folder_id]": [
+		"src/routes/appv1/my_links/[folder_id=folder_id]/+page.ts"
+	],
 	"/appv1/settings": [],
 	"/appv1/settings/billing": [],
 	"/appv1/settings/members": [],

@@ -9,10 +9,13 @@ import {
 } from '../../stores/stores';
 import type { Session } from '$lib/types/session';
 import { MakeCheckMarkLotieVisible } from './showCheckMarkLottie';
+import { page } from '$app/stores';
 
 let s: Partial<Session> = {};
 
-let baseURL: string = '';
+let origin: string;
+
+let baseURL = '';
 
 export async function SignIn(email: string, password: string) {
 	const unsub = apiURL.subscribe((value) => {
@@ -57,7 +60,13 @@ export async function SignIn(email: string, password: string) {
 
 	MakeCheckMarkLotieVisible();
 
+	const getPageOrigin = page.subscribe((value) => {
+		origin = value.url.origin;
+	});
+
+	getPageOrigin();
+
 	setTimeout(() => {
-		window.location.href = '/appv1/my_links';
+		goto(`${origin}/appv1/my_links`);
 	}, 3000);
 }

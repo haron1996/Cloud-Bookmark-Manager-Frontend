@@ -1,3 +1,4 @@
+import { goto } from '$app/navigation';
 import type { newUser } from '$lib/types/newUser';
 import type { Session } from '$lib/types/session';
 import { accessToken, session, apiURL, email_exists, showThankYouGif } from '../../stores/stores';
@@ -58,8 +59,12 @@ export async function createNewAccount(a: Partial<newUser>) {
 		showThankYouGif.set(true);
 
 		setTimeout(() => {
-			window.location.href = `${origin}/appv1/my_links`;
+			showThankYouGif.set(false);
 		}, 3500);
+
+		setTimeout(() => {
+			goto(`${origin}/appv1/my_links`);
+		}, 3000);
 	} catch (error) {
 		console.log(error);
 	}

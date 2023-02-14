@@ -2,3 +2,7 @@
 // for information about these interfaces
 // and what to do when importing types
 declare namespace App {}
+
+declare namespace globalThis {
+	var handleToken: (response: Object) => void;
+}

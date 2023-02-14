@@ -7,7 +7,7 @@ let f: Partial<Folder>[] = [];
 let l: Partial<Link>[] = [];
 
 let folderID,
-	baseURL: string = '';
+	baseURL = '';
 
 export async function getLinksAndFolders(folder_id: string) {
 	loading.set(true);
@@ -31,7 +31,7 @@ export async function getLinksAndFolders(folder_id: string) {
 
 	unsub();
 
-	let url = `${baseURL}/private/getLinksAndFolders/${accountID}/${folderID}`;
+	const url = `${baseURL}/private/getLinksAndFolders/${accountID}/${folderID}`;
 	const res = await fetch(url, {
 		method: 'GET',
 		mode: 'cors',

@@ -2,9 +2,9 @@
 	import { decodeJwt } from '$lib/utils/decodejwt';
 	import { continueWithGoogle } from '$lib/utils/continueWithGoogle';
 
-	declare module globalThis {
-		var handleToken: (response: Object) => void;
-	}
+	// declare module globalThis {
+	// 	var handleToken: (response: Object) => void;
+	// }
 </script>
 
 <script lang="ts">

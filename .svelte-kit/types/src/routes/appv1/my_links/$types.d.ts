@@ -15,6 +15,8 @@ type LayoutParams = RouteParams & { folder_id?: string }
 type LayoutParentData = EnsureDefined<import('../../$types.js').LayoutData>;
 
 export type PageServerData = null;
-export type PageData = Expand<PageParentData>;
+export type PageLoad<OutputData extends OutputDataShape<PageParentData> = OutputDataShape<PageParentData>> = Kit.Load<RouteParams, PageServerData, PageParentData, OutputData, RouteId>;
+export type PageLoadEvent = Parameters<PageLoad>[0];
+export type PageData = Expand<Omit<PageParentData, keyof Kit.AwaitedProperties<Awaited<ReturnType<typeof import('./proxy+page.js').load>>>> & OptionalUnion<EnsureDefined<Kit.AwaitedProperties<Awaited<ReturnType<typeof import('./proxy+page.js').load>>>>>>;
 export type LayoutServerData = null;
 export type LayoutData = Expand<LayoutParentData>;
