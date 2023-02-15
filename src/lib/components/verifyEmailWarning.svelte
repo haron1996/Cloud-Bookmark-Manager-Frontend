@@ -14,18 +14,34 @@
 	const handleSendOtp = () => {
 		sendOTP(s);
 	};
+
+	function closeEmailVerificationWarningPopup() {
+		let el: HTMLElement | null | undefined;
+
+		el = window.event?.currentTarget as HTMLElement | null | undefined;
+
+		el = el?.closest('.verify_email_warning') as HTMLDivElement | null;
+
+		if (el) {
+			el.classList.remove('show_verify_email_warning');
+		}
+	}
 </script>
 
-{#if !$loading && !$session.Account?.email_verified}
-	<div class="verify_email_warning">
-		<span>Verify your email to receive the activity and other important emails.</span>
-		<div class="button" on:click|preventDefault|stopPropagation={handleSendOtp} on:keyup>
-			<span>Verify now</span>
-		</div>
-		<i class="las la-times" />
+<!-- {#if !$loading && !$session.Account?.email_verified} -->
+<div class="verify_email_warning" id="verify_email_warning">
+	<span>Verify your email to receive the activity and other important emails.</span>
+	<div class="button" on:click|preventDefault|stopPropagation={handleSendOtp} on:keyup>
+		<span>Verify now</span>
 	</div>
-{/if}
+	<i
+		class="las la-times"
+		on:click|preventDefault|stopPropagation={closeEmailVerificationWarningPopup}
+		on:keyup
+	/>
+</div>
 
+<!-- {/if} -->
 <style lang="scss">
 	.verify_email_warning {
 		min-width: max-content;
@@ -43,6 +59,7 @@
 		z-index: 6000;
 		border: 0.1rem solid #ffb200;
 		border-radius: 0.3rem;
+		display: none;
 
 		span {
 			font-size: 1.3rem;
@@ -66,5 +83,13 @@
 			font-size: 1.6rem;
 			cursor: pointer;
 		}
+	}
+
+	:global(.show_verify_email_warning) {
+		display: flex !important;
+	}
+
+	:global(.hide_verify_email_warning) {
+		display: none !important;
 	}
 </style>

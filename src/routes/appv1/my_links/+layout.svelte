@@ -100,6 +100,8 @@
 		setCurrentFolder();
 
 		getAccountID();
+
+		showEmailVerificationWarningPopup();
 	});
 
 	afterUpdate(() => {
@@ -187,6 +189,17 @@
 		hideSearchFormPopup();
 
 		showContextMenu(e);
+	}
+
+	// show email verification status warning if email is not verified
+	function showEmailVerificationWarningPopup() {
+		if (browser) {
+			const el = document.getElementById('verify_email_warning') as HTMLDivElement | null;
+
+			if (el && !$session.Account?.email_verified) {
+				el.classList.add('show_verify_email_warning');
+			}
+		}
 	}
 
 	$: if ($page.url.pathname === '/appv1/my_links') {
@@ -323,7 +336,7 @@
 			top: 4.5rem;
 			left: 0;
 			width: 100%;
-			height: 100%;
+			height: calc(100% - 4.5rem);
 			max-height: calc(100% - 4.5rem);
 			padding: 1em;
 			display: flex;
