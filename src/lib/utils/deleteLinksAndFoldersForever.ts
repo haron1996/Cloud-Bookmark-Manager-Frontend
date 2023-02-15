@@ -7,7 +7,7 @@ import { removeItemsSelected } from './removeItemsSelected';
 
 let fs: Partial<Folder>[];
 let ls: Partial<Link>[];
-let baseURL: string = '';
+let baseURL = '';
 
 export async function deleteLinksAndFoldersForever(f: Partial<Folder>[], l: Partial<Link>[]) {
 	const unsub = apiURL.subscribe((value) => {
@@ -33,7 +33,7 @@ export async function deleteLinksAndFoldersForever(f: Partial<Folder>[], l: Part
 		}) // body data type must match "Content-Type" header
 	});
 
-	const lsResponse = await fetch('http://localhost:5000/private/link/deleteLinksForever', {
+	const lsResponse = await fetch(`${baseURL}/private/link/deleteLinksForever`, {
 		method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
