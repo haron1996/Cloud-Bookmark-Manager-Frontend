@@ -71,9 +71,7 @@
 			<div class="lightning_fast_search">
 				<i class="lab la-searchengin" />
 				<span>Fast search</span>
-				<p>
-					Lighning-fast search-as-you-type experince. As in, find what you're looking for. Fast.
-				</p>
+				<p>Fast search-as-you-type experince. As in, find what you're looking for. Fast.</p>
 			</div>
 			<div class="recycle_bin">
 				<i class="las la-recycle" />
