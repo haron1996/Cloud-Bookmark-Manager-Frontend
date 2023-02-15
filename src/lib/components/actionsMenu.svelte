@@ -9,6 +9,9 @@
 	import { restoreLinksAndFoldersFromTrash } from '$lib/utils/restoreLinksAndFoldersFromTrash';
 	import { restoreFoldersFromTrash } from '$lib/utils/restoreFoldersFromTrash';
 	import { restoreLinksFromTrash } from '$lib/utils/restoreLinksFromTrash';
+	import { deleteLinksAndFoldersForever } from '$lib/utils/deleteLinksAndFoldersForever';
+	import { deleteLinksForever } from '$lib/utils/deleteLinksForever';
+	import { deleteFoldersForever } from '$lib/utils/deleteFoldersForever';
 
 	$: selectedItems = [...$selectedFolders, ...$selectedLinks];
 
@@ -62,6 +65,7 @@
 		) {
 			// delete both links and folders
 			console.log('permanently delete links and folders');
+			await deleteLinksAndFoldersForever($selectedFolders, $selectedLinks);
 		} else if (
 			$selectedFolders &&
 			$selectedFolders.length > 0 &&
@@ -70,6 +74,7 @@
 		) {
 			// delete folders
 			console.log('permanently delete folders');
+			await deleteFoldersForever($selectedFolders);
 		} else if (
 			$selectedFolders &&
 			$selectedLinks &&
@@ -78,6 +83,7 @@
 		) {
 			// delete links
 			console.log('permanently delete links');
+			await deleteLinksForever($selectedLinks);
 		}
 	}
 </script>
