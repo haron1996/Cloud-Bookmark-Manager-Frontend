@@ -53,6 +53,6 @@ export async function continueWithGoogle(v: any) {
 	getPageOrigin();
 
 	setTimeout(() => {
-		throw redirect(302, `${origin}/appv1/my_links`);
+		goto(`${origin}/appv1/my_links`);
 	}, 3000);
 }
