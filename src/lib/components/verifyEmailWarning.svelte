@@ -50,7 +50,6 @@
 		display: flex;
 		align-items: center;
 		gap: 1em;
-		box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 		position: absolute;
 		bottom: 0.5em;
 		left: 50%;
@@ -60,6 +59,8 @@
 		border: 0.1rem solid #ffb200;
 		border-radius: 0.3rem;
 		display: none;
+		box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+			rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
 
 		span {
 			font-size: 1.3rem;
