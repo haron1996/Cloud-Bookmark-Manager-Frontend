@@ -22,7 +22,10 @@
 	<div class="above_the_fold">
 		<div class="heading_and_subheading">
 			<h1>Free online standalone bookmark manager.</h1>
-			<p>Save your links online.</p>
+			<p>
+				If you're always bookmarking things but don't have them organized, and can never find
+				them... bookmarkbucket is what you're looking for.
+			</p>
 		</div>
 		<div class="cta">
 			<a href="/accounts/email" class="sign_up">
@@ -149,6 +152,7 @@
 					color: #263159;
 					font-family: 'Arial CE', sans-serif;
 					font-weight: 500;
+					max-width: 60%;
 				}
 			}
 
@@ -213,6 +217,7 @@
 				.heading_and_subheading {
 					p {
 						font-size: 2rem;
+						max-width: 98%;
 					}
 				}
 
