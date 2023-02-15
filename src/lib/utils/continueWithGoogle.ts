@@ -2,8 +2,12 @@ import { goto } from '$app/navigation';
 import { session, apiURL } from '../../stores/stores';
 import type { Session } from '$lib/types/session';
 import { MakeCheckMarkLotieVisible } from './showCheckMarkLottie';
+import { page } from '$app/stores';
+import { redirect } from '@sveltejs/kit';
 
 let s: Partial<Session> = {};
+
+let origin: string;
 
 let baseURL = '';
 
@@ -30,8 +34,6 @@ export async function continueWithGoogle(v: any) {
 		})
 	});
 
-	console.log(res);
-
 	const data = await res.json();
 
 	if (data[0] === null) return;
@@ -44,9 +46,13 @@ export async function continueWithGoogle(v: any) {
 
 	MakeCheckMarkLotieVisible();
 
-	window.location.href = '/appv1/my_links';
+	const getPageOrigin = page.subscribe((value) => {
+		origin = value.url.origin;
+	});
+
+	getPageOrigin();
 
 	setTimeout(() => {
-		window.location.href = '/appv1/my_links';
+		throw redirect(302, `${origin}/appv1/my_links`);
 	}, 3000);
 }
