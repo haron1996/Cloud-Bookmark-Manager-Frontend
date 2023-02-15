@@ -77,6 +77,7 @@
 	import Contact from '$lib/components/contact.svelte';
 	import MessageSent from '$lib/components/messageSent.svelte';
 	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
+	import { hideContextMenu } from '$lib/utils/hideContextMenu';
 
 	let el: HTMLElement;
 
@@ -202,6 +203,14 @@
 		}
 	}
 
+	function handleAddItemWhenParentCollectionIsEmpty() {
+		hideContextMenu();
+
+		hideMenuBar();
+
+		SwitchOnCreateMode();
+	}
+
 	$: if ($page.url.pathname === '/appv1/my_links') {
 		activePath.set('Home');
 	} else if ($page.url.pathname === '/appv1/my_links/recycle_bin') {
@@ -302,8 +311,8 @@
 			{:else if $folders.length === 0 && $links.length === 0}
 				{#if $page.url.pathname}
 					<div class="no_items_container">
-						{#if $page.url.pathname === '/appv1/my_links/recycle_bin'}
-							<span>No thing found</span>
+						{#if $page.url.pathname === '/appv1/my_links/trash'}
+							<span>No items in trash</span>
 						{:else}
 							<!-- <div
 								class="button"
@@ -314,7 +323,11 @@
 								<span>New</span>
 								<i class="las la-plus" />
 							</div> -->
-							<span>Nothing found</span>
+							<span
+								class="add_link"
+								on:click|preventDefault|stopPropagation={handleAddItemWhenParentCollectionIsEmpty}
+								on:keyup>Click to add</span
+							>
 						{/if}
 					</div>
 				{/if}
@@ -356,6 +369,15 @@
 					font-size: 1.3rem;
 					font-family: 'Product Sans Medium', sans-serif;
 					color: $text-color-regular-2;
+					transition: all 200ms ease-in-out;
+				}
+
+				span.add_link {
+					cursor: pointer;
+
+					&:hover {
+						text-decoration: underline;
+					}
 				}
 
 				// .button {
