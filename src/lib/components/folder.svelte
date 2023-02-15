@@ -18,12 +18,13 @@
 	import { ListenToDrop } from '$lib/utils/handleElementDrop';
 	import { FolderDragOver } from '$lib/utils/handleFolderDragOver';
 	import { FolderDragLeave } from '$lib/utils/handleFolderDragLeave';
+	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
 
 	export let folder: Partial<Folder>;
 
 	let folderSelected: Partial<Folder> = {};
 	let subfolderOf: string | undefined = '';
-	let path: string
+	let path: string;
 
 	function handleCheckBoxClick() {
 		const checkBox = window.event?.currentTarget as HTMLDivElement | null;
@@ -50,6 +51,8 @@
 		}
 
 		hideContextMenu();
+
+		hideMenuBar();
 	}
 
 	function appendFolderToSelectedFolders(folder: Partial<Folder>) {
@@ -95,9 +98,13 @@
 		}
 
 		hideContextMenu();
+
+		hideMenuBar();
 	}
 
 	function handleFolderContextMenu(e: MouseEvent) {
+		hideMenuBar();
+
 		showContextMenu(e);
 
 		const folder = window.event?.currentTarget as HTMLDivElement;
@@ -125,16 +132,18 @@
 	}
 
 	function handleClickOnFolderName() {
-		const getCurrentPath = page.subscribe((value) => {
-			path = value.url.pathname
-		})
+		hideMenuBar();
 
-		getCurrentPath()
+		const getCurrentPath = page.subscribe((value) => {
+			path = value.url.pathname;
+		});
+
+		getCurrentPath();
 
 		if (path === '/appv1/my_links/trash') {
-			showFolderInTrashAlert.set(true)
+			showFolderInTrashAlert.set(true);
 			// alert(`Restore before you can open`)
-			return
+			return;
 		}
 
 		const target = window.event?.currentTarget as HTMLSpanElement;

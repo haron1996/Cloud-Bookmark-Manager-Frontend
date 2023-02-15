@@ -76,6 +76,7 @@
 	import ThankYou from '$lib/components/thank-you.svelte';
 	import Contact from '$lib/components/contact.svelte';
 	import MessageSent from '$lib/components/messageSent.svelte';
+	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
 
 	let el: HTMLElement;
 
@@ -86,6 +87,7 @@
 	// }
 
 	afterNavigate(async () => {
+		hideMenuBar();
 		// await checkIfUserIsLoggedIn();
 
 		setSession();
@@ -176,6 +178,8 @@
 	}
 
 	function handleLinksSectionContextMenu(e: MouseEvent) {
+		hideMenuBar();
+
 		hideSelectShowCategoryMenu();
 
 		hideShowOptionsMenu();

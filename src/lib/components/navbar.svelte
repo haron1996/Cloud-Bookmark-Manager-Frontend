@@ -34,7 +34,7 @@
 	import Mark from 'mark.js';
 	import { browser } from '$app/environment';
 	import { SwitchOnCreateMode } from '$lib/utils/switchOnCreateMode';
-	import { ToggleMenuBar } from '$lib/utils/toggleMenuBar';
+	import { hideMenuBar, ToggleMenuBar } from '$lib/utils/toggleMenuBar';
 
 	let s: Partial<Session> = {};
 	let el: HTMLOptionElement;
@@ -129,6 +129,14 @@
 	function reportBug() {
 		console.log();
 	}
+
+	function handlePlusIconClick() {
+		hideContextMenu();
+
+		hideMenuBar();
+
+		SwitchOnCreateMode();
+	}
 </script>
 
 <svete:head>
@@ -165,8 +173,8 @@
 			{/if}
 		</form>
 	</div>
-	<div class="new_button">
-		<i class="las la-plus" on:click|preventDefault|stopPropagation={SwitchOnCreateMode} on:keyup />
+	<div class="new_button" on:click|preventDefault|stopPropagation={handlePlusIconClick} on:keyup>
+		<i class="las la-plus" />
 	</div>
 </nav>
 

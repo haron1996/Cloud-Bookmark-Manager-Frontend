@@ -13,8 +13,11 @@
 	import { afterNavigate } from '$app/navigation';
 	import Checkmark from '$lib/components/checkmark.svelte';
 	import ThankYou from '$lib/components/thank-you.svelte';
+	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
 
 	function handleBodyClick() {
+		hideMenuBar();
+
 		hideProfileMenu();
 
 		hideShowOptionsMenu();
@@ -37,6 +40,8 @@
 	}
 
 	function handleRightClickOnBody() {
+		hideMenuBar();
+
 		hideShowOptionsMenu();
 
 		createButtonToggled.set(false);

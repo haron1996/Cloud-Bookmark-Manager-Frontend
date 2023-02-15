@@ -11,6 +11,7 @@
 	import { stop_propagation } from 'svelte/internal';
 	import { hideContextMenu } from '$lib/utils/hideContextMenu';
 	import { dragLink } from './dragLink';
+	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
 
 	export let link: Partial<Link>;
 
@@ -21,6 +22,8 @@
 	let folder_id: string | undefined = '';
 
 	function handleClickOnCheckbox() {
+		hideMenuBar();
+
 		const el = window.event?.currentTarget as HTMLDivElement | null;
 
 		if (el === null) return;
@@ -99,9 +102,13 @@
 		}
 
 		hideContextMenu();
+
+		hideMenuBar();
 	}
 
 	function handleLinkContextMenu(e: MouseEvent) {
+		hideMenuBar();
+
 		showContextMenu(e);
 
 		const el = window.event?.currentTarget as HTMLDivElement;
@@ -129,6 +136,10 @@
 	}
 
 	function openLink() {
+		hideMenuBar();
+
+		hideContextMenu();
+
 		const t = window.event?.currentTarget as HTMLSpanElement;
 
 		const l = t.closest('.link') as HTMLDivElement;
