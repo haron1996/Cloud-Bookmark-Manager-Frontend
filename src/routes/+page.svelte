@@ -49,7 +49,10 @@
 	</div>
 	<div class="screenshot">
 		<div class="screenshot_container">
-			<img src={BookmarkManagerScreenshot} alt="site dashboard screenshot" />
+			<img
+				src="https://nested.sfo3.digitaloceanspaces.com/assets/landing-page-assets/Free-BookmarkBucket.png"
+				alt="site dashboard screenshot"
+			/>
 		</div>
 	</div>
 	<div class="features">
