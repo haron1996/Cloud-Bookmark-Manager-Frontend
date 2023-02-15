@@ -10,7 +10,7 @@
 	function exitAddLinkMode() {
 		addLinkMode.set(false);
 
-		newLink.set('https://example.com');
+		//newLink.set('https://example.com');
 	}
 
 	function handleFormSubmit() {

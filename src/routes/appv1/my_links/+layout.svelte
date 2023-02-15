@@ -86,11 +86,11 @@
 	// }
 
 	afterNavigate(async () => {
-		await checkIfUserIsLoggedIn();
+		// await checkIfUserIsLoggedIn();
 
 		setSession();
 
-		checkIfUserHasAccessToken();
+		// checkIfUserHasAccessToken();
 
 		// hide profile popup
 		hideProfileMenu();

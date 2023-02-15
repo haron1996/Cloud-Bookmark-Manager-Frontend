@@ -7,11 +7,11 @@ let baseURL: string;
 let origin: string;
 
 export const RefreshToken = async (s: Partial<Session>) => {
-	const unsub = page.subscribe((value) => {
+	const getOrigin = page.subscribe((value) => {
 		origin = value.url.origin;
 	});
 
-	unsub();
+	getOrigin();
 
 	const getBaseUrl = apiURL.subscribe((value) => {
 		baseURL = value;
