@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import { makeContactFormVisible } from '$lib/utils/toggleContactForm';
 	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
+	import { redirect } from '@sveltejs/kit';
 
 	let origin: string;
 	let pathname: string;
@@ -14,6 +15,14 @@
 
 		getPathname();
 	});
+
+	const signOut = () => {
+		window.localStorage.clear();
+
+		window.location.replace(`${$page.url.origin}`);
+
+		//window.location.reload();
+	};
 
 	const goHome = () => {
 		const getPageOrigin = page.subscribe((value) => {
@@ -80,7 +89,7 @@
 		</div>
 	</div>
 	<div class="tertiary">
-		<div class="logout">
+		<div class="logout" on:click|preventDefault|stopPropagation={signOut} on:keyup>
 			<i class="las la-sign-out-alt" />
 			<span>Sign Out</span>
 		</div>

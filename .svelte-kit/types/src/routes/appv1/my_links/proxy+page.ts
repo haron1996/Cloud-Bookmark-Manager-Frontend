@@ -18,6 +18,12 @@ export async function load({ fetch, params, url, route }: any) {
 	if (browser) {
 		const sessionString: string | null = window.localStorage.getItem('session');
 
+		if (sessionString === '' || sessionString === null) {
+			//alert('no session');
+			window.localStorage.clear();
+			throw redirect(302, `${url.origin}`);
+		}
+
 		if (sessionString) {
 			s = JSON.parse(sessionString);
 
