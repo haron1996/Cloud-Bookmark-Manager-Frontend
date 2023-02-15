@@ -58,7 +58,7 @@
 
 <Mainnav />
 
-<!-- <Googlebutton /> -->
+<Googlebutton />
 
 <div class="content">
 	<form>

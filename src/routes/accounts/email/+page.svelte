@@ -70,7 +70,7 @@
 	<title>Sign Up | Bookmark Bucket</title>
 </svelte:head>
 
-<!-- <Googlebutton /> -->
+<Googlebutton />
 
 <div class="content">
 	<Mainnav />

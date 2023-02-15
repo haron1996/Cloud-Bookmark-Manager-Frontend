@@ -4,8 +4,12 @@
 	],
 	"/about": [],
 	"/accounts": [],
-	"/accounts/email": [],
-	"/accounts/sign_in": [],
+	"/accounts/email": [
+		"src/routes/accounts/email/+page.ts"
+	],
+	"/accounts/sign_in": [
+		"src/routes/accounts/sign_in/+page.ts"
+	],
 	"/accounts/thankyou": [],
 	"/appv1": [],
 	"/appv1/my_links": [

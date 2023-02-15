@@ -27,6 +27,7 @@ export const GetNewAccessToken = async (fetch: any, url: any): Promise<Partial<S
 
 	if (data.message) {
 		//alert(data.message);
+		window.localStorage.clear();
 
 		throw redirect(302, `${url.origin}/accounts/sign_in`);
 	}
