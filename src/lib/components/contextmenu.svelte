@@ -264,6 +264,7 @@
 	{:else}
 		{#if $rightClickedElement && $rightClickedElement.classList.contains('folder')}
 			<div
+				style="display: none"
 				class="open_all"
 				class:button_disabled={$selectedFolders.length > 1}
 				on:click|preventDefault|stopPropagation={handleClickOnOpenAllLinksButton}
