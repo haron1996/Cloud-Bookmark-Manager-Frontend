@@ -6,10 +6,11 @@ import { hideMoveItemsPopup } from './hideMoveItemsPopup';
 import { goto } from '$app/navigation';
 import { resetLinksCut } from './resetLinksCut';
 import { get } from 'svelte/store';
+import { resetSelectedLinks } from './resetSelectedLinks';
 
 // let currentPath: string;
 
-let myLinks: Partial<Link>[] = [];
+let myLinks: Partial<Link>[];
 let baseUrl: string;
 let origin: string;
 
@@ -51,32 +52,38 @@ export async function moveLinks(linkss: Partial<Link>[], folderID: string) {
 	for (let index = 0; index < linksMoved.length; index++) {
 		const element = linksMoved[index];
 
-		// if (currentPath === '/appv1/my_links' && !element.folder_id?.Valid) {
-		// 	continue;
+		// if (get(links) === null) {
+		// 	links.set([element, ...myLinks]);
 		// } else {
-		// 	links.update((values) => values.filter((val) => val.link_id !== element.link_id));
+		// 	links.update((values) => [element, ...values]);
 		// }
 
-		if (get(links) === null) {
-			links.set([element, ...myLinks]);
-		} else {
-			links.update((values) => [element, ...values]);
-		}
+		const getDomLinks = links.subscribe((value) => {
+			myLinks = value;
+		});
+
+		getDomLinks();
+
+		myLinks = myLinks.filter((ml) => ml.link_id !== element.link_id);
+
+		links.set(myLinks);
 	}
+
+	resetSelectedLinks();
 
 	resetLinksCut();
 
 	hideMoveItemsPopup();
 
-	const getCurrentOrigin = page.subscribe((value) => {
-		origin = value.url.origin
-	})
+	// const getCurrentOrigin = page.subscribe((value) => {
+	// 	origin = value.url.origin
+	// })
 
-	getCurrentOrigin()
+	// getCurrentOrigin()
 
-	if (folderID !== '') {
-		goto(`${origin}/appv1/my_links/${linksMoved[0].folder_id?.String}`);
-	} else {
-		goto(`${origin}/appv1/my_links`);
-	}
+	// if (folderID !== '') {
+	// 	goto(`${origin}/appv1/my_links/${linksMoved[0].folder_id?.String}`);
+	// } else {
+	// 	goto(`${origin}/appv1/my_links`);
+	// }
 }
