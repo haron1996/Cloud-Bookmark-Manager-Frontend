@@ -8,11 +8,15 @@ import { get } from 'svelte/store';
 import { resetLinksCut } from './resetLinksCut';
 import { resetFoldersCut } from './resetFoldersCut';
 import { goto } from '$app/navigation';
+import { resetSelectedFolders } from './resetSelectedFolders';
+import { resetSelectedLinks } from './resetSelectedLinks';
 
 // let currentPath: string;
 
-let baseURL: string = '';
-let origin: string
+let baseURL = '';
+let origin: string;
+let domFolders: Partial<Folder>[];
+let domLinks: Partial<Link>[];
 
 export async function moveLinksAndFoldersToRoot(
 	folderz: Partial<Folder>[],
@@ -42,7 +46,7 @@ export async function moveLinksAndFoldersToRoot(
 		}) // body data type must match "Content-Type" header
 	});
 
-	const moveLinksPromise = await fetch('http://localhost:5000/private/link/move', {
+	const moveLinksPromise = await fetch(`${baseURL}/private/link/move`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -69,17 +73,45 @@ export async function moveLinksAndFoldersToRoot(
 		const foldersMoved: Partial<Folder>[] = foldersResponse[0];
 		const linksMoved: Partial<Link>[] = linksResponse[0];
 
-		if (get(folders) === null) {
-			folders.set(foldersMoved);
-		} else {
-			folders.update((values) => [...foldersMoved, ...values]);
+		// if (get(folders) === null) {
+		// 	folders.set(foldersMoved);
+		// } else {
+		// 	folders.update((values) => [...foldersMoved, ...values]);
+		// }
+
+		// if (get(links) === null) {
+		// 	links.set(linksMoved);
+		// } else {
+		// 	links.update((values) => [...linksMoved, ...values]);
+		// }
+
+		const getDomFolders = folders.subscribe((values) => {
+			domFolders = values;
+		});
+
+		getDomFolders();
+
+		const getDomLinks = links.subscribe((value) => {
+			domLinks = value;
+		});
+
+		getDomLinks();
+
+		for (let index = 0; index < foldersMoved.length; index++) {
+			const element = foldersMoved[index];
+			domFolders = domFolders.filter((dmf) => dmf.folder_id !== element.folder_id);
+			folders.set(domFolders);
 		}
 
-		if (get(links) === null) {
-			links.set(linksMoved);
-		} else {
-			links.update((values) => [...linksMoved, ...values]);
+		for (let index = 0; index < linksMoved.length; index++) {
+			const element = linksMoved[index];
+			domLinks = domLinks.filter((dml) => dml.link_id !== element.link_id);
+			links.set(domLinks);
 		}
+
+		resetSelectedFolders();
+
+		resetSelectedLinks();
 
 		resetFoldersCut();
 
@@ -87,13 +119,13 @@ export async function moveLinksAndFoldersToRoot(
 
 		hideMoveItemsPopup();
 
-		const getCurrentOrigin = page.subscribe((value) => {
-			origin = value.url.origin
-		})
+		// const getCurrentOrigin = page.subscribe((value) => {
+		// 	origin = value.url.origin;
+		// });
 
-		getCurrentOrigin()
+		// getCurrentOrigin();
 
-		goto(`${origin}/appv1/my_links`);
+		// goto(`${origin}/appv1/my_links`);
 	} catch (error) {
 		console.log(error);
 	}
@@ -104,9 +136,13 @@ export async function moveLinksAndFoldersToSelectedDestinationFolder(
 	linkz: Partial<Link>[],
 	folderID: string | undefined
 ) {
-	console.log(folderID);
+	const unsub = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
 
-	const moveFoldersPromise = await fetch('http://localhost:5000/private/folder/moveFolders', {
+	unsub();
+
+	const moveFoldersPromise = await fetch(`${baseURL}/private/folder/moveFolders`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -124,7 +160,7 @@ export async function moveLinksAndFoldersToSelectedDestinationFolder(
 		}) // body data type must match "Content-Type" header
 	});
 
-	const moveLinksPromise = await fetch('http://localhost:5000/private/link/move', {
+	const moveLinksPromise = await fetch(`${baseURL}/private/link/move`, {
 		method: 'PATCH', // *GET, POST, PUT, DELETE, etc.
 		mode: 'cors', // no-cors, *cors, same-origin
 		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -151,17 +187,45 @@ export async function moveLinksAndFoldersToSelectedDestinationFolder(
 		const foldersMoved: Partial<Folder>[] = foldersResponse[0];
 		const linksMoved: Partial<Link>[] = linksResponse[0];
 
-		if (get(folders) === null) {
-			folders.set(foldersMoved);
-		} else {
-			folders.update((values) => [...foldersMoved, ...values]);
+		// if (get(folders) === null) {
+		// 	folders.set(foldersMoved);
+		// } else {
+		// 	folders.update((values) => [...foldersMoved, ...values]);
+		// }
+
+		// if (get(links) === null) {
+		// 	links.set(linksMoved);
+		// } else {
+		// 	links.update((values) => [...linksMoved, ...values]);
+		// }
+
+		const getDomFolders = folders.subscribe((values) => {
+			domFolders = values;
+		});
+
+		getDomFolders();
+
+		const getDomLinks = links.subscribe((value) => {
+			domLinks = value;
+		});
+
+		getDomLinks();
+
+		for (let index = 0; index < foldersMoved.length; index++) {
+			const element = foldersMoved[index];
+			domFolders = domFolders.filter((dmf) => dmf.folder_id !== element.folder_id);
+			folders.set(domFolders);
 		}
 
-		if (get(links) === null) {
-			links.set(linksMoved);
-		} else {
-			links.update((values) => [...linksMoved, ...values]);
+		for (let index = 0; index < linksMoved.length; index++) {
+			const element = linksMoved[index];
+			domLinks = domLinks.filter((dml) => dml.link_id !== element.link_id);
+			links.set(domLinks);
 		}
+
+		resetSelectedFolders();
+
+		resetSelectedLinks();
 
 		hideMoveItemsPopup();
 
@@ -169,15 +233,15 @@ export async function moveLinksAndFoldersToSelectedDestinationFolder(
 
 		resetLinksCut();
 
-		const getCurrentOrigin = page.subscribe((value) => {
-			origin = value.url.origin
-		})
+		// const getCurrentOrigin = page.subscribe((value) => {
+		// 	origin = value.url.origin;
+		// });
 
-		getCurrentOrigin()
+		// getCurrentOrigin();
 
-		if (folderID) {
-			goto(`${origin}/appv1/my_links/${folderID}`);
-		}
+		// if (folderID) {
+		// 	goto(`${origin}/appv1/my_links/${folderID}`);
+		// }
 	} catch (error) {
 		console.log(error);
 	}

@@ -372,6 +372,7 @@
 				return $folders.map((folder) => folder.folder_id).includes(f.folder_id);
 			})} -->
 			<div
+				style="display: none;"
 				on:click|preventDefault|stopPropagation={handleClickOnPasteButton}
 				on:keyup
 				class="paste"
@@ -459,7 +460,12 @@
 				</div>
 				<span>Move to</span>
 			</div>
-			<div class="cut" on:click|preventDefault|stopPropagation={handleClickOnCutButton} on:keyup>
+			<div
+				style="display: none"
+				class="cut"
+				on:click|preventDefault|stopPropagation={handleClickOnCutButton}
+				on:keyup
+			>
 				<div class="icon">
 					<svg
 						width="24px"
