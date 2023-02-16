@@ -57,4 +57,10 @@ export const VerifyOTP = async (otp: string, s: Session) => {
 	showOtpModal.set(false);
 
 	MakeCheckMarkLotieVisible();
+
+	const el = document.getElementById('verify_email_warning') as HTMLDivElement | null;
+
+	if (el) {
+		el.classList.remove('show_verify_email_warning');
+	}
 };
