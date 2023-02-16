@@ -39,6 +39,7 @@
 	import { deleteLinksForever } from '$lib/utils/deleteLinksForever';
 	import { deleteLinksAndFoldersForever } from '$lib/utils/deleteLinksAndFoldersForever';
 	import { mouseEvent } from './../../stores/stores';
+	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
 
 	let totalItems: (Partial<Folder> | Partial<Link>)[] = [];
 
@@ -71,6 +72,9 @@
 
 	async function handleClickOnPasteButton() {
 		hideContextMenu();
+
+		hideMenuBar();
+
 		if ($rightClickedElement.classList.contains('folder') && $selectedFolders.length === 1) {
 			if ($foldersCut.length > 0 && $linksCut.length < 1) {
 				await moveFolders($foldersCut, $selectedFolders[0].folder_id);
@@ -107,6 +111,8 @@
 					);
 				}
 			}
+
+			window.location.reload();
 		}
 	}
 

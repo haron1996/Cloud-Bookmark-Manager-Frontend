@@ -1,13 +1,16 @@
 import type { Folder } from '$lib/types/folder';
 import { getSession } from './getSession';
 import { page } from '$app/stores';
-import { folders, apiURL } from '../../stores/stores';
+import { folders, apiURL, foldersCut } from '../../stores/stores';
 import { resetFoldersCut } from './resetFoldersCut';
 import { hideMoveItemsPopup } from './hideMoveItemsPopup';
 import { goto } from '$app/navigation';
+import { resetSelectedFolders } from './resetSelectedFolders';
+import { resetSelectedLinks } from './resetSelectedLinks';
 
-let baseURL: string = '';
-let origin: string
+let baseURL = '';
+let origin: string;
+let domFolders: Partial<Folder>[];
 
 export async function moveFoldersToRoot(folderz: Partial<Folder>[]) {
 	const unsub = apiURL.subscribe((value) => {
@@ -39,18 +42,31 @@ export async function moveFoldersToRoot(folderz: Partial<Folder>[]) {
 
 	for (let index = 0; index < foldersMoved.length; index++) {
 		const element = foldersMoved[index];
-		folders.update((values) => [element, ...values]);
+
+		//folders.update((values) => [element, ...values]);
+
+		const getDomFolders = folders.subscribe((value) => {
+			domFolders = value;
+		});
+
+		getDomFolders();
+
+		folders.set(domFolders.filter((dmf) => dmf.folder_id !== element.folder_id));
 	}
+
+	resetSelectedFolders();
+
+	resetSelectedLinks();
 
 	resetFoldersCut();
 
 	hideMoveItemsPopup();
 
-	const getPageOrigin = page.subscribe((value) => {
-		origin = value.url.origin
-	})
+	// const getPageOrigin = page.subscribe((value) => {
+	// 	origin = value.url.origin;
+	// });
 
-	getPageOrigin()
+	// getPageOrigin();
 
-	goto(`${origin}/appv1/my_links`);
+	//goto(`${origin}/appv1/my_links`);
 }
