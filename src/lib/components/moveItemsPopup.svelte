@@ -305,7 +305,7 @@
 								(link) => link.folder_id?.String === $selectedDestinationFolder.folder_id
 							))}
 				>
-					<span>Select</span>
+					<span>Move item</span>
 				</div>
 				<div class="cancel" on:click|preventDefault|stopPropagation={toggleMoveItemsPopup} on:keyup>
 					<span>Cancel</span>
@@ -563,8 +563,7 @@
 
 					div.select,
 					div.cancel {
-						height: 3.5rem;
-						min-width: 7rem;
+						padding: 0.5em 1em;
 						border: none;
 						background-color: $gray;
 						cursor: pointer;
