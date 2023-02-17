@@ -25,6 +25,7 @@
 	let folderSelected: Partial<Folder> = {};
 	let subfolderOf: string | undefined = '';
 	let path: string;
+	let el: HTMLElement;
 
 	function handleCheckBoxClick() {
 		const checkBox = window.event?.currentTarget as HTMLDivElement | null;
@@ -158,6 +159,16 @@
 
 		//window.location.href = `/appv1/my_links/${folderID}`;
 	}
+
+	function handleFolderDragEnd(e: DragEvent) {
+		el = e.target as HTMLDivElement;
+
+		el = el.closest('.folder') as HTMLDivElement;
+
+		el.classList.remove('folder_drag_over');
+
+		el.classList.remove('dragged_folder');
+	}
 </script>
 
 <div
@@ -178,6 +189,7 @@
 	on:dragover|preventDefault={FolderDragOver}
 	on:dragleave={FolderDragLeave}
 	on:drop|preventDefault={ListenToDrop}
+	on:dragend={handleFolderDragEnd}
 >
 	<div class="top">
 		<div class="icon">
@@ -437,9 +449,13 @@
 
 	:global(.dragged_folder) {
 		opacity: 0.4 !important;
+		background-color: lightblue;
 	}
 
 	:global(.folder_drag_over) {
-		border: 0.2rem dashed $blue !important;
+		outline-offset: 0.4rem;
+		outline: 0.2rem solid $blue;
+		border-radius: 0 !important;
+		//transition: outline 200ms ease-in-out !important;
 	}
 </style>

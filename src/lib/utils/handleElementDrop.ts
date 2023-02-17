@@ -8,11 +8,11 @@ import { getDomFolders } from './getDomFolders';
 let el: HTMLElement;
 let f: Partial<Folder> = {};
 let l: Partial<Link> = {};
-let folderID: string = '';
+let folderID = '';
 
-let foldersToMove: Partial<Folder>[] = [];
+const foldersToMove: Partial<Folder>[] = [];
 
-let linksToMove: Partial<Link>[] = [];
+const linksToMove: Partial<Link>[] = [];
 
 let currentDomFolders: NodeListOf<HTMLDivElement>;
 
