@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { linksToRenderInMoveItemsPopup } from './../../stores/stores';
+	import { apiURL, linksToRenderInMoveItemsPopup } from './../../stores/stores';
 	import { links } from './../../stores/stores';
 	import { page } from '$app/stores';
 	import { selectedLinks } from './../../stores/stores';
@@ -112,7 +112,7 @@
 	}
 
 	async function loadPreviousFolder(folder: Partial<Folder>) {
-		let url = `http://localhost:5000/private/folder/${folder.subfolder_of?.String}`;
+		let url = `${$apiURL}/private/folder/${folder.subfolder_of?.String}`;
 
 		const res = await fetch(url, {
 			method: 'GET',
