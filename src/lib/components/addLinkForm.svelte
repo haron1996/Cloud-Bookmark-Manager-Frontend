@@ -15,6 +15,7 @@
 
 	function handleFormSubmit() {
 		addLink($newLink, $currentFolder);
+		newLink.set('');
 	}
 </script>
 

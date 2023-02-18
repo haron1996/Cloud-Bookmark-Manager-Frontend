@@ -13,9 +13,9 @@ import { newLink } from '../../stores/stores';
 import { page } from '$app/stores';
 import { goto } from '$app/navigation';
 
-export let errorInvalidUrl: string = '';
+export let errorInvalidUrl = '';
 
-let myLinks: Link[] = [];
+const myLinks: Link[] = [];
 
 let origin: string;
 let path: string;
@@ -64,6 +64,8 @@ export async function addLink(url: string, folderID: string) {
 			folder_id: folderID
 		}) // body data type must match "Content-Type" header
 	});
+
+	newLink.set('');
 
 	try {
 		const result = await response.json();

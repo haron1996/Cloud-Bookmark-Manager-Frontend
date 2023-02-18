@@ -40,6 +40,8 @@
 	import { deleteLinksAndFoldersForever } from '$lib/utils/deleteLinksAndFoldersForever';
 	import { mouseEvent } from './../../stores/stores';
 	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
+	import { resetSelectedFolders } from '$lib/utils/resetSelectedFolders';
+	import { resetSelectedLinks } from '$lib/utils/resetSelectedLinks';
 
 	let totalItems: (Partial<Folder> | Partial<Link>)[] = [];
 
@@ -145,7 +147,6 @@
 			$selectedLinks.length > 0
 		) {
 			// restore both links and folders
-			console.log('restore links and folders');
 			await restoreLinksAndFoldersFromTrash($selectedFolders, $selectedLinks);
 		} else if (
 			$selectedFolders &&
@@ -154,7 +155,6 @@
 			$selectedLinks.length < 1
 		) {
 			// restore folders
-			console.log('restore folders');
 			await restoreFoldersFromTrash($selectedFolders);
 		} else if (
 			$selectedFolders &&
@@ -163,13 +163,11 @@
 			$selectedLinks.length > 0
 		) {
 			// restore links
-			console.log('restore links');
 			await restoreLinksFromTrash($selectedLinks);
 		}
 	}
 
 	async function handleClickOnDeleteForeverButton() {
-		console.log($selectedFolders, $selectedLinks);
 		if (
 			$selectedFolders &&
 			$selectedLinks &&
@@ -177,8 +175,10 @@
 			$selectedLinks.length > 0
 		) {
 			// delete both links and folders
-			console.log('permanently delete links and folders');
+
 			await deleteLinksAndFoldersForever($selectedFolders, $selectedLinks);
+			resetSelectedFolders();
+			resetSelectedLinks();
 		} else if (
 			$selectedFolders &&
 			$selectedFolders.length > 0 &&
@@ -186,8 +186,9 @@
 			$selectedLinks.length < 1
 		) {
 			// delete folders
-			console.log('permanently delete folders');
+
 			await deleteFoldersForever($selectedFolders);
+			resetSelectedFolders();
 		} else if (
 			$selectedFolders &&
 			$selectedLinks &&
@@ -195,8 +196,8 @@
 			$selectedLinks.length > 0
 		) {
 			// delete links
-			console.log('permanently delete links');
 			await deleteLinksForever($selectedLinks);
+			resetSelectedLinks();
 		}
 	}
 </script>

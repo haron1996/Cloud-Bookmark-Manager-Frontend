@@ -50,6 +50,10 @@ export async function deleteLinksAndFoldersForever(f: Partial<Folder>[], l: Part
 		}) // body data type must match "Content-Type" header
 	});
 
+	removeItemsSelected();
+
+	hideContextMenu();
+
 	try {
 		const responses = await Promise.all([fsResponse, lsResponse]);
 
@@ -75,10 +79,6 @@ export async function deleteLinksAndFoldersForever(f: Partial<Folder>[], l: Part
 				links.update((values) => values.filter((value) => value.link_id !== element.link_id));
 			}
 		}
-
-		removeItemsSelected();
-
-		hideContextMenu();
 	} catch (error) {
 		console.log(error);
 	}

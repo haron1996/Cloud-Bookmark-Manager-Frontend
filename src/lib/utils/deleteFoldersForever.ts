@@ -6,7 +6,7 @@ import { removeItemsSelected } from './removeItemsSelected';
 
 const f: Partial<Folder>[] = [];
 
-let baseURL: string = '';
+let baseURL = '';
 
 export async function deleteFoldersForever(f: Partial<Folder>[]) {
 	const unsub = apiURL.subscribe((value) => {
@@ -32,6 +32,10 @@ export async function deleteFoldersForever(f: Partial<Folder>[]) {
 		}) // body data type must match "Content-Type" header
 	});
 
+	removeItemsSelected();
+
+	hideContextMenu();
+
 	try {
 		const result = await response.json();
 
@@ -44,10 +48,6 @@ export async function deleteFoldersForever(f: Partial<Folder>[]) {
 
 			folders.update((values) => values.filter((value) => value.folder_id !== element.folder_id));
 		}
-
-		removeItemsSelected();
-
-		hideContextMenu();
 	} catch (error) {
 		console.log(error);
 	}

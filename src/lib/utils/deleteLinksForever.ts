@@ -6,7 +6,7 @@ import { removeItemsSelected } from './removeItemsSelected';
 
 const l: Partial<Link>[] = [];
 
-let baseURL: string = '';
+let baseURL = '';
 
 export async function deleteLinksForever(l: Partial<Link>[]) {
 	const unsub = apiURL.subscribe((value) => {
@@ -32,6 +32,10 @@ export async function deleteLinksForever(l: Partial<Link>[]) {
 		}) // body data type must match "Content-Type" header
 	});
 
+	removeItemsSelected();
+
+	hideContextMenu();
+
 	try {
 		const result = await response.json();
 
@@ -44,10 +48,6 @@ export async function deleteLinksForever(l: Partial<Link>[]) {
 
 			links.update((values) => values.filter((value) => value.link_id !== element.link_id));
 		}
-
-		removeItemsSelected();
-
-		hideContextMenu();
 	} catch (error) {
 		console.log(error);
 	}
