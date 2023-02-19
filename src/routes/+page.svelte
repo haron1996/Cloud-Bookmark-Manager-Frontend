@@ -38,7 +38,7 @@
 				</div>
 				<div class="no_instalation">
 					<i class="las la-check" />
-					<span>No instalation required.</span>
+					<span>No installation required.</span>
 				</div>
 				<div class="no_credit_required">
 					<i class="las la-check" />
