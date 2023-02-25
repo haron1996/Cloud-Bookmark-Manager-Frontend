@@ -26,6 +26,7 @@
 	"/appv1/settings/my_profile/change_email": [],
 	"/appv1/settings/my_profile/change_password": [],
 	"/appv1/settings/my_profile/confirm_email": [],
+	"/appv1/share/[folder_id=folder_id]": [],
 	"/auth/continue_with_google": [],
 	"/contact": []
 }

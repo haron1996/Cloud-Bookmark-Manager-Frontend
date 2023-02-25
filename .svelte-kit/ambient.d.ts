@@ -33,7 +33,6 @@ declare module '$env/static/private' {
 	export const npm_node_execpath: string;
 	export const SHLVL: string;
 	export const npm_config_noproxy: string;
-	export const OLDPWD: string;
 	export const HOME: string;
 	export const NVM_BIN: string;
 	export const DESKTOP_SESSION: string;
@@ -47,6 +46,7 @@ declare module '$env/static/private' {
 	export const MAKEFLAGS: string;
 	export const DBUS_SESSION_BUS_ADDRESS: string;
 	export const SYSTEMD_EXEC_PID: string;
+	export const DBUS_STARTER_BUS_TYPE: string;
 	export const npm_config_engine_strict: string;
 	export const COLORTERM: string;
 	export const COLOR: string;
@@ -101,6 +101,7 @@ declare module '$env/static/private' {
 	export const PWD: string;
 	export const npm_execpath: string;
 	export const XDG_DATA_DIRS: string;
+	export const DBUS_STARTER_ADDRESS: string;
 	export const XDG_CONFIG_DIRS: string;
 	export const NVM_CD_FLAGS: string;
 	export const npm_config_global_prefix: string;
@@ -146,7 +147,6 @@ declare module '$env/dynamic/private' {
 		npm_node_execpath: string;
 		SHLVL: string;
 		npm_config_noproxy: string;
-		OLDPWD: string;
 		HOME: string;
 		NVM_BIN: string;
 		DESKTOP_SESSION: string;
@@ -160,6 +160,7 @@ declare module '$env/dynamic/private' {
 		MAKEFLAGS: string;
 		DBUS_SESSION_BUS_ADDRESS: string;
 		SYSTEMD_EXEC_PID: string;
+		DBUS_STARTER_BUS_TYPE: string;
 		npm_config_engine_strict: string;
 		COLORTERM: string;
 		COLOR: string;
@@ -214,6 +215,7 @@ declare module '$env/dynamic/private' {
 		PWD: string;
 		npm_execpath: string;
 		XDG_DATA_DIRS: string;
+		DBUS_STARTER_ADDRESS: string;
 		XDG_CONFIG_DIRS: string;
 		NVM_CD_FLAGS: string;
 		npm_config_global_prefix: string;

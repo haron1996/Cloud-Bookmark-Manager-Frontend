@@ -13,7 +13,7 @@
 <nav>
 	<div class="logo-sec">
 		<a href={$page.url.origin} class="logo">
-			<img src={Logo} alt="logo" />
+			<img src="https://nested.sfo3.digitaloceanspaces.com/assets%2Flanding-page-assets%2Flogo.png" alt="logo" />
 		</a>
 	</div>
 	<!-- <div class="google_button">
