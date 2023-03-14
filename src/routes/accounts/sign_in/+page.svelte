@@ -2,11 +2,14 @@
 	import { goto } from '$app/navigation';
 	import { SignIn } from '$lib/utils/signin';
 	import { stop_propagation } from 'svelte/internal';
-	import { invalid_email, invalid_password } from '../../../stores/stores';
+	import { invalid_email, invalid_password, loggedInAs } from '../../../stores/stores';
 	import Mainnav from '$lib/components/mainnav.svelte';
 	import { EmailAddressIsValid } from '$lib/utils/checkIfEmailIsValid';
 	import helloGif from '$lib/gifs/login-hello.gif';
-	import Googlebutton from '$lib/components/googlebutton.svelte';
+	import Googlebutton from '$lib/components/googleButtonSignin.svelte';
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import { getSession } from '$lib/utils/getSession';
 
 	let email: string = '';
 
@@ -53,17 +56,15 @@
 </script>
 
 <svelte:head>
-	<title>Sign In | Bookmark Bucket</title>
+	<title>Sign In | Linkspace</title>
 </svelte:head>
 
 <Mainnav />
 
-<Googlebutton />
-
 <div class="content">
 	<form>
 		<div class="heading">
-			<h3 class="sign_in_heading">Hey 👋, sign in to your account</h3>
+			<h3 class="sign_in_heading">Welcome back 👋</h3>
 		</div>
 		<div class="inputs">
 			<div class="email" class:invalid_email={$invalid_email} class:email_required={emailIsEmpty}>
@@ -99,15 +100,27 @@
 		</div>
 		<div class="button">
 			<button type="submit" on:click|preventDefault|stopPropagation={submitCreds}>
-				<span>{submitting ? 'Processing...' : 'Sign in to my account'}</span>
+				<span>{submitting ? 'Processing...' : 'Sign in with password'}</span>
 			</button>
 		</div>
+		<div class="forgot_password">
+			<a href={`${$page.url.origin}/accounts/request_password_reset_link`}
+				><span>Forgot password?</span></a
+			>
+		</div>
+		<p class="title-around-span"><span>or</span></p>
+		<Googlebutton />
 		<div class="sign_up_instead">
 			<span class="sign_up_heading" on:click|preventDefault|stopPropagation={signupInstead} on:keyup
 				>Don't have an account? Create my free account.</span
 			>
 		</div>
 	</form>
+</div>
+
+<div class="login_successful" id="login_successful">
+	<i class="las la-check-circle" />
+	<span>Logged in as {$loggedInAs}</span>
 </div>
 
 <style lang="scss">
@@ -137,7 +150,7 @@
 				align-items: center;
 
 				h3 {
-					font-size: 2rem;
+					font-size: 1.7rem;
 					font-weight: 500;
 					font-family: 'Product Sans Medium', sans-serif;
 					color: #181d31;
@@ -300,6 +313,61 @@
 				}
 			}
 
+			.forgot_password {
+				display: flex;
+				align-items: center;
+				text-align: left;
+				width: 100%;
+
+				a {
+					text-decoration: underline;
+					text-decoration-color: $text-color-medium;
+
+					span {
+						font-size: 1.3rem;
+						font-family: 'Arial CE', sans-serif;
+						color: $text-color-medium;
+					}
+
+					&:hover {
+						text-decoration-color: $blue;
+
+						span {
+							color: $blue;
+						}
+					}
+				}
+			}
+
+			.title-around-span {
+				position: relative;
+				text-align: center;
+				// color: #1779ba;
+				width: 100%;
+
+				&::before {
+					content: '';
+					display: block;
+					height: 1px;
+					width: 100%;
+					position: absolute;
+					left: 0;
+					top: 50%;
+					background-color: $border-color-regular;
+				}
+
+				span {
+					position: relative;
+					z-index: 1;
+					padding: 0 1em;
+					background: white;
+					color: $text-color-medium;
+					font-family: 'Arial CE', sans-serif;
+					text-transform: uppercase;
+					font-size: 1.3rem;
+				}
+			}
+
 			.sign_up_instead {
 				width: 100%;
 				text-align: left;
@@ -334,5 +402,40 @@
 				width: 80%;
 			}
 		}
+	}
+
+	.login_successful {
+		background-color: white;
+		min-width: max-content;
+		position: absolute;
+		left: 50%;
+		right: 50%;
+		top: -100%;
+		transform: translate(-50%, -50%);
+		padding: 0 1em;
+		height: 4rem;
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		border-radius: 0.3rem;
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+		transition: 500ms;
+		border: 0.1rem solid rgb(182, 227, 136);
+
+		i {
+			color: #03c988;
+			font-size: 2.5rem;
+		}
+
+		span {
+			font-size: 1.5rem;
+			font-family: 'Arial CE', sans-serif;
+			color: $text-color-medium;
+		}
+	}
+
+	// show login successful notif
+	:global(.show_login_successful_notification) {
+		top: 3em !important;
 	}
 </style>

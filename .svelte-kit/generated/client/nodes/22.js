@@ -1,1 +1,1 @@
-export { default as component } from "../../../../src/routes/auth/continue_with_google/+page.svelte";
+export { default as component } from "../../../../src/routes/appv1/settings/my_profile/change_email/+page.svelte";

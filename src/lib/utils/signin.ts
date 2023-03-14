@@ -5,7 +5,8 @@ import {
 	session,
 	invalid_email,
 	invalid_password,
-	showCheckMarkLottie
+	showCheckMarkLottie,
+	loggedInAs
 } from '../../stores/stores';
 import type { Session } from '$lib/types/session';
 import { MakeCheckMarkLotieVisible } from './showCheckMarkLottie';
@@ -16,6 +17,8 @@ let s: Partial<Session> = {};
 let origin: string;
 
 let baseURL = '';
+
+let el: HTMLDivElement | null;
 
 export async function SignIn(email: string, password: string) {
 	const unsub = apiURL.subscribe((value) => {
@@ -58,7 +61,12 @@ export async function SignIn(email: string, password: string) {
 
 	window.localStorage.setItem('session', JSON.stringify(s));
 
-	MakeCheckMarkLotieVisible();
+	//MakeCheckMarkLotieVisible();
+	if (s.Account?.email) {
+		loggedInAs.set(s.Account?.email)
+	}
+	
+	showLoginSuccessfulNotif()
 
 	const getPageOrigin = page.subscribe((value) => {
 		origin = value.url.origin;
@@ -68,5 +76,29 @@ export async function SignIn(email: string, password: string) {
 
 	setTimeout(() => {
 		goto(`${origin}/appv1/my_links`);
-	}, 3000);
+	}, 7000);
+}
+
+function showLoginSuccessfulNotif() {
+	showNotif();
+
+	setTimeout(() => {
+		hideNotif();
+	}, 6000);
+}
+
+function showNotif() {
+	el = document.getElementById('login_successful') as HTMLDivElement | null;
+
+	if (el === null) return;
+
+	el.classList.add('show_login_successful_notification');
+}
+
+function hideNotif() {
+	el = document.getElementById('login_successful') as HTMLDivElement | null;
+
+	if (el === null) return;
+
+	el.classList.remove('show_login_successful_notification');
 }

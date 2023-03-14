@@ -18,7 +18,8 @@
 		searchInputFocused,
 		foldersFound,
 		linksFound,
-		query
+		query,
+		shareFormVisible
 	} from '../../stores/stores';
 	import { json } from '@sveltejs/kit';
 	import { getSession } from '$lib/utils/getSession';
@@ -137,6 +138,10 @@
 
 		SwitchOnCreateMode();
 	}
+
+	function showShareForm() {
+		shareFormVisible.set(true);
+	}
 </script>
 
 <svete:head>
@@ -173,8 +178,14 @@
 			{/if}
 		</form>
 	</div>
-	<div class="new_button" on:click|preventDefault|stopPropagation={handlePlusIconClick} on:keyup>
-		<i class="las la-plus" />
+	<div class="buttons">
+		{#if $page.params.folder_id}
+			<div class="share" on:click|preventDefault|stopPropagation={showShareForm} on:keyup>
+				<i class="las la-lock" />
+				<span>Share</span>
+			</div>
+		{/if}
+		<i class="las la-plus" on:click|preventDefault|stopPropagation={handlePlusIconClick} on:keyup />
 	</div>
 </nav>
 
@@ -258,22 +269,57 @@
 				}
 
 				&:focus-within {
-					box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+					box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
 				}
 			}
 		}
 
-		.new_button {
+		.buttons {
 			flex: 1;
 			height: 100%;
 			padding-right: 1em;
 			display: flex;
 			align-items: center;
 			justify-content: flex-end;
+			gap: 1em;
 
-			i {
+			.share {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-width: max-content;
+				border: 0.1rem solid $blue;
+				min-width: 8rem;
+				background-color: $blue;
+				padding: 0.4em;
+				border-radius: 0.25rem;
+				gap: 1em;
+				cursor: pointer;
+				transition: all 200ms linear;
+
+				i {
+					font-size: 1.8rem;
+					color: white;
+				}
+
+				span {
+					font-size: 1.3rem;
+					font-family: 'Arial CE', sans-serif;
+					color: white;
+				}
+
+				&:hover {
+					box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, $blue 0px 0px 0px 2px;
+				}
+			}
+
+			i.la-plus {
 				font-size: 3rem;
 				cursor: pointer;
+
+				&:hover {
+					color: $blue;
+				}
 			}
 		}
 	}

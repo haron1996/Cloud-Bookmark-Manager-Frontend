@@ -169,7 +169,7 @@
 >
 	<div class="top">
 		<div class="img-container">
-			<img src={link.link_thumbnail} alt="card-hero" />
+			<img src={link.link_thumbnail} alt="card-hero" loading="lazy" />
 		</div>
 	</div>
 	<div class="bottom">
@@ -185,6 +185,7 @@
 						<img
 							src={link.link_favicon !== '' ? link.link_favicon : DefaultFavicon}
 							alt="flavicon"
+							loading="lazy"
 						/>
 					</div>
 					<div class="host">

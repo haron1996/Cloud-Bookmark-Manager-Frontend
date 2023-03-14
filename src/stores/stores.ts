@@ -4,9 +4,9 @@ import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
 import type { newUser } from '$lib/types/newUser';
 
-export const apiURL = readable<string>('https://api.bookmarkbucket.com');
+//export const apiURL = readable<string>('https://api.bookmarkbucket.com');
 
-//export const apiURL = readable<string>('http://localhost:5000');
+export const apiURL = readable<string>('http://localhost:5000');
 
 export const accessToken = writable<string>('');
 
@@ -129,3 +129,7 @@ export const showThankYouGif = writable<boolean>(false);
 export const showContactForm = writable<boolean>(false);
 
 export const messageSent = writable<boolean>(false);
+
+export const loggedInAs = writable<string>('')
+
+export const shareFormVisible = writable<boolean>(false)

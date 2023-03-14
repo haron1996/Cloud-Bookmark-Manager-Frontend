@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { afterNavigate, goto } from '$app/navigation';
-	import Googlebutton from './googlebutton.svelte';
+	import Googlebutton from './googleIconButton.svelte';
 	import Logo from '$lib/images/logo.png';
 	import { page } from '$app/stores';
+
+	function goToHomePage() {
+		goto($page.url.origin);
+	}
 
 	async function goToSignIn() {
 		//await goto('http://localhost:5173/accounts/sign_in');
@@ -12,14 +16,22 @@
 
 <nav>
 	<div class="logo-sec">
-		<a href={$page.url.origin} class="logo">
-			<img src="https://nested.sfo3.digitaloceanspaces.com/assets%2Flanding-page-assets%2Flogo.png" alt="logo" />
-		</a>
+		<!-- <a href={$page.url.origin} class="logo"> -->
+		<img
+			src="https://ewr1.vultrobjects.com/app-assets/5b1c843f-4e62-442e-9988-90c4fae1e737"
+			alt="logo"
+			on:click|preventDefault|stopPropagation={goToHomePage}
+			on:keyup
+		/>
+		<!-- </a> -->
 	</div>
 	<!-- <div class="google_button">
 		<Googlebutton />
 	</div> -->
 	<div class="links">
+		<div class="g_button_wrapper">
+			<Googlebutton />
+		</div>
 		{#if $page.url.pathname !== '/accounts/sign_in'}
 			<a
 				href="/accounts/sign_in"
@@ -35,7 +47,7 @@
 				class="signup"
 				class:hide_button={$page.url.pathname === '/accounts/sign_in'}
 			>
-				<span>Create my free account</span>
+				<span>Sign up</span>
 			</a>
 		{/if}
 	</div>
@@ -51,7 +63,6 @@
 		height: 4.5rem;
 		width: 100vw;
 		justify-content: space-between;
-		//box-shadow: rgb(0 0 0 / 5%) 0px 6px 24px 0px, rgb(0 0 0 / 8%) 0px 0px 0px 1px;
 		border-bottom: 0.1rem solid $border-color-regular;
 
 		.logo-sec {
@@ -60,21 +71,22 @@
 			display: flex;
 			align-items: center;
 
-			.logo {
-				display: flex;
-				align-items: center;
-				width: max-content;
-				gap: 0.3em;
-				font-family: 'Product Sans Black', sans-serif;
-				cursor: pointer;
-				margin-left: 1em;
-				height: 3.5rem;
-				width: 3.5rem;
+			// .logo {
+			// 	display: flex;
+			// 	align-items: center;
+			// 	width: max-content;
+			// 	gap: 0.3em;
+			// 	font-family: 'Product Sans Black', sans-serif;
+			// 	cursor: pointer;
+			// 	margin-left: 1em;
+			// 	height: 3.7rem;
+			// 	width: 3.7rem;
 
-				img {
-					width: 100%;
-					object-fit: contain;
-				}
+			img {
+				width: 3.8rem;
+				object-fit: contain;
+				margin-left: 1em;
+				cursor: pointer;
 			}
 		}
 
@@ -86,7 +98,7 @@
 			justify-content: flex-end;
 			//background-color: $blue;
 			gap: 1em;
-			padding-right: 1.5em;
+			padding-right: 1em;
 
 			a {
 				text-decoration: none;
@@ -98,14 +110,15 @@
 				align-items: center;
 				justify-content: center;
 				border-radius: 0.3rem;
-				transition: all 200ms ease-in-out;
 				padding: 0.5em 1em;
+				outline-color: transparent;
 
 				span {
 					font-size: 1.5rem;
 					color: $text-color-regular-2;
 					font-family: 'Arial CE', sans-serif;
 					font-weight: 500;
+					color: $text-color-dropbox;
 				}
 			}
 
@@ -113,20 +126,21 @@
 				background-color: transparent;
 				border: 0.1rem solid $border-color-regular;
 
-				span {
-					color: rgb(0, 95, 153);
+				&:hover {
+					border: 0.1rem dashed $blue;
 				}
 			}
 
 			a.signup {
 				background-color: $blue;
+				border: 0.1rem solid $blue;
 
 				span {
 					color: white;
 				}
 
 				&:hover {
-					filter: brightness(90%);
+					filter: brightness(95%);
 				}
 			}
 		}

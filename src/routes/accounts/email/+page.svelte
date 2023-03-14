@@ -5,7 +5,7 @@
 	import { stop_propagation } from 'svelte/internal';
 	import { user, email_exists } from '../../../stores/stores';
 	import Mainnav from '$lib/components/mainnav.svelte';
-	import Googlebutton from '$lib/components/googlebutton.svelte';
+	import Googlebutton from '$lib/components/googleButtonSignup.svelte';
 
 	let nameIsEmpty: boolean = false;
 	let emailIsEmpty: boolean = false;
@@ -67,7 +67,7 @@
 </script>
 
 <svelte:head>
-	<title>Sign Up | Bookmark Bucket</title>
+	<title>Sign Up | Linkspace</title>
 </svelte:head>
 
 <Googlebutton />
@@ -77,7 +77,7 @@
 	<div class="container">
 		<form>
 			<div class="heading">
-				<h3 class="sign_in_heading">Create your free account</h3>
+				<h3 class="sign_in_heading">Create a Linkspace account</h3>
 			</div>
 			<div class="inputs">
 				<div class="name" class:name_required={nameIsEmpty}>
@@ -144,10 +144,12 @@
 					{#if loading}
 						<div class="loader" />
 					{:else}
-						<span>Create my free account</span>
+						<span>Sign up with email</span>
 					{/if}
 				</button>
 			</div>
+			<p class="title-around-span"><span>or</span></p>
+			<Googlebutton />
 			<div class="sign_in_instead">
 				<span
 					class="sign_up_heading"
@@ -457,6 +459,35 @@
 
 					.loading {
 						pointer-events: none;
+					}
+				}
+
+				.title-around-span {
+					position: relative;
+					text-align: center;
+					// color: #1779ba;
+					width: 100%;
+
+					&::before {
+						content: '';
+						display: block;
+						height: 1px;
+						width: 100%;
+						position: absolute;
+						left: 0;
+						top: 50%;
+						background-color: $border-color-regular;
+					}
+
+					span {
+						position: relative;
+						z-index: 1;
+						padding: 0 1em;
+						background: white;
+						color: $text-color-medium;
+						font-family: 'Arial CE', sans-serif;
+						text-transform: uppercase;
+						font-size: 1.3rem;
 					}
 				}
 

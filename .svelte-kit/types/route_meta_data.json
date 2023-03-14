@@ -4,13 +4,17 @@
 	],
 	"/about": [],
 	"/accounts": [],
+	"/accounts/accept_invite": [],
 	"/accounts/email": [
 		"src/routes/accounts/email/+page.ts"
 	],
+	"/accounts/request_password_reset_link": [],
+	"/accounts/reset_password": [],
 	"/accounts/sign_in": [
 		"src/routes/accounts/sign_in/+page.ts"
 	],
 	"/accounts/thankyou": [],
+	"/admin_only/upload_hero_image": [],
 	"/appv1": [],
 	"/appv1/my_links": [
 		"src/routes/appv1/my_links/+page.ts"

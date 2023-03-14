@@ -45,6 +45,7 @@
 		"animate.css": "^4.1.1",
 		"buffer": "^6.0.3",
 		"cors": "^2.8.5",
+		"googleapis": "^112.0.0",
 		"interactjs": "^1.10.17",
 		"regenerator-runtime": "^0.13.11",
 		"svelte-adapter-static-digitalocean": "^1.0.1",

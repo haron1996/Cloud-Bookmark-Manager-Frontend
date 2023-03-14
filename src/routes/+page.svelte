@@ -6,31 +6,48 @@
 	import Logo from '$lib/images/flavicon.png';
 	import { apiURL } from '../stores/stores';
 	import { onMount, prevent_default } from 'svelte/internal';
+	import { decodeJwt } from '$lib/utils/decodejwt';
+	let el: HTMLElement | null;
 
 	let origin: string;
+
+	globalThis.handleCredentialResponse = async (response: any) => {
+		const v = decodeJwt(response.credential);
+
+		console.log(v);
+
+		//await continueWithGoogle(v);
+	};
 </script>
 
 <svelte:head>
-	<title>Bookmark Bucket - Free online standalone bookmark manager</title>
+	<script src="https://accounts.google.com/gsi/client"></script>
+	<title>Linkspace - Free online standalone bookmark manager</title>
 </svelte:head>
 
 <Mainnav />
 
-<Googlebutton />
+<div class="google_btn_wrapper">
+	<Googlebutton />
+</div>
 
 <div class="copy">
 	<div class="above_the_fold">
 		<div class="heading_and_subheading">
 			<h1>Free online standalone bookmark manager.</h1>
-			<p>
-				If you're always bookmarking things but don't have them organized, and can never find
-				them... bookmarkbucket is what you're looking for.
-			</p>
+			<p>Save and share links online.</p>
 		</div>
 		<div class="cta">
-			<a href="/accounts/email" class="sign_up">
+			<div class="g_button_wrapper">
+				<Googlebutton />
+			</div>
+			<!-- <a
+				href="/accounts/email"
+				class="sign_up"
+				on:click|preventDefault|stopPropagation={simulateGoogleBtnClick}
+			>
 				<span>Create my free account</span>
-			</a>
+			</a> -->
 			<div class="benefits">
 				<div class="free_forever">
 					<i class="las la-check" />
@@ -50,7 +67,7 @@
 	<div class="screenshot">
 		<div class="screenshot_container">
 			<img
-				src="https://nested.sfo3.digitaloceanspaces.com/assets/landing-page-assets/Free-BookmarkBucket.png"
+				src="https://ewr1.vultrobjects.com/app-assets/0fc215fb-f4ef-4838-b76d-b02ffe04013d"
 				alt="site dashboard screenshot"
 			/>
 		</div>
@@ -94,6 +111,9 @@
 				<p>Move items by dragging them from one collection to another.</p>
 			</div>
 		</div>
+		<div class="g_button_wrapper">
+			<Googlebutton />
+		</div>
 		<div class="button">
 			<a href="/accounts/email">
 				<span>Create my free account</span>
@@ -114,13 +134,28 @@
 </div>
 
 <style lang="scss">
+	.google_btn_wrapper {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		overflow: auto;
+		display: flex;
+		background-color: rgb(253, 253, 189);
+		align-items: center;
+		justify-content: center;
+		z-index: 7000;
+		display: none;
+	}
+
 	.copy {
 		width: 100%;
 		height: 100%;
 		overflow: auto;
 		display: flex;
 		flex-direction: column;
-		background-color: #e3f6ff;
+		background-color: rgb(253, 253, 189);
 		align-items: center;
 		gap: 3em;
 
@@ -141,11 +176,11 @@
 				gap: 1.5em;
 
 				h1 {
-					font-size: 3rem;
+					font-size: 2.5rem;
 					line-height: 1.6;
 					color: #2b3a55;
 					font-family: 'Product Sans Medium', sans-serif;
-					font-weight: 600;
+					font-weight: 500;
 				}
 
 				p {
@@ -165,28 +200,28 @@
 				align-items: center;
 				gap: 2em;
 
-				a.sign_up {
-					text-decoration: none;
-					width: 40rem;
-					height: 5rem;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					background-color: $blue;
-					border-radius: 0.3rem;
-					transition: all 200ms ease-in-out;
+				// a.sign_up {
+				// 	text-decoration: none;
+				// 	width: 40rem;
+				// 	height: 5rem;
+				// 	display: flex;
+				// 	align-items: center;
+				// 	justify-content: center;
+				// 	background-color: $blue;
+				// 	border-radius: 0.3rem;
+				// 	transition: all 200ms ease-in-out;
 
-					span {
-						font-size: 1.5rem;
-						color: white;
-						font-family: 'Arial CE', sans-serif;
-						font-weight: 500;
-					}
+				// 	span {
+				// 		font-size: 1.5rem;
+				// 		color: white;
+				// 		font-family: 'Arial CE', sans-serif;
+				// 		font-weight: 500;
+				// 	}
 
-					&:hover {
-						filter: brightness(90%);
-					}
-				}
+				// 	&:hover {
+				// 		filter: brightness(90%);
+				// 	}
+				// }
 
 				.benefits {
 					display: flex;
@@ -227,9 +262,9 @@
 					width: 100%;
 					align-items: center;
 
-					a.sign_up {
-						width: 100%;
-					}
+					// a.sign_up {
+					// 	width: 100%;
+					// }
 
 					.benefits {
 						div {
@@ -257,9 +292,9 @@
 					width: 100vw;
 					align-items: center;
 
-					a.sign_up {
-						width: 100%;
-					}
+					// a.sign_up {
+					// 	width: 100%;
+					// }
 
 					.benefits {
 						div {
@@ -287,9 +322,9 @@
 					width: 100vw;
 					align-items: center;
 
-					a.sign_up {
-						width: 70%;
-					}
+					// a.sign_up {
+					// 	width: 70%;
+					// }
 
 					.benefits {
 						min-width: max-content;
@@ -370,10 +405,10 @@
 			width: 100%;
 
 			h2 {
-				font-size: 2.5rem;
+				font-size: 2.3rem;
 				color: #2b3a55;
 				font-family: 'Product Sans Medium', sans-serif;
-				font-weight: 600;
+				font-weight: 500;
 			}
 
 			p {
@@ -425,6 +460,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			display: none;
 
 			a {
 				height: 5rem;
@@ -500,12 +536,11 @@
 		min-height: max-content;
 		width: 100vw;
 		display: flex;
-		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		gap: 1em;
 		background-color: rgb(0, 95, 153);
-		padding: 2em 0;
+		// padding: 1em 0;
 
 		.footer_links {
 			display: flex;
@@ -514,7 +549,8 @@
 		}
 
 		a {
-			text-decoration: none;
+			text-decoration: underline;
+			text-decoration-color: white;
 
 			span {
 				font-size: 1.3rem;

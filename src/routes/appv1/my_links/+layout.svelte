@@ -78,6 +78,8 @@
 	import MessageSent from '$lib/components/messageSent.svelte';
 	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
 	import { hideContextMenu } from '$lib/utils/hideContextMenu';
+	import src from '$lib/images/no_items.jpg';
+	import ShareCollection from '$lib/components/shareCollection.svelte';
 
 	let el: HTMLElement;
 
@@ -279,6 +281,8 @@
 
 <MessageSent />
 
+<ShareCollection />
+
 <div class="container">
 	<ActionsMenu />
 
@@ -323,11 +327,22 @@
 								<span>New</span>
 								<i class="las la-plus" />
 							</div> -->
-							<span
+							<!-- <span
 								class="add_link"
 								on:click|preventDefault|stopPropagation={handleAddItemWhenParentCollectionIsEmpty}
 								on:keyup>Click to add</span
-							>
+							> -->
+							<img {src} alt="no-items" />
+							<div class="text">
+								<p>This collection is empty...</p>
+								<button
+									on:click|preventDefault|stopPropagation={handleAddItemWhenParentCollectionIsEmpty}
+								>
+									<i class="las la-plus" />
+									<span>Add link or create collection</span>
+									<i class="las la-angle-down" />
+								</button>
+							</div>
 						{/if}
 					</div>
 				{/if}
@@ -362,23 +377,24 @@
 				height: 100%;
 				width: 100vw;
 				display: flex;
+				flex-direction: column;
 				align-items: center;
 				justify-content: center;
 
-				span {
-					font-size: 1.3rem;
-					font-family: 'Product Sans Medium', sans-serif;
-					color: $text-color-regular-2;
-					transition: all 200ms ease-in-out;
-				}
+				// span {
+				// 	font-size: 1.3rem;
+				// 	font-family: 'Product Sans Medium', sans-serif;
+				// 	color: $text-color-regular-2;
+				// 	transition: all 200ms ease-in-out;
+				// }
 
-				span.add_link {
-					cursor: pointer;
+				// span.add_link {
+				// 	cursor: pointer;
 
-					&:hover {
-						text-decoration: underline;
-					}
-				}
+				// 	&:hover {
+				// 		text-decoration: underline;
+				// 	}
+				// }
 
 				// .button {
 				// 	height: 3.5rem;
@@ -403,6 +419,54 @@
 				// 		border-radius: 100vh;
 				// 	}
 				// }
+
+				img {
+					width: 30rem;
+					object-fit: contain;
+				}
+
+				.text {
+					display: flex;
+					flex-direction: column;
+					gap: 1em;
+					align-items: center;
+					justify-content: center;
+
+					p {
+						font-size: 1.3rem;
+						font-family: 'Arial CE', sans-serif;
+						color: $text-color-dropbox;
+					}
+
+					button {
+						display: flex;
+						align-items: center;
+						gap: 0.5em;
+						border: 0.1rem solid #ffea20;
+						outline-color: transparent;
+						background-color: #ffea20;
+						min-width: max-content;
+						padding: 0.5em 1em;
+						cursor: pointer;
+						border-radius: 0.2rem;
+
+						i {
+							font-size: 1.8rem;
+							color: $text-color-dropbox;
+						}
+
+						span {
+							font-size: 1.3rem;
+							font-family: 'Arial CE', sans-serif;
+							color: $text-color-dropbox;
+						}
+
+						&:hover {
+							outline: 0.1rem dashed $border-color-regular;
+							outline-offset: 0.2rem;
+						}
+					}
+				}
 			}
 		}
 	}

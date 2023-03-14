@@ -6,3 +6,7 @@ declare namespace App {}
 declare namespace globalThis {
 	var handleToken: (response: Object) => void;
 }
+
+declare namespace globalThis {
+	var handleCredentialResponse: (response: Object) => void;
+}

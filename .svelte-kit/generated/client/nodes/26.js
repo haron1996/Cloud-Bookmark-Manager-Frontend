@@ -1,0 +1,1 @@
+export { default as component } from "../../../../src/routes/auth/continue_with_google/+page.svelte";

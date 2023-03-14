@@ -1,1 +1,1 @@
-export { default as component } from "../../../../src/routes/appv1/my_links/trash/+page.svelte";
+export { default as component } from "../../../../src/routes/admin_only/upload_hero_image/+page.svelte";
