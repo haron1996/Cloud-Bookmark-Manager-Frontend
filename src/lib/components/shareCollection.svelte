@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import { EmailAddressIsValid } from '$lib/utils/checkIfEmailIsValid';
 	import { getSession } from '$lib/utils/getSession';
-	import { stop_propagation } from 'svelte/internal';
+	import { onMount, stop_propagation } from 'svelte/internal';
 	import { apiURL, shareFormVisible } from '../../stores/stores';
 	let email: string = '';
 
@@ -15,6 +15,8 @@
 	let loading: boolean = false;
 
 	let emailsInvited: string[] = [];
+
+	onMount(() => {});
 
 	function handleKeyDown(e: KeyboardEvent) {
 		if (e.code === 'Comma' || e.code === 'Space' || e.code === 'Enter' || e.code === 'Semicolon') {
