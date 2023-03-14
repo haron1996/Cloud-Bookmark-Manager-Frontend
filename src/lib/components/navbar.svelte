@@ -19,7 +19,9 @@
 		foldersFound,
 		linksFound,
 		query,
-		shareFormVisible
+		shareFormVisible,
+		apiURL,
+		collectionToShare
 	} from '../../stores/stores';
 	import { json } from '@sveltejs/kit';
 	import { getSession } from '$lib/utils/getSession';
@@ -40,6 +42,7 @@
 	let s: Partial<Session> = {};
 	let el: HTMLOptionElement;
 	let optionValue: string | undefined;
+	let baseUrl: string = '';
 
 	$: selectedItems = [...$selectedFolders, ...$selectedLinks];
 
@@ -140,7 +143,41 @@
 	}
 
 	function showShareForm() {
+		getFolderToShare();
+
 		shareFormVisible.set(true);
+	}
+
+	const unsub = apiURL.subscribe((value) => {
+		baseUrl = value;
+	});
+
+	unsub();
+
+	async function getFolderToShare() {
+		const promise = await fetch(
+			`${baseUrl}/private/folder/getCollection/${$page.params.folder_id}`,
+			{
+				method: 'GET',
+				mode: 'cors',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json',
+					authorization: `Bearer${JSON.parse(getSession()).access_token}`
+				}
+			}
+		);
+
+		try {
+			const result = await promise.json();
+			if (result.message) {
+				console.log(result.message);
+			} else {
+				collectionToShare.set(result[0]);
+			}
+		} catch (error) {
+			console.log(error);
+		}
 	}
 </script>
 

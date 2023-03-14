@@ -3,7 +3,7 @@
 	import { EmailAddressIsValid } from '$lib/utils/checkIfEmailIsValid';
 	import { getSession } from '$lib/utils/getSession';
 	import { onMount, stop_propagation } from 'svelte/internal';
-	import { apiURL, shareFormVisible } from '../../stores/stores';
+	import { apiURL, collectionToShare, shareFormVisible } from '../../stores/stores';
 	let email: string = '';
 
 	let emails: string[] = [];
@@ -15,8 +15,6 @@
 	let loading: boolean = false;
 
 	let emailsInvited: string[] = [];
-
-	onMount(() => {});
 
 	function handleKeyDown(e: KeyboardEvent) {
 		if (e.code === 'Comma' || e.code === 'Space' || e.code === 'Enter' || e.code === 'Semicolon') {
@@ -199,7 +197,7 @@
 	<div class="wrapper" on:click|preventDefault|stopPropagation={hideShareForm} on:keyup>
 		<form on:click|preventDefault|stopPropagation={stop_propagation} on:keyup>
 			<div class="top">
-				<p>Share "Digital Marketing"</p>
+				<p>Share "{$collectionToShare.folder_name}"</p>
 				<span>Invited members will gain access to this collection</span>
 			</div>
 			<div class="bottom">
