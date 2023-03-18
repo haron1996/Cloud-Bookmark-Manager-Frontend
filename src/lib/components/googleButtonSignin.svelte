@@ -16,8 +16,9 @@
 		data-context="signup"
 		data-ux_mode="popup"
 		data-login_uri="handleCredentialResponse"
-		data-auto_select="true"
-		data-itp_support="true"
+		data-auto_select="false"
+		data-itp_support="false"
+		data-auto_prompt="false"
 	/>
 
 	<div

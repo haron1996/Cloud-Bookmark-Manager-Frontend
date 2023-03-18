@@ -1,11 +1,18 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { getFoldersAndLinksMovedToTrash } from '$lib/utils/getFoldersAndLinksMovedToTrash';
 	import { getSession } from '$lib/utils/getSession';
 	import { toggleShowPassword } from '$lib/utils/toggleShowPassowd';
 	import { onMount, stop_propagation } from 'svelte/internal';
-	import { apiURL } from '../../../stores/stores';
+	import { apiURL, session } from '../../../stores/stores';
+	import type { Session } from '$lib/types/session';
 
 	let baseURL: string;
+
+	let loading: boolean = false;
+
+	let el: HTMLDivElement | null;
 
 	onMount(async () => {
 		await getCollectionNameAndInviter();
@@ -22,9 +29,23 @@
 		inviter_name: string;
 	}
 
+	interface requestBody {
+		token: string | null;
+		fullname: string;
+		password: string;
+	}
+
 	let newInviteDetails: Partial<inviteDetails> = {};
 
+	let newRequestBody: Partial<requestBody> = {
+		token: $page.url.searchParams.get('token'),
+		fullname: '',
+		password: ''
+	};
+
 	async function getCollectionNameAndInviter() {
+		loading = true;
+
 		const promise = await fetch(
 			`${baseURL}/public/getCollectionAndInviterNames/${$page.url.searchParams.get('token')}`,
 			{
@@ -32,8 +53,7 @@
 				mode: 'cors',
 				credentials: 'include',
 				headers: {
-					'Content-Type': 'application/json',
-					authorization: `Bearer${JSON.parse(getSession()).access_token}`
+					'Content-Type': 'application/json'
 				}
 			}
 		);
@@ -41,14 +61,104 @@
 		try {
 			const result = await promise.json();
 			if (result.message) {
-				console.log(result.message);
+				let msg: string = result.message;
+
+				if (msg !== '') {
+					showInvalidTokenError();
+
+					setTimeout(() => {
+						hideInvalidTokenError();
+
+						goto(`${$page.url.origin}/accounts/sign_in`);
+					}, 4000);
+				}
 			} else {
 				newInviteDetails = result[0];
-				console.log(newInviteDetails);
 			}
 		} catch (error) {
 			console.log(error);
 		}
+
+		loading = false;
+	}
+
+	async function acceptInviteRequest() {
+		const body = JSON.stringify({
+			token: newRequestBody.token,
+			fullname: newRequestBody.fullname,
+			password: newRequestBody.password
+		});
+
+		const response = await fetch(`${baseURL}/public/acceptInvite`, {
+			method: 'POST',
+			mode: 'cors',
+			cache: 'no-cache',
+			credentials: 'include',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			redirect: 'follow',
+			referrerPolicy: 'no-referrer',
+			body: body
+		});
+
+		try {
+			const result = await response.json();
+
+			let msg: string = result.message;
+
+			if (msg) {
+				showInvalidTokenError();
+
+				setTimeout(() => {
+					hideInvalidTokenError();
+
+					goto(`${$page.url.origin}/accounts/sign_in`);
+				}, 4000);
+
+				return;
+			}
+
+			const s: Partial<Session> = result[0];
+
+			if (s === null) return;
+
+			session.set(s);
+
+			window.localStorage.removeItem('session');
+
+			window.localStorage.setItem('session', JSON.stringify(s));
+
+			goto(`${$page.url.origin}/appv1/my_links/shared_with_me`);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	// show invalid token error
+	function showInvalidTokenError() {
+		el = document.getElementById('invalid_token_error') as HTMLDivElement | null;
+
+		if (el === null) {
+			loading = false;
+
+			return;
+		}
+
+		el.style.top = '1em';
+	}
+
+	// hide invalid token error
+	function hideInvalidTokenError() {
+		el = document.getElementById('invalid_token_error') as HTMLDivElement | null;
+
+		if (el === null) {
+			loading = false;
+
+			return;
+		}
+
+		el.style.top = '-100%';
 	}
 </script>
 
@@ -71,6 +181,7 @@
 					placeholder="eg John Doe"
 					autocomplete="off"
 					spellcheck="false"
+					bind:value={newRequestBody.fullname}
 				/>
 			</div>
 			<div class="password">
@@ -81,6 +192,7 @@
 						name="password"
 						id="password"
 						placeholder="Create secure password"
+						bind:value={newRequestBody.password}
 					/>
 					<div
 						class="see_password"
@@ -96,16 +208,22 @@
 			</div>
 		</div>
 		<div class="bottom">
-			<button type="submit">
+			<button type="submit" on:click|preventDefault|stopPropagation={acceptInviteRequest}>
 				<span>Join {newInviteDetails.inviter_name}</span>
 			</button>
 		</div>
 	</form>
 </div>
 
-{#if newInviteDetails.collection_name === undefined || newInviteDetails.collection_name === '' || newInviteDetails.inviter_name === undefined || newInviteDetails.inviter_name === ''}
+{#if loading || (!loading && newInviteDetails.collection_name === undefined && newInviteDetails.inviter_name === undefined)}
 	<div class="loader_wrapper"><div class="loader" /></div>
 {/if}
+
+<div class="invalid_token_error" id="invalid_token_error">
+	<i class="las la-exclamation-triangle" />
+	<span>Invite token is invalid or not found</span>
+	<i class="las la-times" />
+</div>
 
 <style lang="scss">
 	.wrapper {
@@ -289,12 +407,46 @@
 		}
 	}
 
+	.invalid_token_error {
+		background-color: $red;
+		min-width: max-content;
+		position: absolute;
+		left: 50%;
+		right: 50%;
+		top: -100%;
+		transform: translate(-50%, -50%);
+		padding: 0 1.5em;
+		height: 4rem;
+		display: flex;
+		align-items: center;
+		gap: 1em;
+		border-radius: 0.3rem;
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+		transition: 500ms;
+		z-index: 10000;
+
+		i {
+			color: white;
+			font-size: 2rem;
+		}
+
+		span {
+			font-size: 1.4rem;
+			font-family: 'Arial CE', sans-serif;
+			color: white;
+			font-weight: 500;
+		}
+
+		i.la-times {
+			cursor: pointer;
+		}
+	}
+
 	:global(.show_password) {
 		border: none;
 		height: 100%;
 		outline: none;
 		font-family: 'Arial CE', sans-serif;
-		color: $text-color-medium;
 		font-size: 1.3rem;
 		width: 90%;
 		max-width: 90%;

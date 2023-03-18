@@ -17,9 +17,17 @@
 		searchInputFocused,
 		folders,
 		links,
-		ancestorsOfCurrentFolder
+		ancestorsOfCurrentFolder,
+		breadcrumbRoot,
+		apiURL,
+		currentCollectionMember
 	} from '../../../../stores/stores';
 	import { loading } from '../../../../stores/stores';
+	import { getSession } from '$lib/utils/getSession';
+	import type { Folder } from '$lib/types/folder';
+	import { onMount } from 'svelte';
+	import { showSuccessNotification } from '$lib/utils/showSuccessNotification';
+	import { showLoadingToss } from '$lib/utils/showLoadingToss';
 
 	let folderID: string = '';
 
@@ -29,7 +37,21 @@
 		? ancestorsOfCurrentFolder.set($page.data.currentFolderAncestors)
 		: ancestorsOfCurrentFolder.set([]);
 
+	let baseURL: string = '';
+
+	const getBaseURL = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	getBaseURL();
+
+	onMount(() => {
+		console.log($currentCollectionMember.collection_access_level);
+	});
+
 	afterNavigate(async () => {
+		await checkIfCurrentFolderHasBeenSHaredWithUser();
+
 		loading.set(false);
 
 		query.set('');
@@ -55,6 +77,40 @@
 		await setOpenedFolder();
 	});
 
+	async function checkIfCurrentFolderHasBeenSHaredWithUser() {
+		if (getSession() === null) {
+			loading.set(false);
+			return;
+		}
+
+		const accountID = JSON.parse(getSession()).Account.id;
+
+		const url = `${baseURL}/private/checkIfFolderHasBeenSharedWithUser/${accountID}/${$page.params.folder_id}`;
+
+		const res = await fetch(url, {
+			method: 'GET',
+			mode: 'cors',
+			credentials: 'include',
+			headers: {
+				'Content-Type': 'application/json',
+				authorization: `Bearer${JSON.parse(getSession()).access_token}`
+			}
+		});
+
+		const result = await res.json();
+
+		if (result.message === 'collection be belongs to user') {
+			breadcrumbRoot.set('Home');
+			return;
+		}
+
+		breadcrumbRoot.set('Shared with me');
+
+		console.log(result[0]);
+
+		currentCollectionMember.set(result[0]);
+	}
+
 	async function setOpenedFolder() {
 		const folder = await getFolder($page.params.folder_id);
 
@@ -77,7 +133,7 @@
 	<title
 		>{$openedFolder.folder_name === undefined
 			? 'Loading...'
-			: `${$openedFolder.folder_name} - BookmarkBucket`}</title
+			: `${$openedFolder.folder_name} - Linkspace`}</title
 	>
 </svelte:head>
 

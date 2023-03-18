@@ -27,7 +27,8 @@ export const nodes = [() => import('./nodes/0'),
 	() => import('./nodes/24'),
 	() => import('./nodes/25'),
 	() => import('./nodes/26'),
-	() => import('./nodes/27')];
+	() => import('./nodes/27'),
+	() => import('./nodes/28')];
 
 export const server_loads = [];
 
@@ -44,18 +45,19 @@ export const dictionary = {
 	"/admin_only/upload_hero_image": [13],
 	"/appv1": [14],
 	"/appv1/my_links": [15,[2]],
-	"/appv1/my_links/trash": [17,[2]],
+	"/appv1/my_links/shared_with_me": [17,[2]],
+	"/appv1/my_links/trash": [18,[2]],
 	"/appv1/my_links/[folder_id=folder_id]": [16,[2]],
-	"/appv1/settings": [18,[3]],
-	"/appv1/settings/billing": [19,[3]],
-	"/appv1/settings/members": [20,[3]],
-	"/appv1/settings/my_profile": [21,[3]],
-	"/appv1/settings/my_profile/change_email": [22,[3]],
-	"/appv1/settings/my_profile/change_password": [23,[3]],
-	"/appv1/settings/my_profile/confirm_email": [24,[3]],
-	"/appv1/share/[folder_id=folder_id]": [25],
-	"/auth/continue_with_google": [26],
-	"/contact": [27]
+	"/appv1/settings": [19,[3]],
+	"/appv1/settings/billing": [20,[3]],
+	"/appv1/settings/members": [21,[3]],
+	"/appv1/settings/my_profile": [22,[3]],
+	"/appv1/settings/my_profile/change_email": [23,[3]],
+	"/appv1/settings/my_profile/change_password": [24,[3]],
+	"/appv1/settings/my_profile/confirm_email": [25,[3]],
+	"/appv1/share/[folder_id=folder_id]": [26],
+	"/auth/continue_with_google": [27],
+	"/contact": [28]
 };
 
 export const hooks = {

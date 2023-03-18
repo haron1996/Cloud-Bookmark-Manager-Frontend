@@ -4,7 +4,8 @@
 		controlKeyIsPressed,
 		selectedLinks,
 		selectedFolders,
-		showFolderInTrashAlert
+		showFolderInTrashAlert,
+		currentCollectionMember
 	} from './../../stores/stores';
 	import type { Folder } from '$lib/types/folder';
 	import { prevent_default, stop_propagation } from 'svelte/internal';
@@ -28,6 +29,12 @@
 	let el: HTMLElement;
 
 	function handleCheckBoxClick() {
+		if (
+			$currentCollectionMember.collection_access_level !== undefined &&
+			$currentCollectionMember.collection_access_level === 'view'
+		)
+			return;
+
 		const checkBox = window.event?.currentTarget as HTMLDivElement | null;
 
 		if (checkBox === null) return;
@@ -67,6 +74,12 @@
 	}
 
 	function handleFolderClick() {
+		if (
+			$currentCollectionMember.collection_access_level !== undefined &&
+			$currentCollectionMember.collection_access_level === 'view'
+		)
+			return;
+
 		const el = window.event?.currentTarget as HTMLDivElement | null;
 
 		if (el === null) return;
@@ -104,6 +117,12 @@
 	}
 
 	function handleFolderContextMenu(e: MouseEvent) {
+		if (
+			$currentCollectionMember.collection_access_level !== undefined &&
+			$currentCollectionMember.collection_access_level === 'view'
+		)
+			return;
+
 		hideMenuBar();
 
 		showContextMenu(e);

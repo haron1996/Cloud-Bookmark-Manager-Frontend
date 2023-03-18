@@ -5,7 +5,7 @@
 	import { showRenameLinkForm } from '$lib/utils/showRenameLinkForm';
 	import { toggleDeleteItemsConfirmationPopup } from '$lib/utils/toggleDeleteItemsConfirmationPopup';
 	import { stop_propagation } from 'svelte/internal';
-	import { selectedFolders, selectedLinks } from '../../stores/stores';
+	import { currentCollectionMember, selectedFolders, selectedLinks } from '../../stores/stores';
 	import { restoreLinksAndFoldersFromTrash } from '$lib/utils/restoreLinksAndFoldersFromTrash';
 	import { restoreFoldersFromTrash } from '$lib/utils/restoreFoldersFromTrash';
 	import { restoreLinksFromTrash } from '$lib/utils/restoreLinksFromTrash';
@@ -133,6 +133,8 @@
 				class="delete"
 				on:click|preventDefault|stopPropagation={toggleDeleteItemsConfirmationPopup}
 				on:keyup
+				class:btn_disabled={$currentCollectionMember.collection_access_level !== undefined &&
+					$currentCollectionMember.collection_access_level === 'view'}
 			>
 				<i class="las la-trash" />
 				<span>Delete</span>
@@ -155,6 +157,7 @@
 		align-items: center;
 		gap: 1em;
 		border-bottom: 0.1rem solid $border-color-regular;
+		//background-color: #002b5b;
 
 		div {
 			background-color: $gray;

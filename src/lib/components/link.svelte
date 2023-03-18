@@ -4,13 +4,14 @@
 		selectedFolders,
 		selectedLinks,
 		linksCut,
-		controlKeyIsPressed
+		controlKeyIsPressed,
+		currentCollectionMember
 	} from './../../stores/stores';
 	import type { Link } from '$lib/types/link';
 	import { showContextMenu } from '$lib/utils/showContextMenu';
 	import { stop_propagation } from 'svelte/internal';
 	import { hideContextMenu } from '$lib/utils/hideContextMenu';
-	import { dragLink } from './dragLink';
+	import { dragLink } from '../utils/dragLink';
 	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
 
 	export let link: Partial<Link>;
@@ -22,6 +23,12 @@
 	let folder_id: string | undefined = '';
 
 	function handleClickOnCheckbox() {
+		if (
+			$currentCollectionMember.collection_access_level !== undefined &&
+			$currentCollectionMember.collection_access_level === 'view'
+		)
+			return;
+
 		hideMenuBar();
 
 		const el = window.event?.currentTarget as HTMLDivElement | null;
@@ -67,6 +74,12 @@
 	// if ctrl ket is NOT pressed, remove link from selected links, add link back to selected links
 
 	function handleClickOnLink() {
+		if (
+			$currentCollectionMember.collection_access_level !== undefined &&
+			$currentCollectionMember.collection_access_level === 'view'
+		)
+			return;
+
 		const li = window.event?.currentTarget as HTMLDivElement | null;
 
 		link_title = li?.dataset.linktitle;
@@ -107,6 +120,12 @@
 	}
 
 	function handleLinkContextMenu(e: MouseEvent) {
+		if (
+			$currentCollectionMember.collection_access_level !== undefined &&
+			$currentCollectionMember.collection_access_level === 'view'
+		)
+			return;
+
 		hideMenuBar();
 
 		showContextMenu(e);

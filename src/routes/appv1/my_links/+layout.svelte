@@ -2,6 +2,7 @@
 	import {
 		accessToken,
 		activePath,
+		currentCollectionMember,
 		errors,
 		foldersFound,
 		linksFound,
@@ -57,7 +58,7 @@
 	//import { checkIfIsAuthenticated } from '$lib/utils/checkIfAccountIsAuthenticated';
 	import { browser } from '$app/environment';
 	import { getLinksAndLinkFolders } from '$lib/utils/getRootLinks';
-	import SucessNotif from '$lib/components/sucess_notif.svelte';
+	import SuccessNotif from '$lib/components/sucess.svelte';
 	import ErrorNotif from '$lib/components/error_notif.svelte';
 	import { hideProfileMenu } from '$lib/utils/toggleProfileMenu';
 	import Menu from '$lib/components/menu.svelte';
@@ -80,6 +81,7 @@
 	import { hideContextMenu } from '$lib/utils/hideContextMenu';
 	import src from '$lib/images/no_items.jpg';
 	import ShareCollection from '$lib/components/shareCollection.svelte';
+	import Loading from '$lib/components/loading.svelte';
 
 	let el: HTMLElement;
 
@@ -183,6 +185,12 @@
 	}
 
 	function handleLinksSectionContextMenu(e: MouseEvent) {
+		if (
+			$currentCollectionMember.collection_access_level !== undefined &&
+			$currentCollectionMember.collection_access_level === 'view'
+		)
+			return;
+
 		hideMenuBar();
 
 		hideSelectShowCategoryMenu();
@@ -249,7 +257,7 @@
 	<DeleteItemConfirmationPopup />
 {/if}
 
-<SucessNotif />
+<SuccessNotif />
 
 <ErrorNotif />
 
@@ -282,6 +290,8 @@
 <MessageSent />
 
 <ShareCollection />
+
+<Loading />
 
 <div class="container">
 	<ActionsMenu />

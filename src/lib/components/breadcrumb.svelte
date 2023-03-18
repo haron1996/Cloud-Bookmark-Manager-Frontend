@@ -2,23 +2,26 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { getAncestorsOfCurrentFolder } from '$lib/utils/getAncestorsOfCurrentFolder';
-	import { ancestorsOfCurrentFolder } from '../../stores/stores';
+	import { ancestorsOfCurrentFolder, breadcrumbRoot } from '../../stores/stores';
 	import { resetAncestorsOfCurrentFolder } from '$lib/utils/resetAncestorsOfCurrentFolder';
 
-	export let rootFolderName: string = '';
+	//export let rootFolderName: string = '';
+
+	function handleGoBackToRoot() {
+		if ($breadcrumbRoot === 'Shared with me') {
+			goto(`${$page.url.origin}/appv1/my_links/shared_with_me`);
+		} else if ($breadcrumbRoot === 'Home') {
+			goto(`${$page.url.origin}/appv1/my_links`);
+		}
+	}
 </script>
 
 <div class="breadcrumb">
 	<nav>
 		<ul>
-			<li
-				on:click|preventDefault|stopPropagation={() => {
-					goto(`${$page.url.origin}/appv1/my_links`);
-					//window.location.href = '/appv1/my_links';
-				}}
-				on:keyup
-			>
-				<span>{rootFolderName === '' ? 'Home' : rootFolderName}</span>
+			<li on:click|preventDefault|stopPropagation={handleGoBackToRoot} on:keyup>
+				<!-- <span>{rootFolderName === '' ? 'Home' : rootFolderName}</span> -->
+				<span>{$breadcrumbRoot}</span>
 			</li>
 			<i class="las la-long-arrow-alt-right" />
 			{#if $ancestorsOfCurrentFolder.length > 0}

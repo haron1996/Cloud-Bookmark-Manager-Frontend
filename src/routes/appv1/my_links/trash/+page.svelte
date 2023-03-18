@@ -6,12 +6,15 @@
 	import { hideContextMenu } from '$lib/utils/hideContextMenu';
 	import {
 		ancestorsOfCurrentFolder,
+		breadcrumbRoot,
 		foldersFound,
 		linksFound,
 		query
 	} from '../../../../stores/stores';
 
 	afterNavigate(async () => {
+		breadcrumbRoot.set('Trash');
+
 		query.set('');
 
 		foldersFound.set([]);
@@ -33,7 +36,7 @@
 </svelte:head>
 
 <div>
-	<Breadcrumb rootFolderName={'Trash'} />
+	<Breadcrumb />
 </div>
 
 <!-- TODO

@@ -24,6 +24,7 @@ export async function load({ fetch, params, url, route, setHeaders }: any) {
 		if (sessionString === '' || sessionString === null) {
 			//alert('no session');
 			window.localStorage.clear();
+
 			throw redirect(302, `${url.origin}`);
 		}
 
@@ -117,9 +118,7 @@ export async function load({ fetch, params, url, route, setHeaders }: any) {
 				}
 
 				return { links, folders, currentFolderAncestors };
-			}
-
-			// END OF IF TOKEN HAS EXPIRED
+			} // END OF IF TOKEN HAS EXPIRED
 
 			folders = result[0].folders;
 
@@ -150,8 +149,6 @@ export async function load({ fetch, params, url, route, setHeaders }: any) {
 			}
 
 			return { links, folders, currentFolderAncestors };
-		} else {
-			throw redirect(302, `${url.origin}/appv1/my_links`);
 		}
 	}
 

@@ -47,6 +47,18 @@
 
 		hideMenuBar();
 	};
+
+	const goToSharedWithMe = () => {
+		const getPageOrigin = page.subscribe((value) => {
+			origin = value.url.origin;
+		});
+
+		getPageOrigin();
+
+		goto(`${origin}/appv1/my_links/shared_with_me`);
+
+		hideMenuBar();
+	};
 </script>
 
 <div class="menu_bar" id="menu_bar">
@@ -68,6 +80,15 @@
 		>
 			<i class="las la-trash" />
 			<span>Trash</span>
+		</div>
+		<div
+			class="shared_with_me"
+			class:active={pathname === '/appv1/my_links/shared_with_me'}
+			on:click|preventDefault|stopPropagation={goToSharedWithMe}
+			on:keyup
+		>
+			<i class="las la-user-friends" />
+			<span>Shared with me</span>
 		</div>
 	</div>
 	<div class="secondary">

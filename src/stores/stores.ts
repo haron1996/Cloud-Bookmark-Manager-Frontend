@@ -3,10 +3,11 @@ import type { Session } from '$lib/types/session';
 import type { Folder } from '$lib/types/folder';
 import type { Link } from '$lib/types/link';
 import type { newUser } from '$lib/types/newUser';
+import { CollectionMember } from '$lib/types/collectionMember'
 
-export const apiURL = readable<string>('https://api.linkspace.space');
+//export const apiURL = readable<string>('https://api.linkspace.space');
 
-//export const apiURL = readable<string>('http://localhost:5000');
+export const apiURL = readable<string>('http://localhost:5000');
 
 export const accessToken = writable<string>('');
 
@@ -90,7 +91,7 @@ export const user = writable<Partial<newUser>>({});
 
 export const userIsLoggedin = writable<boolean>(true);
 
-export const successNotifVisible = writable<boolean>(false);
+export const successNotifVisible = writable<boolean>(true); // success notification toggle
 
 export const errorNotifVisible = writable<boolean>(false);
 
@@ -135,3 +136,11 @@ export const loggedInAs = writable<string>('');
 export const shareFormVisible = writable<boolean>(false);
 
 export const collectionToShare = writable<Partial<Folder>>({});
+
+export const breadcrumbRoot = writable<string>('')
+
+export const successMessage = writable<string>('')
+
+export const loadingMessage = writable<string>('processing...')
+
+export const currentCollectionMember = writable<Partial<CollectionMember>>({})

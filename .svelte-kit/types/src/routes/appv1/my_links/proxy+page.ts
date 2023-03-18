@@ -21,6 +21,7 @@ export async function load({ fetch, params, url, route }: any) {
 		if (sessionString === '' || sessionString === null) {
 			//alert('no session');
 			window.localStorage.clear();
+
 			throw redirect(302, `${url.origin}`);
 		}
 
@@ -94,8 +95,6 @@ export async function load({ fetch, params, url, route }: any) {
 			links = result[0].links;
 
 			return { links, folders };
-		} else {
-			throw redirect(302, `${url.origin}/appv1/my_links`);
 		}
 	}
 

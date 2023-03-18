@@ -11,7 +11,8 @@ export async function getFolder(folderID: string): Promise<Partial<Folder>> {
 
 	unsub();
 
-	let url = `${baseURL}/private/folder/${folderID}`;
+
+	let url = `${baseURL}/private/folder/getOne/${JSON.parse(getSession()).Account.id}/${folderID}`;
 
 	const res = await fetch(url, {
 		method: 'GET',

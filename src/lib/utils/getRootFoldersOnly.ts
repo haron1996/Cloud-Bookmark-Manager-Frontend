@@ -13,7 +13,7 @@ export async function getRootFoldersOnly(): Promise<Partial<Folder>[]> {
 
 	unsub();
 
-	const getFoldersEndPoint = `${baseURL}/private/folder/get-folders/${account_id}`;
+	const getFoldersEndPoint = `${baseURL}/private/folder/getRootFoldersByUserID`;
 
 	const response = await fetch(getFoldersEndPoint, {
 		method: 'GET',

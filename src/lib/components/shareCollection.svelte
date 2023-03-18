@@ -108,6 +108,20 @@
 		try {
 			const result = await response.json();
 
+			if (result.message) {
+				emails = [];
+
+				email = '';
+
+				loading = false;
+
+				accessLevel = 'view';
+
+				alert(result.message); // make global error toss and show this message
+
+				return;
+			}
+
 			if (response.statusText === 'OK') {
 				emails = [];
 
@@ -190,6 +204,8 @@
 		}
 
 		accessLevel = 'view';
+
+		collectionToShare.set({});
 	}
 </script>
 
@@ -228,6 +244,7 @@
 						placeholder="Enter one or more emails"
 						bind:value={email}
 						on:keydown|stopPropagation={handleKeyDown}
+						on:contextmenu|stopPropagation={stop_propagation}
 					/>
 				</div>
 

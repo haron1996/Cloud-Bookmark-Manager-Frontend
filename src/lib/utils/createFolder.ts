@@ -89,9 +89,8 @@ export async function CreateFolder(folder_name: string, parent_folder_id: string
 
 		//loading.set(false);
 
-		if (path === '/appv1/my_links/recycle_bin') {
-			goto('http://localhost:5173/appv1/my_links');
-		}
+		
+
 	} catch (error) {
 		console.log(error);
 		//loading.set(false);

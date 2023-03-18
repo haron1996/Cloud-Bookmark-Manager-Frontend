@@ -137,6 +137,7 @@
 <div class="email_sent_notification" id="email_sent_notification">
 	<i class="las la-check" />
 	<span>Password reset details sent</span>
+	<i class="las la-times" />
 </div>
 
 <style lang="scss">
@@ -291,7 +292,7 @@
 		bottom: 1em;
 		bottom: -100%;
 		transform: translate(-50%, -50%);
-		padding: 0 1em;
+		padding: 0 1.5em;
 		height: 4rem;
 		display: flex;
 		align-items: center;

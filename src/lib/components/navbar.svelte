@@ -21,7 +21,8 @@
 		query,
 		shareFormVisible,
 		apiURL,
-		collectionToShare
+		collectionToShare,
+		currentCollectionMember
 	} from '../../stores/stores';
 	import { json } from '@sveltejs/kit';
 	import { getSession } from '$lib/utils/getSession';
@@ -179,6 +180,10 @@
 			console.log(error);
 		}
 	}
+
+	function handleSearchInputKeyDown(e: KeyboardEvent) {
+		if (e.code === 'Space') e.preventDefault();
+	}
 </script>
 
 <svete:head>
@@ -205,6 +210,7 @@
 				placeholder="Search..."
 				autocomplete="off"
 				bind:value={$query}
+				on:keydown|stopPropagation={handleSearchInputKeyDown}
 				on:input|stopPropagation={handleSearchInput}
 				on:focus={handleSearchFocus}
 			/>
@@ -217,12 +223,24 @@
 	</div>
 	<div class="buttons">
 		{#if $page.params.folder_id}
-			<div class="share" on:click|preventDefault|stopPropagation={showShareForm} on:keyup>
+			<div
+				class="share"
+				class:disabled={$currentCollectionMember.collection_access_level !== undefined &&
+					$currentCollectionMember.collection_access_level !== 'admin'}
+				on:click|preventDefault|stopPropagation={showShareForm}
+				on:keyup
+			>
 				<i class="las la-lock" />
 				<span>Share</span>
 			</div>
 		{/if}
-		<i class="las la-plus" on:click|preventDefault|stopPropagation={handlePlusIconClick} on:keyup />
+		<i
+			class="las la-plus"
+			class:disabled={$currentCollectionMember.collection_access_level !== undefined &&
+				$currentCollectionMember.collection_access_level === 'view'}
+			on:click|preventDefault|stopPropagation={handlePlusIconClick}
+			on:keyup
+		/>
 	</div>
 </nav>
 
@@ -348,6 +366,11 @@
 				&:hover {
 					box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, $blue 0px 0px 0px 2px;
 				}
+			}
+
+			.disabled {
+				opacity: 0.5;
+				pointer-events: none;
 			}
 
 			i.la-plus {

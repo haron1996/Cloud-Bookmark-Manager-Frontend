@@ -112,7 +112,9 @@
 	}
 
 	async function loadPreviousFolder(folder: Partial<Folder>) {
-		let url = `${$apiURL}/private/folder/${folder.subfolder_of?.String}`;
+		let url = `${$apiURL}/private/folder/getOne/${JSON.parse(getSession()).Account.id}/${
+			folder.subfolder_of?.String
+		}`;
 
 		const res = await fetch(url, {
 			method: 'GET',

@@ -14,6 +14,8 @@
 	import Checkmark from '$lib/components/checkmark.svelte';
 	import ThankYou from '$lib/components/thank-you.svelte';
 	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
+	import Success from '../lib/components/sucess.svelte';
+	import Loading from '../lib/components/sucess.svelte';
 
 	function handleBodyClick() {
 		hideMenuBar();
@@ -60,6 +62,10 @@
 <Checkmark />
 
 <ThankYou />
+
+<Success />
+
+<Loading />
 
 {#if $errors.length > 0}
 	<Errors />

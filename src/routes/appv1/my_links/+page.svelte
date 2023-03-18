@@ -1,7 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Breadcrumb from '$lib/components/breadcrumb.svelte';
-	import { folders, links, loading, query } from './../../../stores/stores';
+	import {
+		breadcrumbRoot,
+		currentCollectionMember,
+		folders,
+		links,
+		loading,
+		query
+	} from './../../../stores/stores';
 	import { afterNavigate } from '$app/navigation';
 	//import { getLinksAndFolders } from '$lib/utils/getLinksAndFolders';
 	import { resetAncestorsOfCurrentFolder } from '$lib/utils/resetAncestorsOfCurrentFolder';
@@ -15,6 +22,10 @@
 	$: $page.data.links ? links.set($page.data.links) : links.set([]);
 
 	afterNavigate(async () => {
+		currentCollectionMember.set({});
+
+		breadcrumbRoot.set('Home');
+
 		loading.set(false);
 
 		query.set('');
@@ -31,4 +42,4 @@
 	<title>My links - BookmarkBucket</title>
 </svelte:head>
 
-<Breadcrumb rootFolderName={'Home'} />
+<Breadcrumb />

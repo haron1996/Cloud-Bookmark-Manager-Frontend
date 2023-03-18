@@ -5,6 +5,7 @@ import {
 	errorNotifVisible,
 	links,
 	loading,
+	successMessage,
 	successNotifVisible
 } from '../../stores/stores';
 import type { Link } from '$lib/types/link';
@@ -12,6 +13,9 @@ import { addLinkMode } from '../../stores/stores';
 import { newLink } from '../../stores/stores';
 import { page } from '$app/stores';
 import { goto } from '$app/navigation';
+import { showSuccessNotification } from './showSuccessNotification'
+import { showLoadingToss } from './showLoadingToss'
+import { hideLoadingToss } from './hideLoadingToss'
 
 export let errorInvalidUrl = '';
 
@@ -32,14 +36,16 @@ export async function addLink(url: string, folderID: string) {
 		return;
 	}
 
+	showLoadingToss()
+
 	addLinkMode.set(false);
 
 	// shows success notification
-	successNotifVisible.set(true);
+	//successNotifVisible.set(true);
 
-	setTimeout(() => {
-		successNotifVisible.set(false);
-	}, 3000);
+	// setTimeout(() => {
+	// 	successNotifVisible.set(false);
+	// }, 3000);
 
 	const getApiPath = apiURL.subscribe((value) => {
 		baseUrl = value;
@@ -79,13 +85,17 @@ export async function addLink(url: string, folderID: string) {
 		}
 
 		if (result.message) {
-			errorNotifVisible.set(true);
+			// errorNotifVisible.set(true);
 
-			setTimeout(() => {
-				errorNotifVisible.set(false);
-			}, 3000);
+			// setTimeout(() => {
+			// 	errorNotifVisible.set(false);
+			// }, 3000);
 
-			return;
+			// return;
+
+			// TODO? show error message to user
+			console.log(result.message)
+			return
 		}
 
 		const link: Link = result[0];
@@ -115,6 +125,12 @@ export async function addLink(url: string, folderID: string) {
 		if (path === '/appv1/my_links/recycle_bin') {
 			goto(`${origin}/appv1/my_links`);
 		}
+
+		successMessage.set('Link was added successfully')
+
+		hideLoadingToss()
+
+		showSuccessNotification()
 	} catch (error) {
 		alert(error);
 
