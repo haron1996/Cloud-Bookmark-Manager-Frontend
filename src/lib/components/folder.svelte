@@ -5,7 +5,10 @@
 		selectedLinks,
 		selectedFolders,
 		showFolderInTrashAlert,
-		currentCollectionMember
+		currentCollectionMember,
+		loading,
+		breadcrumbRoot,
+		apiURL
 	} from './../../stores/stores';
 	import type { Folder } from '$lib/types/folder';
 	import { prevent_default, stop_propagation } from 'svelte/internal';
@@ -20,6 +23,7 @@
 	import { FolderDragOver } from '$lib/utils/handleFolderDragOver';
 	import { FolderDragLeave } from '$lib/utils/handleFolderDragLeave';
 	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
+	import { getSession } from '$lib/utils/getSession';
 
 	export let folder: Partial<Folder>;
 
@@ -27,6 +31,13 @@
 	let subfolderOf: string | undefined = '';
 	let path: string;
 	let el: HTMLElement;
+	let baseURL: string = '';
+
+	const getBaseUrl = apiURL.subscribe((value) => {
+		baseURL = value;
+	});
+
+	getBaseUrl();
 
 	function handleCheckBoxClick() {
 		if (
@@ -84,6 +95,12 @@
 
 		if (el === null) return;
 
+		if (el.dataset.folderid) {
+			if ($page.url.pathname === '/appv1/my_links/shared_with_me') {
+				checkIfCurrentFolderHasBeenSHaredWithUser(el.dataset.folderid);
+			}
+		}
+
 		subfolderOf = el.dataset.subfolderof;
 
 		if (subfolderOf === undefined) return;
@@ -114,6 +131,13 @@
 		hideContextMenu();
 
 		hideMenuBar();
+
+		if (
+			$currentCollectionMember.collection_access_level !== undefined &&
+			$currentCollectionMember.collection_access_level === 'view'
+		) {
+			alert('user not allowed to edit');
+		}
 	}
 
 	function handleFolderContextMenu(e: MouseEvent) {
@@ -187,6 +211,40 @@
 		el.classList.remove('folder_drag_over');
 
 		el.classList.remove('dragged_folder');
+	}
+
+	async function checkIfCurrentFolderHasBeenSHaredWithUser(folderID: string) {
+		if (getSession() === null) {
+			loading.set(false);
+			return;
+		}
+
+		const accountID = JSON.parse(getSession()).Account.id;
+
+		const url = `${baseURL}/private/checkIfFolderHasBeenSharedWithUser/${accountID}/${folderID}`;
+
+		const res = await fetch(url, {
+			method: 'GET',
+			mode: 'cors',
+			credentials: 'include',
+			headers: {
+				'Content-Type': 'application/json',
+				authorization: `Bearer${JSON.parse(getSession()).access_token}`
+			}
+		});
+
+		const result = await res.json();
+
+		if (result.message === 'collection be belongs to user') {
+			breadcrumbRoot.set('Home');
+			return;
+		}
+
+		breadcrumbRoot.set('Shared with me');
+
+		console.log(result[0]);
+
+		currentCollectionMember.set(result[0]);
 	}
 </script>
 

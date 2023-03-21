@@ -6,7 +6,13 @@
 	import { hideSelectShowCategoryMenu } from '$lib/utils/hideSelectSearchCategory';
 	import { hideSearchFormPopup } from '$lib/utils/toggleSearchForm';
 	import { toggleShowOptionsMenu } from '$lib/utils/toggleShowOptionsMenu';
-	import { createButtonToggled, errors, selectedFolders, selectedLinks } from '../stores/stores';
+	import {
+		createButtonToggled,
+		currentCollectionMember,
+		errors,
+		selectedFolders,
+		selectedLinks
+	} from '../stores/stores';
 	import Errors from '$lib/components/errors.svelte';
 	import { onMount } from 'svelte';
 	import { hideProfileMenu } from '$lib/utils/toggleProfileMenu';
@@ -16,8 +22,13 @@
 	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
 	import Success from '../lib/components/sucess.svelte';
 	import Loading from '../lib/components/sucess.svelte';
+	import { page } from '$app/stores';
 
 	function handleBodyClick() {
+		// if ($page.url.pathname === '/appv1/my_links/shared_with_me') {
+		// 	currentCollectionMember.set({});
+		// }
+
 		hideMenuBar();
 
 		hideProfileMenu();
