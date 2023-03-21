@@ -327,6 +327,8 @@
 					<div class="no_items_container">
 						{#if $page.url.pathname === '/appv1/my_links/trash'}
 							<span>No items in trash</span>
+						{:else if $page.url.pathname === '/appv1/my_links/shared_with_me'}
+							<p>Nothing has been shared with you yet!</p>
 						{:else}
 							<!-- <div
 								class="button"
