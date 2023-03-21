@@ -55,7 +55,11 @@
 
 		getPageOrigin();
 
-		goto(`${origin}/appv1/my_links/shared_with_me`);
+		const url: string = `${origin}/appv1/my_links/shared_with_me`;
+
+		alert(url);
+
+		goto(url);
 
 		hideMenuBar();
 	};
