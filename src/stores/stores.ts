@@ -5,9 +5,9 @@ import type { Link } from '$lib/types/link';
 import type { newUser } from '$lib/types/newUser';
 import { CollectionMember } from '$lib/types/collectionMember'
 
-export const apiURL = readable<string>('https://api.linkspace.space');
+//export const apiURL = readable<string>('https://api.linkspace.space');
 
-//export const apiURL = readable<string>('http://localhost:5000');
+export const apiURL = readable<string>('http://localhost:5000');
 
 export const accessToken = writable<string>('');
 

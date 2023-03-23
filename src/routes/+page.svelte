@@ -35,7 +35,7 @@
 	<div class="above_the_fold">
 		<div class="heading_and_subheading">
 			<h1>Free online standalone bookmark manager.</h1>
-			<p>Save and share links online.</p>
+			<p>Want to save and share links online? Liskpspace is where to.</p>
 		</div>
 		<div class="cta">
 			<div class="g_button_wrapper">

@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { afterNavigate, goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { showSuccessNotification } from '$lib/utils/showSuccessNotification';
 	import { makeContactFormVisible } from '$lib/utils/toggleContactForm';
 	import { hideMenuBar } from '$lib/utils/toggleMenuBar';
 	import { redirect } from '@sveltejs/kit';
+	import { successMessage } from '../../stores/stores';
 
 	let origin: string;
 	let pathname: string;
@@ -19,9 +21,11 @@
 	const signOut = () => {
 		window.localStorage.clear();
 
-		window.location.replace(`${$page.url.origin}`);
+		goto(`${$page.url.origin}`);
 
-		//window.location.reload();
+		successMessage.set(`You've been logged out`);
+
+		showSuccessNotification();
 	};
 
 	const goHome = () => {
