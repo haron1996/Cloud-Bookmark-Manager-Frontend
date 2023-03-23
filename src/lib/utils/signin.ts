@@ -6,11 +6,13 @@ import {
 	invalid_email,
 	invalid_password,
 	showCheckMarkLottie,
-	loggedInAs
+	loggedInAs,
+	successMessage
 } from '../../stores/stores';
 import type { Session } from '$lib/types/session';
 import { MakeCheckMarkLotieVisible } from './showCheckMarkLottie';
 import { page } from '$app/stores';
+import { showSuccessNotification } from './showSuccessNotification'
 
 let s: Partial<Session> = {};
 
@@ -66,7 +68,11 @@ export async function SignIn(email: string, password: string) {
 		loggedInAs.set(s.Account?.email)
 	}
 	
-	showLoginSuccessfulNotif()
+	//showLoginSuccessfulNotif()
+	
+	successMessage.set(`Logged in successfully as ${s.Account?.email}`)
+
+	showSuccessNotification()
 
 	const getPageOrigin = page.subscribe((value) => {
 		origin = value.url.origin;
@@ -74,9 +80,11 @@ export async function SignIn(email: string, password: string) {
 
 	getPageOrigin();
 
-	setTimeout(() => {
-		goto(`${origin}/appv1/my_links`);
-	}, 7000);
+	// setTimeout(() => {
+	// 	goto(`${origin}/appv1/my_links`);
+	// }, 7000);
+
+	goto(`${origin}/appv1/my_links`);
 }
 
 function showLoginSuccessfulNotif() {

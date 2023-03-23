@@ -89,7 +89,7 @@ export async function CreateFolder(folder_name: string, parent_folder_id: string
 
 		//loading.set(false);
 
-		
+		// go to folder created?
 
 	} catch (error) {
 		console.log(error);

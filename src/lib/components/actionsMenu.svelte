@@ -129,12 +129,12 @@
 				<i class="las la-expand-arrows-alt" />
 				<span>Move</span>
 			</div>
+			<!-- class:btn_disabled={$currentCollectionMember.collection_access_level !== undefined &&
+				$currentCollectionMember.collection_access_level === 'view'} -->
 			<div
 				class="delete"
 				on:click|preventDefault|stopPropagation={toggleDeleteItemsConfirmationPopup}
 				on:keyup
-				class:btn_disabled={$currentCollectionMember.collection_access_level !== undefined &&
-					$currentCollectionMember.collection_access_level === 'view'}
 			>
 				<i class="las la-trash" />
 				<span>Delete</span>

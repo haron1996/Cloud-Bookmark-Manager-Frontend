@@ -1,9 +1,10 @@
 import { goto } from '$app/navigation';
-import { session, apiURL } from '../../stores/stores';
+import { session, apiURL, successMessage } from '../../stores/stores';
 import type { Session } from '$lib/types/session';
 import { MakeCheckMarkLotieVisible } from './showCheckMarkLottie';
 import { page } from '$app/stores';
 import { redirect } from '@sveltejs/kit';
+import { showSuccessNotification } from './showSuccessNotification'
 
 let s: Partial<Session> = {};
 
@@ -44,7 +45,11 @@ export async function continueWithGoogle(v: any) {
 
 	window.localStorage.setItem('session', JSON.stringify(data[0]));
 
-	MakeCheckMarkLotieVisible();
+	//MakeCheckMarkLotieVisible();
+
+	successMessage.set(`Logged in successfully as ${s.Account?.email}`)
+
+	showSuccessNotification()
 
 	const getPageOrigin = page.subscribe((value) => {
 		origin = value.url.origin;
@@ -52,7 +57,5 @@ export async function continueWithGoogle(v: any) {
 
 	getPageOrigin();
 
-	setTimeout(() => {
-		goto(`${origin}/appv1/my_links`);
-	}, 3000);
+	goto(`${origin}/appv1/my_links`);
 }
