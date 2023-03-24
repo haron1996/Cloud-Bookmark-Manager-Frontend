@@ -7,7 +7,9 @@ export function showSuccessNotification() {
 
     if (el === null) return
 
-    el.style.bottom = '0'
+    el.style.display = 'flex'
+
+    el.style.opacity = '1'
 
     setTimeout(() => {
         hideSuccessNotification()

@@ -70,7 +70,7 @@ export async function SignIn(email: string, password: string) {
 	
 	//showLoginSuccessfulNotif()
 	
-	successMessage.set(`Logged in successfully as ${s.Account?.email}`)
+	successMessage.set(`You're logged in as ${s.Account?.email}`)
 
 	showSuccessNotification()
 

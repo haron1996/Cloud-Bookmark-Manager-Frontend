@@ -1,3 +1,5 @@
+import { successMessage } from "../../stores/stores"
+
 let el: HTMLDivElement | null
 
 export function hideSuccessNotification() {
@@ -5,5 +7,9 @@ export function hideSuccessNotification() {
 
     if (el === null) return
 
-    el.style.bottom = '-100%'
+    el.style.opacity = '0'
+    
+    el.style.display = 'none'
+
+    successMessage.set('')
 }

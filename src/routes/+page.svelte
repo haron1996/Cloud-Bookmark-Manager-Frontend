@@ -7,6 +7,7 @@
 	import { apiURL } from '../stores/stores';
 	import { onMount, prevent_default } from 'svelte/internal';
 	import { decodeJwt } from '$lib/utils/decodejwt';
+	import { goto } from '$app/navigation';
 	let el: HTMLElement | null;
 
 	let origin: string;
@@ -18,6 +19,10 @@
 
 		//await continueWithGoogle(v);
 	};
+
+	$: $page.data.s
+		? goto(`${$page.url.origin}/appv1/my_links`)
+		: console.log('no session found in local storage');
 </script>
 
 <svelte:head>

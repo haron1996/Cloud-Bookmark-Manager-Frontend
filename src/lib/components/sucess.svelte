@@ -27,7 +27,9 @@
 		background-color: rgb(0, 35, 91);
 		border-radius: 0.5rem;
 		animation: animateMe 0.5s ease-in-out;
-		bottom: -100%;
+		display: none;
+		bottom: 0;
+		opacity: 0;
 
 		.check {
 			position: absolute;

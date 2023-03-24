@@ -7,12 +7,17 @@
 	import {
 		ancestorsOfCurrentFolder,
 		breadcrumbRoot,
+		folders,
 		foldersFound,
+		links,
 		linksFound,
+		loading,
 		query
 	} from '../../../../stores/stores';
 
 	afterNavigate(async () => {
+		loading.set(false);
+
 		breadcrumbRoot.set('Trash');
 
 		query.set('');
@@ -27,8 +32,11 @@
 
 		//$page.url.pathname === '' ? console.log('empty pathname') : console.log($page.url.pathname);
 
-		await getFoldersAndLinksMovedToTrash();
+		//await getFoldersAndLinksMovedToTrash();
 	});
+
+	$: $page.data.folders ? folders.set($page.data.folders) : folders.set([]);
+	$: $page.data.links ? links.set($page.data.links) : links.set([]);
 </script>
 
 <svelte:head>

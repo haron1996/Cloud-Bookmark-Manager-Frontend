@@ -47,7 +47,7 @@ export async function continueWithGoogle(v: any) {
 
 	//MakeCheckMarkLotieVisible();
 
-	successMessage.set(`Logged in successfully as ${s.Account?.email}`)
+	successMessage.set(`You're logged in as ${s.Account?.email}`)
 
 	showSuccessNotification()
 
