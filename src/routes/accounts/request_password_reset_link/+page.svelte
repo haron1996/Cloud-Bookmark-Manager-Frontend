@@ -151,6 +151,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		background-color: rgb(246, 250, 255);
 
 		form {
 			min-height: max-content;

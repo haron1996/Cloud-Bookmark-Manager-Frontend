@@ -130,11 +130,11 @@
 			<a href="/about" on:click|preventDefault={prevent_default}>
 				<span>About us</span>
 			</a>
-			<a href="mailto:support@bookmarkbucket.com" target="_blank">
+			<a href="mailto:support@linkspace.com" target="_blank">
 				<span>Email us</span>
 			</a>
 		</div>
-		<span>Copyright © 2023 bookmarkbucket</span>
+		<span>Copyright © 2023 linkspace</span>
 	</div>
 </div>
 
@@ -152,6 +152,7 @@
 		justify-content: center;
 		z-index: 7000;
 		display: none;
+		background-color: rgb(246, 250, 255);
 	}
 
 	.copy {
@@ -163,6 +164,7 @@
 		background-color: rgb(253, 253, 189);
 		align-items: center;
 		gap: 3em;
+		background-color: rgb(246, 250, 255);
 
 		.above_the_fold {
 			min-height: max-content;

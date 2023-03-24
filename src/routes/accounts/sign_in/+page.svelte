@@ -134,6 +134,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		background-color: rgb(246, 250, 255);
 
 		form {
 			width: 30%;
@@ -142,6 +143,7 @@
 			align-items: center;
 			gap: 3em;
 			background-color: white;
+			background-color: transparent;
 
 			.heading {
 				text-align: left;
@@ -365,6 +367,7 @@
 					font-family: 'Arial CE', sans-serif;
 					text-transform: uppercase;
 					font-size: 1.3rem;
+					background-color: rgb(246, 250, 255);
 				}
 			}
 

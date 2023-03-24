@@ -173,6 +173,7 @@
 		align-items: center;
 		background-color: white;
 		justify-content: center;
+		background-color: rgb(246, 250, 255);
 
 		.container {
 			height: 100%;
@@ -488,6 +489,7 @@
 						font-family: 'Arial CE', sans-serif;
 						text-transform: uppercase;
 						font-size: 1.3rem;
+						background-color: rgb(246, 250, 255);
 					}
 				}
 

@@ -236,6 +236,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		background-color: rgb(246, 250, 255);
 
 		form {
 			min-width: 40rem;

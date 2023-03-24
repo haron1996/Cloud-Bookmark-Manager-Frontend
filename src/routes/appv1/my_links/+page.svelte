@@ -39,7 +39,7 @@
 </script>
 
 <svelte:head>
-	<title>My links - BookmarkBucket</title>
+	<title>Home - Linkspace</title>
 </svelte:head>
 
 <Breadcrumb />

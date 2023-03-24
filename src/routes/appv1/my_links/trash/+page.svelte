@@ -40,7 +40,7 @@
 </script>
 
 <svelte:head>
-	<title>Trash - BookmarkBucket</title>
+	<title>Trash - Linkspace</title>
 </svelte:head>
 
 <div>
