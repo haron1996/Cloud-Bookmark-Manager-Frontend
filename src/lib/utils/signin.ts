@@ -75,19 +75,16 @@ export async function SignIn(email: string, password: string) {
 
 	//showSuccessNotification()
 
-	// const getPageOrigin = page.subscribe((value) => {
-	// 	origin = value.url.origin;
-	// });
+	const getPageOrigin = page.subscribe((value) => {
+		origin = value.url.origin;
+	});
 
-	// getPageOrigin();
+	getPageOrigin();
 
-	// setTimeout(() => {
-	// 	goto(`${origin}/appv1/my_links`);
-	// }, 7000);
+	
+	goto(`${origin}/appv1/my_links`);
 
-	//goto(`${origin}/appv1/my_links`);
-
-	window.location.reload()
+	window.location.replace(`${origin}/appv1/my_links`)
 }
 
 function showLoginSuccessfulNotif() {

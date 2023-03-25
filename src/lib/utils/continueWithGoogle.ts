@@ -52,14 +52,13 @@ export async function continueWithGoogle(v: any) {
 
 	//showSuccessNotification()
 
-	// const getPageOrigin = page.subscribe((value) => {
-	// 	origin = value.url.origin;
-	// });
+	const getPageOrigin = page.subscribe((value) => {
+		origin = value.url.origin;
+	});
 
-	// getPageOrigin();
+	getPageOrigin();
 
-	//goto(`${origin}/appv1/my_links`);
+	goto(`${origin}/appv1/my_links`);
 
-	
-	window.location.reload()
+	window.location.replace(`${origin}/appv1/my_links`)
 }
