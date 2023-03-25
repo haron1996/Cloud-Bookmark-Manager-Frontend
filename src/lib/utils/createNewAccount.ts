@@ -1,3 +1,4 @@
+import { browser } from '$app/environment'
 import { goto } from '$app/navigation';
 import type { newUser } from '$lib/types/newUser';
 import type { Session } from '$lib/types/session';
@@ -56,15 +57,17 @@ export async function createNewAccount(a: Partial<newUser>) {
 
 		window.localStorage.setItem('session', JSON.stringify(s));
 
-		showThankYouGif.set(true);
+		// showThankYouGif.set(true);
 
-		setTimeout(() => {
-			showThankYouGif.set(false);
-		}, 3500);
+		// setTimeout(() => {
+		// 	showThankYouGif.set(false);
+		// }, 3500);
 
-		setTimeout(() => {
-			goto(`${origin}/appv1/my_links`);
-		}, 3000);
+		// setTimeout(() => {
+		// 	goto(`${origin}/appv1/my_links`);
+		// }, 3000);
+
+		window.location.reload()
 	} catch (error) {
 		console.log(error);
 	}

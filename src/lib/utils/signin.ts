@@ -13,6 +13,7 @@ import type { Session } from '$lib/types/session';
 import { MakeCheckMarkLotieVisible } from './showCheckMarkLottie';
 import { page } from '$app/stores';
 import { showSuccessNotification } from './showSuccessNotification'
+import { browser } from '$app/environment'
 
 let s: Partial<Session> = {};
 
@@ -70,21 +71,23 @@ export async function SignIn(email: string, password: string) {
 	
 	//showLoginSuccessfulNotif()
 	
-	successMessage.set(`You're logged in as ${s.Account?.email}`)
+	//successMessage.set(`You're logged in as ${s.Account?.email}`)
 
-	showSuccessNotification()
+	//showSuccessNotification()
 
-	const getPageOrigin = page.subscribe((value) => {
-		origin = value.url.origin;
-	});
+	// const getPageOrigin = page.subscribe((value) => {
+	// 	origin = value.url.origin;
+	// });
 
-	getPageOrigin();
+	// getPageOrigin();
 
 	// setTimeout(() => {
 	// 	goto(`${origin}/appv1/my_links`);
 	// }, 7000);
 
-	goto(`${origin}/appv1/my_links`);
+	//goto(`${origin}/appv1/my_links`);
+
+	window.location.reload()
 }
 
 function showLoginSuccessfulNotif() {

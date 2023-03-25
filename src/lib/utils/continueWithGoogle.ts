@@ -5,6 +5,7 @@ import { MakeCheckMarkLotieVisible } from './showCheckMarkLottie';
 import { page } from '$app/stores';
 import { redirect } from '@sveltejs/kit';
 import { showSuccessNotification } from './showSuccessNotification'
+import { browser } from '$app/environment'
 
 let s: Partial<Session> = {};
 
@@ -47,15 +48,18 @@ export async function continueWithGoogle(v: any) {
 
 	//MakeCheckMarkLotieVisible();
 
-	successMessage.set(`You're logged in as ${s.Account?.email}`)
+	//successMessage.set(`You're logged in as ${s.Account?.email}`)
 
-	showSuccessNotification()
+	//showSuccessNotification()
 
-	const getPageOrigin = page.subscribe((value) => {
-		origin = value.url.origin;
-	});
+	// const getPageOrigin = page.subscribe((value) => {
+	// 	origin = value.url.origin;
+	// });
 
-	getPageOrigin();
+	// getPageOrigin();
 
-	goto(`${origin}/appv1/my_links`);
+	//goto(`${origin}/appv1/my_links`);
+
+	
+	window.location.reload()
 }
