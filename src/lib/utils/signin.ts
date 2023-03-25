@@ -82,7 +82,7 @@ export async function SignIn(email: string, password: string) {
 	getPageOrigin();
 
 	
-	goto(`${origin}/appv1/my_links`);
+	//goto(`${origin}/appv1/my_links`);
 
 	window.location.replace(`${origin}/appv1/my_links`)
 }
