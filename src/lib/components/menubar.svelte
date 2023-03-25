@@ -21,11 +21,7 @@
 	const signOut = () => {
 		window.localStorage.clear();
 
-		goto(`${$page.url.origin}`);
-
-		successMessage.set(`You've been logged out`);
-
-		showSuccessNotification();
+		window.location.replace(`${$page.url.origin}`);
 	};
 
 	const goHome = () => {
