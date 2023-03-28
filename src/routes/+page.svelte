@@ -72,7 +72,7 @@
 	<div class="screenshot">
 		<div class="screenshot_container">
 			<img
-				src="https://ewr1.vultrobjects.com/app-assets/0fc215fb-f4ef-4838-b76d-b02ffe04013d"
+				src="https://ewr1.vultrobjects.com/app-assets/a07148d5-54d1-43ec-a2db-332dc28a1404"
 				alt="site dashboard screenshot"
 			/>
 		</div>
