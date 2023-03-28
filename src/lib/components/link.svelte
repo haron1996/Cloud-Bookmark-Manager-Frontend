@@ -168,7 +168,7 @@
 
 		if (url === undefined) return;
 
-		alert(url);
+		//alert(url);
 
 		window.open(url);
 	}
