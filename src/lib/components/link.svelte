@@ -77,8 +77,9 @@
 		if (
 			$currentCollectionMember.collection_access_level !== undefined &&
 			$currentCollectionMember.collection_access_level === 'view'
-		)
+		) {
 			return;
+		}
 
 		const li = window.event?.currentTarget as HTMLDivElement | null;
 
