@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { currentFolder } from './../../stores/stores';
 	import { addLinkMode } from '../../stores/stores';
-	import { stop_propagation } from 'svelte/internal';
+	import { onMount, stop_propagation } from 'svelte/internal';
 	import { newLink } from '../../stores/stores';
 	import { addLink } from '$lib/utils/addLink';
 
 	let folderID: string = '';
+
+	let keyCodeIsBackspace: boolean = false;
 
 	function exitAddLinkMode() {
 		addLinkMode.set(false);
@@ -17,6 +19,26 @@
 		addLink($newLink, $currentFolder);
 		newLink.set('');
 	}
+
+	function appendHttpsToUrl() {
+		if (!keyCodeIsBackspace) {
+			if (!$newLink.includes(`https`)) {
+				$newLink = `https://${$newLink}`;
+			}
+		}
+	}
+
+	function handleInputKeyDown(e: KeyboardEvent) {
+		// if (e.code === 'Backspace') {
+		// 	keyCodeIsBackspace = true;
+		// } else {
+		// 	keyCodeIsBackspace = false
+		// }
+
+		e.code === 'Backspace' ? (keyCodeIsBackspace = true) : (keyCodeIsBackspace = false);
+	}
+
+	$: console.log($newLink);
 </script>
 
 <div
@@ -40,6 +62,8 @@
 				autocorrect="off"
 				spellcheck="false"
 				on:contextmenu|stopPropagation={stop_propagation}
+				on:input|stopPropagation={appendHttpsToUrl}
+				on:keydown|stopPropagation={handleInputKeyDown}
 			/>
 		</div>
 		<div class="buttons">
