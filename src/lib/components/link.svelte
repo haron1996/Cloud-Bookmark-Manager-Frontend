@@ -168,6 +168,8 @@
 
 		if (url === undefined) return;
 
+		alert(url);
+
 		window.open(url);
 	}
 </script>
